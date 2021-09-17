@@ -1,0 +1,151 @@
+/************************** ALL PAGE ****************************/
+/*			https://color.adobe.com/create/color-wheel/			*/
+/****************************************************************/
+/************************** VARIABLES ***************************/
+/*																*/
+/****************************************************************/
+/****************************  PALETTE  *************************/
+/* MAIN COLOUR */
+/* SECONDARY COLOUR */
+/*****************************  FONTS  **************************/
+/***************************  DEFAULTS  *************************/
+/* BACKGROUNDS */
+/* FONT COLOUR */
+/************************ OVERALL STYLE *************************/
+/*																*/
+/****************************************************************/
+/****************************  GRIDS  ***************************/
+.outerDiv, .outerGrids {
+  display: grid; }
+
+/*.outerGrids { border: solid 3px white; }*/
+/*.innerGrids { border: solid 3px white; }*/
+/* GRID THE PAGE - ROWS */
+#pageOuterDiv {
+  grid-template-rows: auto 1fr auto;
+  grid-gap: 5px;
+  height: 100vh; }
+
+/* GRID THE MAIN SECTIONS - COLUMN - DEFAULT*/
+#headerGrid, #footerGrid, #mainGrid {
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-gap: 5px; }
+
+#headerGrid {
+  grid-template-rows: auto auto; }
+
+/*****************************  BODY  ***************************/
+body {
+  /* COLOURS */
+  color: #916C85;
+  background-color: #282923;
+  /* FONT */
+  font-family: "Cutive Mono", monospace;
+  font-size: medium;
+  font-weight: 400;
+  /* STYLE */
+  text-align: center;
+  text-decoration: none;
+  margin: 0; }
+
+/************************ GRID TEMPLATE *************************/
+/*																*/
+/****************************************************************/
+/*******************  HEADER SECTION PAGE GRID  *****************/
+#headerGrid {
+  grid-column: 1/4;
+  background-color: #2E2D38; }
+
+#headingGrid, #mainMenuBtnGrid {
+  grid-column: 2/3; }
+
+#headingCont {
+  /* COLOURS */
+  color: #686385;
+  /* FONTS */
+  font-family: "Major Mono Display", monospace;
+  font-weight: 400;
+  font-size: 10vh;
+  /* STYLE */
+  text-transform: uppercase;
+  text-align: center; }
+  #headingCont p {
+    margin: 45px 0; }
+
+#mainMenuBtnCont p {
+  /* COLOURS */
+  color: #916C85;
+  /* FONTS */
+  font-family: "Cutive Mono", monospace;
+  font-size: large;
+  /* STYLE */
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  padding: 1.5vh 1.5vw;
+  margin: 0;
+  cursor: pointer; }
+  #mainMenuBtnCont p:hover {
+    /* COLOURS */
+    background-color: #282923;
+    /* FONTS */
+    /* STYLE */
+    border-radius: 10px 10px 0 0;
+    opacity: 0.6; }
+
+/********************  MAIN SECTION PAGE GRID  ******************/
+#mainGrid {
+  grid-column: 1/4; }
+
+/*******************  FOOTER SECTION PAGE GRID  *****************/
+#footerGrid {
+  grid-column: 1/4;
+  background-color: #282923; }
+
+#footGrid {
+  grid-column: 1/4; }
+
+#footerCont {
+  /* COLOURS */
+  color: #74705d;
+  /* FONTS */
+  font-weight: 600;
+  font-size: small;
+  /* STYLE */
+  text-transform: uppercase;
+  text-align: center; }
+
+/************************** COMPONENTS **************************/
+/*																*/
+/****************************************************************/
+/*****************************  MENU  ***************************/
+.activepage {
+  /* COLOURS */
+  background-color: #282923;
+  /* FONTS */
+  /* STYLE */
+  border-radius: 10px 10px 0 0; }
+
+/****************************  BUTTON  **************************/
+button {
+  /* COLOURS */
+  color: #916C85;
+  background-color: #282923;
+  border-color: #74705d;
+  /* FONTS */
+  font-family: "Cutive Mono", monospace;
+  font-size: 1.5vh;
+  font-weight: 500;
+  /* STYLE */
+  text-decoration: none;
+  border-radius: 30px;
+  padding: 1vh 2vw;
+  margin: .5vh;
+  cursor: pointer; }
+  button:hover {
+    opacity: 0.5; }
+  button p {
+    margin: 0px;
+    padding: 0px; }
+
+/*# sourceMappingURL=pagelayout.css.map */

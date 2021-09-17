@@ -1,0 +1,205 @@
+/************************** ALL PAGE ****************************/
+/*			https://color.adobe.com/create/color-wheel/			*/
+/****************************************************************/
+
+/************************** VARIABLES ***************************/
+/*																*/
+/****************************************************************/
+/****************************  PALETTE  *************************/
+
+/* MAIN COLOUR */
+$palette-dark-grey: #282923;
+
+/* SECONDARY COLOUR */
+$palette-light-purple: #686385;
+$palette-dark-purple: #2E2D38;
+$palette-light-magenta: #916C85;
+$palette-dark-magenta: #382D33;
+
+$palette-light-grey: #d8d8d8;
+$palette-old-grey: #74705d;
+
+/*****************************  FONTS  **************************/
+$fnt-share-tech: 'Share Tech Mono', monospace;
+$fnt-share-fam: 'Share', cursive;
+$fnt-cutivemono: 'Cutive Mono', monospace;
+$fnt-majordisplay: 'Major Mono Display', monospace;
+
+/***************************  DEFAULTS  *************************/
+/* BACKGROUNDS */
+$clr-main-bk-head: $palette-dark-purple;
+$clr-main-bk-body: $palette-dark-grey;
+$clr-main-bk-btn: $palette-dark-grey;
+$clr-main-bk-border: $palette-old-grey;
+
+/* FONT COLOUR */
+$clr-main-font-head: $palette-light-purple;
+$clr-main-font-body: $palette-light-magenta;
+$clr-main-font-foot: $palette-old-grey;
+$clr-main-font-btn: $palette-light-magenta;
+
+/************************ OVERALL STYLE *************************/
+/*																*/
+/****************************************************************/
+/****************************  GRIDS  ***************************/
+
+
+.outerDiv, .outerGrids { display: grid; }
+/*.outerGrids { border: solid 3px white; }*/
+/*.innerGrids { border: solid 3px white; }*/
+
+/* GRID THE PAGE - ROWS */
+#pageOuterDiv{ grid-template-rows: auto 1fr auto; grid-gap: 5px; height: 100vh }
+
+/* GRID THE MAIN SECTIONS - COLUMN - DEFAULT*/
+#headerGrid, #footerGrid, #mainGrid { grid-template-columns: 1fr 3fr 1fr; grid-gap: 5px; }
+#headerGrid { grid-template-rows: auto auto; }
+
+/*****************************  BODY  ***************************/
+
+body {
+
+	/* COLOURS */
+	color: $clr-main-font-body;
+	background-color: $clr-main-bk-body;
+
+	/* FONT */
+	font-family: $fnt-cutivemono;
+	font-size: medium;
+	font-weight: 400;
+
+	/* STYLE */
+	text-align: center;
+	text-decoration: none;
+	margin: 0;
+}
+
+/************************ GRID TEMPLATE *************************/
+/*																*/
+/****************************************************************/
+/*******************  HEADER SECTION PAGE GRID  *****************/
+
+#headerGrid { grid-column: 1/4;  background-color: $clr-main-bk-head; }
+#headingGrid, #mainMenuBtnGrid { grid-column: 2/3; }
+
+#headingCont {
+
+	/* COLOURS */
+	color: $clr-main-font-head;
+
+	/* FONTS */
+	font-family: $fnt-majordisplay;
+	font-weight: 400;
+	font-size: 10vh;
+
+	/* STYLE */
+	text-transform: uppercase;
+	text-align: center;
+
+	p {
+		margin: 45px 0;
+	}
+}
+
+#mainMenuBtnCont {
+	p {
+
+		/* COLOURS */
+		color: $clr-main-font-body;
+
+		/* FONTS */
+		font-family: $fnt-cutivemono;
+		font-size: large;
+
+		/* STYLE */
+		text-transform: uppercase;
+		text-decoration: none;
+		display: inline-block;
+		padding: 1.5vh 1.5vw;
+		margin: 0;
+		cursor: pointer;
+
+		&:hover {
+
+			/* COLOURS */
+			background-color: $clr-main-bk-body;
+
+			/* FONTS */
+
+			/* STYLE */
+			border-radius: 10px 10px 0 0;
+			opacity: 0.6;
+		}
+	}
+}
+
+/********************  MAIN SECTION PAGE GRID  ******************/
+
+#mainGrid { grid-column: 1/4; }
+
+/*******************  FOOTER SECTION PAGE GRID  *****************/
+
+#footerGrid { grid-column: 1/4; background-color: $clr-main-bk-body; }
+#footGrid { grid-column: 1/4; }
+
+#footerCont {
+
+	/* COLOURS */
+	color: $clr-main-font-foot;
+
+	/* FONTS */
+	font-weight: 600;
+	font-size: small;
+
+	/* STYLE */
+	text-transform: uppercase;
+	text-align: center;
+}
+
+/************************** COMPONENTS **************************/
+/*																*/
+/****************************************************************/
+/*****************************  MENU  ***************************/
+.activepage {
+
+	/* COLOURS */
+	background-color: $clr-main-bk-body;
+
+	/* FONTS */
+
+	/* STYLE */
+	border-radius: 10px 10px 0 0;
+}
+
+
+/****************************  BUTTON  **************************/
+
+button {
+
+	/* COLOURS */
+	color: $clr-main-font-btn;
+	background-color: $clr-main-bk-btn;
+	border-color: $clr-main-bk-border;
+
+	/* FONTS */
+	font-family: $fnt-cutivemono;
+	font-size: 1.5vh;
+	font-weight: 500;
+
+	/* STYLE */
+	text-decoration: none;
+	border-radius: 30px;
+	padding: 1vh 2vw;
+	margin: .5vh;
+	cursor: pointer;
+
+	&:hover {
+		opacity: 0.5;
+	}
+
+	p {
+		margin: 0px;
+		padding: 0px;
+	}
+
+}

@@ -1,0 +1,43 @@
+/************************* INDEX PAGE ***************************/
+/*																*/
+/****************************************************************/
+/************************** VARIABLES ***************************/
+/*																*/
+/****************************************************************/
+/****************************  PALETTE  *************************/
+/* MAIN COLOUR */
+/* SECONDARY COLOUR */
+/*****************************  FONTS  **************************/
+/***************************  DEFAULTS  *************************/
+/* BACKGROUNDS */
+/* FONT COLOUR */
+/************************ GRID TEMPLATE *************************/
+/*						IF NOT USING DEFAULT					*/
+/****************************************************************/
+/*******************  HEADER SECTION PAGE GRID  *****************/
+#headerGrid {
+  grid-template-rows: auto; }
+
+/********************  MAIN SECTION PAGE GRID  ******************/
+#mainGrid {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto; }
+
+/* MAIN CONTENT */
+#loginGrid {
+  grid-column: 2/3;
+  padding: 25vh 0px; }
+
+/*************************** CONTENT ****************************/
+/*																*/
+/****************************************************************/
+#loginContent {
+  /* COLOURS */
+  background-color: #2E2D38;
+  /* FONTS */
+  /* STYLE */
+  border: 2px solid #74705d;
+  border-radius: 20px;
+  padding: 5vh; }
+
+/*# sourceMappingURL=indexstyle.css.map */

@@ -29,14 +29,16 @@ $fnt-majordisplay: 'Major Mono Display', monospace;
 /* BACKGROUNDS */
 $clr-main-bk-head: $palette-dark-purple;
 $clr-main-bk-body: $palette-dark-grey;
-$clr-main-bk-btn: $palette-dark-grey;
 $clr-main-bk-border: $palette-old-grey;
+$clr-main-bk-btn: $palette-dark-grey;
+$clr-main-bk-input: $palette-dark-grey;
 
 /* FONT COLOUR */
 $clr-main-font-head: $palette-light-purple;
 $clr-main-font-body: $palette-light-magenta;
 $clr-main-font-foot: $palette-old-grey;
 $clr-main-font-btn: $palette-light-magenta;
+$clr-main-font-input: $palette-light-magenta;
 
 /************************ OVERALL STYLE *************************/
 /*																*/
@@ -148,7 +150,7 @@ body {
 	color: $clr-main-font-foot;
 
 	/* FONTS */
-	font-weight: 600;
+	font-weight: 400;
 	font-size: small;
 
 	/* STYLE */
@@ -171,6 +173,26 @@ body {
 	border-radius: 10px 10px 0 0;
 }
 
+/****************************  INPUTS  **************************/
+.searchInput {
+
+	/* COLOURS */
+	color: $clr-main-font-input;
+	background-color: $clr-main-bk-input;
+
+	/* FONTS */
+	font-family: $fnt-cutivemono;
+	font-size: 1.50vh;
+	font-weight: 500;
+
+	/* STYLE */
+	text-decoration: none;
+	border: 0.5px solid $clr-main-bk-border;
+	border-radius: 10px;
+	padding: 0.8vh 1.5vw;
+	margin: .5vh;
+	width: 50%;
+}
 
 /****************************  BUTTON  **************************/
 
@@ -188,8 +210,8 @@ button {
 
 	/* STYLE */
 	text-decoration: none;
-	border-radius: 30px;
-	padding: 1vh 2vw;
+	border-radius: 10px;
+	padding: .8vh 1.5vw;
 	margin: .5vh;
 	cursor: pointer;
 

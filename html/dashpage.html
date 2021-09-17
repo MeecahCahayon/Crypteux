@@ -19,7 +19,9 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/pagelayout.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/dashstyle.css">
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script type="text/javascript" src="assets/js/mainscript.js"></script>
+		<script type="text/javascript" src="assets/js/dashscript.js"></script>
 
 	</head>
 	<body>
@@ -48,10 +50,25 @@
 			<!-- MAIN -->
 			<section class="outerGrids" id="mainGrid">
 
-				<!-- CONTENT -->
-				<section class="innerGrids" id="contentGrid">
-					<div id="contentContent">
-						Dashboard Content
+				<!-- SEACRH SECTION -->
+				<section class="innerGrids" id="searchGrid">
+					<div id="searchComponentContent">
+						<input class="searchInput" id="coinSearchInput" type="text" name="searchValue">
+						<button id="coinSearchBtn"> Search </button>
+					</div>
+				</section>
+
+				<!-- DISPLAY 15 COINS -->
+				<section class="innerGrids" id="coinGrid">
+					<div id="coinContent">
+						Display all coins
+					</div>
+				</section>
+
+				<!-- BUTTON SECTION -->
+				<section class="innerGrids" id="dashBtnGrid">
+					<div id="dashBtnContent">
+						<button id="moreCoinbtn"> More </button>
 					</div>
 				</section>
 			</section>

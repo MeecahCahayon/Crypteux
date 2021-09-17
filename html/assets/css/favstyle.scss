@@ -24,19 +24,13 @@
 
 /********************  MAIN SECTION PAGE GRID  ******************/
 
-#mainGrid { grid-template-rows: 0.5fr 2fr 0.5fr; }
-
 /* MAIN CONTENT */
-#searchGrid, #coinGrid, #dashBtnGrid { 
+#contentGrid { 
 	
 	grid-column: 2/3;
 	padding: 3vh;
 
 }
-
-#searchGrid { grid-row: 1/2; }
-#coinGrid { grid-row: 2/3; }
-#dashBtnGrid { grid-row: 3/4; }
 
 /*************************** CONTENT ****************************/
 /*																*/

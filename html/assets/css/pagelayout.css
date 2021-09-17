@@ -109,7 +109,7 @@ body {
   /* COLOURS */
   color: #74705d;
   /* FONTS */
-  font-weight: 600;
+  font-weight: 400;
   font-size: small;
   /* STYLE */
   text-transform: uppercase;
@@ -126,6 +126,23 @@ body {
   /* STYLE */
   border-radius: 10px 10px 0 0; }
 
+/****************************  INPUTS  **************************/
+.searchInput {
+  /* COLOURS */
+  color: #916C85;
+  background-color: #282923;
+  /* FONTS */
+  font-family: "Cutive Mono", monospace;
+  font-size: 1.50vh;
+  font-weight: 500;
+  /* STYLE */
+  text-decoration: none;
+  border: 0.5px solid #74705d;
+  border-radius: 10px;
+  padding: 0.8vh 1.5vw;
+  margin: .5vh;
+  width: 50%; }
+
 /****************************  BUTTON  **************************/
 button {
   /* COLOURS */
@@ -138,8 +155,8 @@ button {
   font-weight: 500;
   /* STYLE */
   text-decoration: none;
-  border-radius: 30px;
-  padding: 1vh 2vw;
+  border-radius: 10px;
+  padding: .8vh 1.5vw;
   margin: .5vh;
   cursor: pointer; }
   button:hover {

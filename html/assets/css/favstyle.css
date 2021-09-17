@@ -1,43 +1,31 @@
 /************************** DASH PAGE ***************************/
 /*																*/
 /****************************************************************/
-
 /************************** VARIABLES ***************************/
 /*																*/
 /****************************************************************/
 /****************************  PALETTE  *************************/
 /* MAIN COLOUR */
 /* SECONDARY COLOUR */
-
 /*****************************  FONTS  **************************/
-
 /***************************  DEFAULTS  *************************/
 /* BACKGROUNDS */
 /* FONT COLOUR */
-
 /************************ GRID TEMPLATE *************************/
 /*						IF NOT USING DEFAULT					*/
 /****************************************************************/
-
 /*******************  HEADER SECTION PAGE GRID  *****************/
-#headerGrid { grid-template-rows: auto auto; }
+#headerGrid {
+  grid-template-rows: auto auto; }
 
 /********************  MAIN SECTION PAGE GRID  ******************/
-
-#mainGrid { grid-template-rows: 0.5fr 2fr 0.5fr; }
-
 /* MAIN CONTENT */
-#searchGrid, #coinGrid, #dashBtnGrid { 
-	
-	grid-column: 2/3;
-	padding: 3vh;
-
-}
-
-#searchGrid { grid-row: 1/2; }
-#coinGrid { grid-row: 2/3; }
-#dashBtnGrid { grid-row: 3/4; }
+#contentGrid {
+  grid-column: 2/3;
+  padding: 3vh; }
 
 /*************************** CONTENT ****************************/
 /*																*/
 /****************************************************************/
+
+/*# sourceMappingURL=favstyle.css.map */

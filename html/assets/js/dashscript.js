@@ -19,7 +19,7 @@ $(document).ready(function() {
 		console.log("Button Clicked");
 
 		// AJAX REQUEST TO CHECK RECIPE
-		let url = "https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/coins";
+		let url = "https://zi7y07eh2h.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api-private/coins";
 		ajaxRequest(url, "GET", "", displayCoin, true);
 	});
 });
@@ -32,7 +32,7 @@ function seacrhCoin(coin) {
 	if (userInput != "") {
 
 		$.ajax({
-		    url: ' https://zi7y07eh2h.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api-private',
+		    url: 'https://zi7y07eh2h.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api-private/coins',
 		    headers: {
 		        'Content-Type': 'application/x-www-form-urlencoded'
 		    },

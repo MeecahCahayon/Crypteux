@@ -13,13 +13,40 @@ $(document).ready(function() {
 	});
 });
 
+$(document).ready(function() {
+	$("#coinSearchBtn").click(function() {
+
+		console.log("Button Clicked");
+
+		// AJAX REQUEST TO CHECK RECIPE
+		let url = "https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/coins";
+		ajaxRequest(url, "GET", "", displayCoin, true);
+	});
+});
+
 function seacrhCoin(coin) {
 	
 	var userInput = coin.trim();
 
 	// CHECK IF THERE'S AN INPUT TO SEARCH
 	if (userInput != "") {
-		ajaxJquery("arn:aws:execute-api:ap-southeast-2:586361278274:mkuvib9bgi/*/GET/coin", displayCoin);
+
+		$.ajax({
+		    url: ' https://zi7y07eh2h.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api-private',
+		    headers: {
+		        'Content-Type': 'application/x-www-form-urlencoded'
+		    },
+		    type: "GET", /* or type:"GET" or type:"PUT" */
+		    dataType: "json",
+		    data: {
+		    },
+		    success: function (result) {
+		        console.log(result);
+		    },
+		    error: function () {
+		        console.log("error");
+		    }
+		});
 	}
 }
 

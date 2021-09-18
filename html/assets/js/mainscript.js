@@ -8,6 +8,8 @@ function ajaxRequest(url, method, data, callback, json) {
 	let request = new XMLHttpRequest();
 	request.open(method, url, true);
 
+	request.setRequestHeader("Access-Control-Allow-Origin", "*");
+	
 	if (method == "POST") {
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	}

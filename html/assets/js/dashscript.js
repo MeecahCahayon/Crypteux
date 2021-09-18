@@ -29,24 +29,24 @@ function seacrhCoin(coin) {
 	// CHECK IF THERE'S AN INPUT TO SEARCH
 	if (userInput != "") {
 
-		// $.ajax({
-		// 	url: 'https://zi7y07eh2h.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api-private/coins',
-		// 	headers: {
-		// 		'Content-Type': 'application/x-www-form-urlencoded'
-		// 	},
-		// 	type: "GET",
-		// 	dataType: "json",
-		// 	data: {
-		// 	},
-		// 	success: function (response) {
-		// 		console.log(response);
-		// 	},
-		// 	error: function () {
-		// 		console.log("error");
-		// 	}
-		// });
+		$.ajax({
+			url: 'https://zi7y07eh2h-vpc-3c41bf5a.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api-private/coins',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			type: "GET",
+			dataType: "json",
+			data: {
+			},
+			success: function (response) {
+				console.log(response);
+			},
+			error: function () {
+				console.log("error");
+			}
+		});
 
-		get_allCoins(displayCoin);
+		// get_allCoins(displayCoin);
 	}
 }
 

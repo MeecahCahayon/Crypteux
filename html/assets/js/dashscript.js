@@ -18,9 +18,7 @@ $(document).ready(function() {
 
 		console.log("Button Clicked");
 
-		// AJAX REQUEST TO CHECK RECIPE
-		let url = "https://zi7y07eh2h.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api-private/coins";
-		ajaxRequest(url, "GET", "", displayCoin, true);
+		get_allCoins(displayCoin);
 	});
 });
 
@@ -31,22 +29,24 @@ function seacrhCoin(coin) {
 	// CHECK IF THERE'S AN INPUT TO SEARCH
 	if (userInput != "") {
 
-		$.ajax({
-		    url: 'https://zi7y07eh2h.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api-private/coins',
-		    headers: {
-		        'Content-Type': 'application/x-www-form-urlencoded'
-		    },
-		    type: "GET", /* or type:"GET" or type:"PUT" */
-		    dataType: "json",
-		    data: {
-		    },
-		    success: function (result) {
-		        console.log(result);
-		    },
-		    error: function () {
-		        console.log("error");
-		    }
-		});
+		// $.ajax({
+		// 	url: 'https://zi7y07eh2h.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api-private/coins',
+		// 	headers: {
+		// 		'Content-Type': 'application/x-www-form-urlencoded'
+		// 	},
+		// 	type: "GET",
+		// 	dataType: "json",
+		// 	data: {
+		// 	},
+		// 	success: function (response) {
+		// 		console.log(response);
+		// 	},
+		// 	error: function () {
+		// 		console.log("error");
+		// 	}
+		// });
+
+		get_allCoins(displayCoin);
 	}
 }
 
@@ -56,7 +56,29 @@ function displayCoin(response) {
 }
 
 
+/************************ API CALL FUNCTIONS ********************/
+/*						  										*/
+/****************************************************************/
 
+function get_allCoins(callback) {
+	
+	$.ajax({
+		url: 'https://zi7y07eh2h-vpc-3c41bf5a.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api-private/coins',
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'
+		},
+		type: "GET",
+		dataType: "json",
+		data: {
+		},
+		success: function (response) {
+			callback(response);
+		},
+		error: function () {
+			console.log("error");
+		}
+	});
+}
 
 
 

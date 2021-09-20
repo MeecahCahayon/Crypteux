@@ -17,14 +17,14 @@
 		<link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
 
 		<link rel="stylesheet" type="text/css" href="assets/css/pagelayout.css">
-		<link rel="stylesheet" type="text/css" href="assets/css/dashstyle.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/coinstyle.css">
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script type="text/javascript" src="assets/js/mainscript.js"></script>
-		<script type="text/javascript" src="assets/js/dashscript.js"></script>
+		<script type="text/javascript" src="assets/js/coinscript.js"></script>
 
 	</head>
-	<body onload="get_allCoins()">
+	<body onload="get_coininfo()">
 		<div class="outerDiv" id="pageOuterDiv">
 
 			<!-- HEADER -->
@@ -40,7 +40,7 @@
 				<!-- MAIN MENU BUTTON -->
 				<section class="innerGrids" id="mainMenuBtnGrid">
 					<div id="mainMenuBtnCont">
-						<p id="dashpage"  onclick="gotopage('dashpage')" class="activepage"> Dashboard </p>
+						<p id="dashpage"  onclick="gotopage('dashpage')"> Dashboard </p>
 						<p id="favpage" onclick="gotopage('favpage')"> Favourites </p>
 						<p onclick="checklogout()"> Logout </p>
 					</div>
@@ -50,58 +50,19 @@
 			<!-- MAIN -->
 			<section class="outerGrids" id="mainGrid">
 
-				<!-- SEACRH SECTION -->
-				<section class="innerGrids" id="searchGrid">
-					<div id="searchComponentContent">
-						<input class="searchInput" id="coinSearchInput" type="text" name="searchValue">
-						<button id="coinSearchBtn"> Search </button>
-					</div>
-				</section>
-
-				<!-- DISPLAY SEACRH COINS -->
-				<section class="innerGrids" id="searchCoinGrid">
-					<div id="searchCoinContent">
-						<div id="searchList">
-							
-							<div class="coins">
-								<p id="bitcoin">Bitcoin</p>
-							</div>
-							<div class="coins">
-								<p id="ethereum">Ethereum</p>
-							</div>
-							<div class="coins">
-								<p id="cardano">Cardano</p>
-							</div>
-							<div class="coins">
-								<p id="tether">Tether</p>
-							</div>
-							<div class="coins">
-								<p id="binancecoin">Binance Coin</p>
-							</div>
-							<div class="coins">
-								<p id="ripple">XRP</p>
-							</div>
-							<div class="coins">
-								<p id="solana">Solana</p>
-							</div>
-							<div class="coins">
-								<p id="polkadot">Polkadot</p>
-							</div>
-							<div class="coins">
-								<p id="dogecoin">Dogecoin</p>
-							</div>
-							<div class="coins">
-								<p id="usd-coin">USD Coin</p>
-							</div>
+				<!-- COIN HEADING -->
+				<section class="innerGrids" id="coinHeadingGrid">
+					<div id="coinContent">
+						<div class="secondHeadingPage">
+							<p id="coinName"></p>
 						</div>
 					</div>
 				</section>
 
-				<!-- AGGREGATE SECTION -->
-				<section class="innerGrids" id="aggDataGrid">
-					<div id="aggDataContent">
-						<!-- <button id="moreCoinbtn"> More </button> -->
-						Aggregate Data
+				<!-- CONTENT -->
+				<section class="innerGrids" id="coinDataGrid">
+					<div id="coinDataContent">
+						Coin Content
 					</div>
 				</section>
 			</section>

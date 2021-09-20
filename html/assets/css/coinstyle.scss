@@ -20,13 +20,18 @@
 /****************************************************************/
 /********************  MAIN SECTION PAGE GRID  ******************/
 
+#mainGrid { grid-template-rows: 0.30fr 2fr; }
+
 /* MAIN CONTENT */
-#contentGrid { 
+#coinHeadingGrid, #coinDataGrid { 
 	
 	grid-column: 2/3;
 	padding: 3vh;
 
 }
+
+#coinHeadingGrid { grid-row: 1/2; }
+#coinDataGrid { grid-row: 2/3; }
 
 /*************************** CONTENT ****************************/
 /*																*/

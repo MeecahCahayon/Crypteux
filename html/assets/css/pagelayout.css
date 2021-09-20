@@ -126,6 +126,20 @@ body {
   /* STYLE */
   border-radius: 10px 10px 0 0; }
 
+/*************************  SUBHEADINGS  ************************/
+.secondHeadingPage {
+  /* COLOURS */
+  /* FONTS */
+  font-family: "Major Mono Display", monospace;
+  font-size: 4.5vh;
+  font-weight: 100;
+  /* STYLE */ }
+  .secondHeadingPage p {
+    /* COLOURS */
+    /* FONTS */
+    /* STYLE */
+    margin: 0; }
+
 /****************************  INPUTS  **************************/
 .searchInput {
   /* COLOURS */

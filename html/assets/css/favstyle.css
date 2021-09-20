@@ -14,10 +14,6 @@
 /************************ GRID TEMPLATE *************************/
 /*						IF NOT USING DEFAULT					*/
 /****************************************************************/
-/*******************  HEADER SECTION PAGE GRID  *****************/
-#headerGrid {
-  grid-template-rows: auto auto; }
-
 /********************  MAIN SECTION PAGE GRID  ******************/
 /* MAIN CONTENT */
 #contentGrid {

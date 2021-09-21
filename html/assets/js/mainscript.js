@@ -68,14 +68,43 @@ var onSuccess = function(user) {
 	myUserEntity.Name = profile.getName();
 	
 	//Store the entity object in sessionStorage where it will be accessible from all pages of your site.
-	sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
-	
-	location.href = 'dashpage.html';
+	//sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
+
+	// send token to ajax
+	var token_id = user.getAuthResponse().id_token;
+
+	$.ajax({
+
+		// PUBLIC API
+		url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/login',
+		
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'
+			//'Content-Type': 'application/json'
+		},
+		type: "POST",
+		dataType: "json",
+		data: {
+			//authorizationToken : token_id,
+		},
+		success: function (response) {
+			console.log(response);
+			store_session(response);
+		},
+		error: function (response) {
+			console.log(response);;
+		},
+	});
 }
 
 // failed login
 var onFailure = function(error) {
 	console.log(error);
+}
+
+var store_session = function(response) {
+	sessionStorage.setItem(response);
+	location.href = 'dashpage.html';
 }
 
 /************************ FOR LOGGING OUT ***********************/
@@ -106,5 +135,3 @@ function gotopage(pageID) {
 			break;
 	}
 }
-
-

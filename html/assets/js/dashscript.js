@@ -2,6 +2,7 @@
 /*						  										*/
 /****************************************************************/
 const coins = [];
+var searchedCoins = []
 
 function get_allCoins() {
 
@@ -37,7 +38,11 @@ function store_allCoins(response) {
 
 			coinGeckoID: eachCoin.coinGeckoID,
 			coinName: eachCoin.coinName,
-			Symbol: eachCoin.Symbol
+			Symbol: eachCoin.Symbol,
+			all_time_high_dollar: eachCoin.all_time_high_dollar,
+			all_time_high_cent: eachCoin.all_time_high_cent,
+			year_high_dollar: eachCoin.year_high_dollar,
+			year_high_cent: eachCoin.year_high_cent
 		};
 
 		coins.push(coin);
@@ -75,46 +80,74 @@ function store_allCoins(response) {
 /*						  										*/
 /****************************************************************/
 
-// SEARCH EVERYTIME USER ENTER A CHAR
+// SEARCH EVERYTIME USER ENTER A CHAR 
 $(document).ready(function() {
 	$("#coinSearchInput").keyup(function() {
-
-		// WHEN ENTER KEY IS PRESSED, TRIGGER BUTTON CLICK
-		if(event.key === 'Enter') {
-			searchCoin($("#coinSearchInput").val());
-		}
+		searchCoin();
 	});
 });
 
+// click search button
 $(document).ready(function() {
 	$("#coinSearchBtn").click(function() {
-
-		console.log("Button Clicked");
-		get_allCoins(displayCoin);
+		searchCoin();
 	});
 });
 
-function searchCoin(coin) {
-	
-	var userInput = coin.trim();
+function searchCoin() {
+	// clear div and array
+	searchedCoins.length = [];
+
+	var userInput = $.trim($("#coinSearchInput").val());
 
 	// CHECK IF THERE'S AN INPUT TO SEARCH
 	if (userInput != "") {
-
-		// for each coin in coins
-			//match regex
-				//save in a diff array
-					//display
-
-		console.log("Enter Pressed");
-		console.log($("#searchList"));
-		get_allCoins(displayCoin);
+		userInput.toLowerCase();
+		// check if search matches name or symbol
+		$.each(coins, function(_,obj) {
+			if (obj.coinName.toLowerCase().indexOf(userInput) != -1) {
+				searchedCoins.push(obj);
+			}
+			else if(obj.Symbol.toLowerCase().indexOf(userInput) != -1) {
+				searchedCoins.push(obj);
+				console.log(obj);
+			}
+		});
+		// display coin on dashpage
+		displayCoin();
 	}
 }
 
-function displayCoin(response) {
-	
-	console.log(response);
+function displayCoin() {
+	// clear div
+	$( "#searchList" ).empty();
+
+	// insert each coin into html
+	$.each(searchedCoins, function(_, obj) {
+		var container = $("<div></div>");
+		container.addClass("coins");
+
+		var name = $("<p></p>");
+		name.addClass('coinName');
+		name.attr('id', obj.coinGeckoID);
+		name.html(obj.coinName);
+
+		var all_time_val = obj.all_time_high_dollar + "." + obj.all_time_high_cent.substring(0, 2); 
+		var all_time_high = $("<p></p>");
+		all_time_high.addClass('all-time-price');
+		all_time_high.html('All Time High Price: &#36;'+all_time_val);
+
+		var year_high_val = obj.year_high_dollar + "." + obj.year_high_cent.substring(0, 2); 
+		var year_high = $("<p></p>");
+		year_high.addClass('year-high-price');
+		year_high.html('Year High Price: &#36;'+year_high_val);
+		
+		container.append(name);
+		container.append(all_time_high);
+		container.append(year_high);
+		$("#searchList").append(container);
+	})
+	return;
 }
 
 /************************ FOR CLICKING COINS ********************/

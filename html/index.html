@@ -4,6 +4,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- google app client id -->
+		<meta name="google-signin-client_id" content="331364600378-n4u9qepoebkc5fdib5jvop86fm44ff68.apps.googleusercontent.com">
 
 		<title> Crypteux </title>
 
@@ -21,7 +23,8 @@
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script type="text/javascript" src="assets/js/mainscript.js"></script>
-
+		<!-- google platform lib -->
+		<script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
 	</head>
 	<body>
 		<div class="outerDiv" id="pageOuterDiv">
@@ -45,8 +48,8 @@
 					<div id="loginContent">
 
 						<!-- SELECTION SECTION -->
-						<button> Sign in using Google </button>
-
+						<!--<button class="g-signin2" data-onsuccess="onSignIn"> Sign in using Google </button>-->
+						<div id='signin-button' class="g-signin2"></div>
 					</div>
 				</section>
 			</section>

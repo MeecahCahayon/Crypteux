@@ -4,6 +4,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- google app client id -->
+		<meta name="google-signin-client_id" content="331364600378-n4u9qepoebkc5fdib5jvop86fm44ff68.apps.googleusercontent.com">
 
 		<title> Crypteux </title>
 
@@ -22,6 +24,20 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script type="text/javascript" src="assets/js/mainscript.js"></script>
 		<script type="text/javascript" src="assets/js/dashscript.js"></script>
+		
+		<script>
+			if(sessionStorage.getItem('myUserEntity') == null){
+				//Redirect to login page, no user entity available in sessionStorage
+				window.location.href='index.html';
+			} else {
+				//User already logged in
+				var userEntity = {};
+				userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+			}
+		</script>
+
+		<!-- google platform lib -->
+		<script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
 
 	</head>
 	<body onload="get_allCoins()">
@@ -42,7 +58,7 @@
 					<div id="mainMenuBtnCont">
 						<p id="dashpage"  onclick="gotopage('dashpage')" class="activepage"> Dashboard </p>
 						<p id="favpage" onclick="gotopage('favpage')"> Favourites </p>
-						<p onclick="checklogout()"> Logout </p>
+						<a href="index.html"> <p onclick="logout();"> Logout </p> </a>
 					</div>
 				</section>
 			</header>

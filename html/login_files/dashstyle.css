@@ -1,0 +1,60 @@
+/************************** DASH PAGE ***************************/
+/*																*/
+/****************************************************************/
+/************************** VARIABLES ***************************/
+/*																*/
+/****************************************************************/
+/****************************  PALETTE  *************************/
+/* MAIN COLOUR */
+/* SECONDARY COLOUR */
+/*****************************  FONTS  **************************/
+/***************************  DEFAULTS  *************************/
+/* BACKGROUNDS */
+/* FONT COLOUR */
+/************************ GRID TEMPLATE *************************/
+/*						IF NOT USING DEFAULT					*/
+/****************************************************************/
+/********************  MAIN SECTION PAGE GRID  ******************/
+#mainGrid {
+  grid-template-rows: 0.5fr 2fr 2fr; }
+
+/* MAIN CONTENT */
+#searchGrid, #searchCoinGrid, #aggDataGrid {
+  grid-column: 2/3;
+  padding: 3vh; }
+
+#searchGrid {
+  grid-row: 1/2; }
+
+#searchCoinGrid {
+  grid-row: 2/3; }
+
+#aggDataGrid {
+  grid-row: 3/4; }
+
+/*************************** CONTENT ****************************/
+/*																*/
+/****************************************************************/
+/*********************  FOR THE LIST OF COINS  ******************/
+#searchList {
+  /* COLOURS */
+  /* FONTS */
+  /* STYLE */
+  column-count: 2;
+  column-gap: 10%; }
+  #searchList p {
+    /* COLOURS */
+    /* FONTS */
+    /* STYLE */
+    margin: 5px 25px;
+    height: 2em;
+    /*border: 0.5px solid $clr-main-bk-border;*/ }
+
+.coins {
+  /* COLOURS */
+  /* FONTS */
+  /* STYLE */
+  border: 0.5px solid #74705d;
+  margin: 5px 25px; }
+
+/*# sourceMappingURL=dashstyle.css.map */

@@ -22,7 +22,7 @@ $clr-main-bk-border: $palette-old-grey;
 /*						IF NOT USING DEFAULT					*/
 /****************************************************************/
 /********************  MAIN SECTION PAGE GRID  ******************/
-#mainGrid { grid-template-rows: 0.5fr 2fr 2fr; }
+#mainGrid { grid-template-rows: 0.5fr 1fr 2fr; }
 
 /* MAIN CONTENT */
 #searchGrid, #searchCoinGrid, #aggDataGrid { 
@@ -46,8 +46,8 @@ $clr-main-bk-border: $palette-old-grey;
 	/* COLOURS */
 	/* FONTS */
 	/* STYLE */
-	/*column-count: 2;*/
-	/*column-gap: 10%;*/
+	column-count: 2;
+	column-gap: 10%;
 
 	p {
 
@@ -70,4 +70,3 @@ $clr-main-bk-border: $palette-old-grey;
 	border: 0.5px solid $clr-main-bk-border;
 	margin: 5px 25px;
 }
-

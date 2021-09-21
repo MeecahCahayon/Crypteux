@@ -34,14 +34,14 @@ $clr-main-font-kpiamount: $palette-light-magenta;
 /****************************************************************/
 /********************  MAIN SECTION PAGE GRID  ******************/
 
-#mainGrid { grid-template-columns: 1fr 5fr 1fr; grid-gap: 5px; }
-#mainGrid { grid-template-rows: 0.30fr 0.5fr 2fr; }
+#mainGrid { grid-template-columns: 1fr 4fr 1fr; grid-gap: 5px; }
+#mainGrid { grid-template-rows: auto auto auto; }
 
 /* MAIN CONTENT */
 #coinHeadingGrid, #coinKpiGrid, #coinGraphGrid { 
 	
 	grid-column: 2/3;
-	padding: 3vh;
+	padding: 1.5vh;
 
 }
 
@@ -60,7 +60,7 @@ $clr-main-font-kpiamount: $palette-light-magenta;
 	/* COLOURS */
 	/* FONTS */
 	/* STYLE */
-	column-count: 4;
+	column-count: 2;
 	column-gap: 2%;
 }
 
@@ -76,7 +76,8 @@ $clr-main-font-kpiamount: $palette-light-magenta;
 	border: 0.5px solid $clr-main-bk-border;
 	border-radius: 10px;
 	/*opacity: 0.6;*/
-	padding: 10px 25px;
+	padding: 10px 30px;
+	margin: 0 20%;
 }
 
 /* THE KPI TITLE */
@@ -94,7 +95,7 @@ $clr-main-font-kpiamount: $palette-light-magenta;
 }
 
 /* THE KPI AMOUNT */
-.kpiAmount {
+.kpiPrice {
 
 	/* COLOURS */
 	border-color: $clr-main-bk-border;
@@ -127,7 +128,7 @@ $clr-main-font-kpiamount: $palette-light-magenta;
 }
 
 /* THE KPI DATE */
-.kpiDate, .kpiPercentage  {
+.kpiDate, .kpiCurrency  {
 
 	/* COLOURS */
 	/* FONTS */
@@ -142,7 +143,36 @@ $clr-main-font-kpiamount: $palette-light-magenta;
 
 	/* COLOURS */
 	/*background-color: $clr-main-bk-kpi;*/
-	
+
+	/* FONTS */
+	/* STYLE */
+}
+
+.coinGraph {
+
+	/* COLOURS */
+	/* FONTS */
+	/* STYLE */
+	border: 0.5px solid $clr-main-bk-border;
+	border-radius: 10px;
+	padding: 0 5% 1% 5%;
+	margin: 20px;
+}
+
+#marketData {
+
+	/* COLOURS */
+	/*background-color: $clr-main-bk-kpi;*/
+
+	/* FONTS */
+	/* STYLE */
+}
+
+#volumeData {
+
+	/* COLOURS */
+	/*background-color: $clr-main-bk-kpi;*/
+
 	/* FONTS */
 	/* STYLE */
 }

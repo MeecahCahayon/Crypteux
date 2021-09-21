@@ -3,8 +3,18 @@
 /****************************************************************/
 /*************************** VARIABLES **************************/
 const marketData = [];
+const kpiData = [];
+
 const coinPrice = [];
 const dates = [];
+const volumes = [];
+
+const colors = {
+	lineColor: "#75586C",
+	gridColor: "#3c3c3c",
+	fontColor: "#75586C",
+	tickColor: "#626262"
+}
 
 /*********************** DISPLAY COIN NAME **********************/
 
@@ -36,7 +46,8 @@ function get_coininfo() {
 			},
 			success: function (response) {
 				store_coin_marketdata(response);
-				create_graph();
+				create_mrkdata_graph();
+				create_volume_graph();
 			},
 			error: function (response) {
 				error_msg(response);
@@ -61,6 +72,8 @@ function get_coininfo() {
 			},
 			success: function (response) {
 				console.log(response);
+				store_coin_kpi(response);
+				create_kpi();
 			},
 			error: function (response) {
 				error_msg(response);
@@ -71,23 +84,58 @@ function get_coininfo() {
 
 /************************ DISPLAY COIN KPI **********************/
 
-/*********************** DISPLAY COIN GRAPH *********************/
+function create_kpi() {
 
-function create_graph() {
+	// FOR EACH KPI
+	$.each(kpiData, function(resIndex, eachData) {
+
+		/***** CREATE KPI CONTAINER *****/
+		// CREATE KPI DIV
+		var kpi = $("<div></div>");
+		kpi.addClass("kpi");
+
+		/***** CREATE KPI ELEMENTS *****/
+		// KPI TITLE
+		var kpiTitle = $("<p></p>");
+		kpiTitle.addClass("kpiTitle");
+		// KPI PRICE
+		var kpiPrice = $("<p></p>");
+		kpiPrice.addClass("kpiPrice");
+
+		// KPI SUBINFO DIV
+		var kpiSubinfo = $("<div></div>");
+		kpiSubinfo.addClass("kpiSubinfo");
+
+		// KPI PRICE
+		var kpiDate = $("<p></p>");
+		kpiDate.addClass("kpiDate");
+		// KPI PRICE
+		var kpiCurrency = $("<p></p>");
+		kpiCurrency.addClass("kpiCurrency");
+
+		/***** APPEND KPI ELEMENTS *****/
+		kpiSubinfo.append(kpiDate);
+		kpiSubinfo.append(kpiCurrency);
+
+		kpi.append(kpiTitle);
+		kpi.append(kpiPrice);
+		kpi.append(kpiSubinfo);
+
+		/***** CREATE KPIS *****/
+		kpiTitle.html(eachData.title);
+		kpiPrice.html(eachData.price);
+		kpiDate.html(eachData.date);
+		kpiCurrency.html(eachData.currency);
+		$("#coinKpiContent").append(kpi);
+	});
+}
+
+/*********************** DISPLAY COIN GRAPH *********************/
+/************************ MARKET DATA GRAPH *********************/
+
+function create_mrkdata_graph() {
 	
 	/******************** CREATE THE VARIABLES ******************/
-	// SORT THE MARKET DATA BY DATE
-	marketData.sort((a, b) => {
-		return a.date - b.date;
-	});
-
-	// GET ALL THE DATE FOR Y AXIS AND COIN PRICE FOR X AXIS
-	$.each(marketData, function(resIndex, eachData) {
-
-		dates.push(eachData.date);
-		coinPrice.push(eachData.amount);
-	});
-
 	// GET THE CHART DIV
 	var ctx_mrkdata = $("#marketData");
 
@@ -101,8 +149,8 @@ function create_graph() {
 
 			/******************** STYLING LINE ******************/
 			/* COLOURS */
-			backgroundColor: "#75586C",
-			borderColor: "#75586C",
+			backgroundColor: colors.lineColor,
+			borderColor: colors.lineColor,
 			/* FONTS */
 
 			/* STYLE */
@@ -121,29 +169,223 @@ function create_graph() {
 
 		/*********************** STYLING ********************/
 		plugins: {
-			// LEGEN
-			legend: {display: false}
+			// REMOVE LEGEND
+			legend: {
+				display: false,
+			},
+			title: {
+				display: true,
+				text: "Price History",
+
+				color: colors.fontColor,
+				padding: 50,
+
+				font: {
+					family: "'Major Mono Display', monospace",
+					size: 20
+				}
+			}
+		},
+
+		/************************* AXIS *********************/
+		scales: {
+			// MAKE X AXIS ONLY SHOW THE YEAR
+
+			x: {
+				title: {
+					display: true,
+					text: "Price Date",
+					color: colors.fontColor,
+					padding: 20,
+
+					font: {
+						family: "'Cutive Mono', monospace",
+						size: 15,
+						weight: 500
+					}
+				},
+				type: 'time',
+				time: {
+					unit: 'year'
+				},
+				ticks: {
+					color: colors.tickColor,
+					padding: 10,
+
+					font: {
+						family: "'Cutive Mono', monospace",
+						size: 15,
+						weight: 500
+					}
+				},
+				grid: {
+					borderColor: colors.gridColor,
+					color: colors.gridColor,
+					z: -1
+				},
+			},
+			y: {
+				title: {
+					display: true,
+					text: "Coin Price",
+					color: colors.fontColor,
+					padding: 20,
+
+					font: {
+						family: "'Cutive Mono', monospace",
+						size: 15,
+						weight: 500
+					}
+				},
+				ticks: {
+					color: colors.tickColor,
+					padding: 10,
+
+					font: {
+						family: "'Cutive Mono', monospace",
+						size: 15,
+						weight: 500
+					}
+				},
+				grid: {
+					borderColor: colors.gridColor,
+					color: colors.gridColor,
+					z: -1
+				}
+			}
+		}
+	}
+
+	/********************** CREATE THE GRAPH ********************/
+	var marketDataGraph = new Chart(ctx_mrkdata, {
+
+		type: "line",
+		data: graphData,
+		options: config
+	});
+}
+
+/*************************** VOLUME GRAPH ***********************/
+
+function create_volume_graph() {
+
+	/******************** CREATE THE VARIABLES ******************/
+	// GET THE CHART DIV
+	var ctx_mrkdata = $("#volumeData");
+
+	// CREATE DATA FOR THE GRAPH
+	const graphData = {
+
+		// SET X AXIS
+		labels: dates,
+		// SET THE DATA
+		datasets: [{
+
+			/******************** STYLING LINE ******************/
+			/* COLOURS */
+			backgroundColor: colors.lineColor,
+			borderColor: colors.lineColor,
+			/* FONTS */
+
+			/* STYLE */
+			borderWidth: 1,
+			fill: true,
+			lineTension: 0,
+			pointRadius: 0,
+			
+			// SET THE Y AXIS
+			data: volumes
+		}]
+	}
+
+	// CREATE THE CONFIG FOR OPTION
+	const config = {
+
+		/*********************** STYLING ********************/
+		plugins: {
+			// REMOVE LEGEND
+			legend: {
+				display: false,
+			},
+			title: {
+				display: true,
+				text: "Volume History",
+
+				color: colors.fontColor,
+				padding: 50,
+
+				font: {
+					family: "'Major Mono Display', monospace",
+					size: 20
+				}
+			}
 		},
 
 		/************************* AXIS *********************/
 		scales: {
 			// MAKE X AXIS ONLY SHOW THE YEAR
 			x: {
+				title: {
+					display: true,
+					text: "Order Date",
+
+					color: colors.fontColor,
+					padding: 20,
+
+					font: {
+						family: "'Cutive Mono', monospace",
+						size: 15,
+						weight: 500
+					}
+				},
 				type: 'time',
 				time: {
 					unit: 'year'
-				}
+				},
+				ticks: {
+					color: colors.tickColor,
+					padding: 10,
 
+					font: {
+						family: "'Cutive Mono', monospace",
+						size: 15,
+						weight: 500
+					}
+				},
+				grid: {
+					borderColor: colors.gridColor,
+					color: colors.gridColor,
+					z: -1
+				},
 			},
-			grid: {
-				/****************** STYLING GRAPH ***************/
-				/* COLOURS */
-				backgroundColor: "#75586C",
-				borderColor: "#75586C",
-				/* FONTS */
+			y: {
+				title: {
+					display: true,
+					text: "Number of Orders",
+					color: colors.fontColor,
+					padding: 20,
 
-				/* STYLE */
-				borderWidth: 1
+					font: {
+						family: "'Cutive Mono', monospace",
+						size: 15,
+						weight: 500
+					}
+				},
+				ticks: {
+					color: colors.tickColor,
+					padding: 10,
+
+					font: {
+						family: "'Cutive Mono', monospace",
+						size: 15,
+						weight: 500
+					}
+				},
+				grid: {
+					borderColor: colors.gridColor,
+					color: colors.gridColor,
+					z: -1
+				}
 			}
 		}
 	}
@@ -195,6 +437,19 @@ function store_coin_marketdata(response) {
 		marketData.push(data);
 	});
 
+	/******************** CREATE THE VARIABLES ******************/
+	// SORT THE MARKET DATA BY DATE
+	marketData.sort((a, b) => {
+		return a.date - b.date;
+	});
+
+	// GET ALL THE VALUE FOR X AND Y AXIS
+	$.each(marketData, function(resIndex, eachData) {
+
+		dates.push(eachData.date);
+		coinPrice.push(eachData.amount);
+		volumes.push(eachData.volume);
+	});
 
 	// // FOR TESTING
 	// let data = {
@@ -233,6 +488,67 @@ function store_coin_marketdata(response) {
 	// }
 
 	// console.log(marketData.length);
+}
+
+function store_coin_kpi(response) {
+
+	// GET VARIABLES
+	var dollar = "0";
+	var cent = "0";
+	var date = "";
+	var coinCurrency = "";
+
+	if (response[0].all_time_high_dollar != null) {
+		dollar = response[0].all_time_high_dollar;
+	}
+
+	if (response[0].all_time_high_cent != null) {
+		cent = response[0].all_time_high_cent.substring(0,3);
+	}
+
+	if (response[0].all_time_high_currency != null) {
+		coinCurrency = response[0].all_time_high_currency.toUpperCase();
+	}
+
+	// CREATE ALL-TIME-HIGH KPI ELEMENTS
+	let alltime_data = {
+
+		title: "All-Time High",
+		price: "$"+dollar+"."+cent,
+		date: "March 25, 1997",
+		currency: coinCurrency
+	}
+
+	// GET VARIABLES
+	var dollar = "0";
+	var cent = "0";
+	var date = "";
+	var coinCurrency = "";
+
+	if (response[0].year_high_dollar != null) {
+		dollar = response[0].year_high_dollar;
+	}
+
+	if (response[0].year_high_cent != null) {
+		cent = response[0].year_high_cent.substring(0,3);
+	}
+
+	if (response[0].year_high_currency != null) {
+		coinCurrency = response[0].year_high_currency.toUpperCase();
+	}
+
+	// CREATE YEAR-HIGH KPI ELEMENTS
+	let yeartime_data = {
+
+		title: "Year High",
+		price: "$"+dollar+"."+cent,
+		date: "March 25, 1997",
+		currency: coinCurrency
+	}
+
+	// PUSH TO KPI ARRAY
+	kpiData.push(alltime_data);
+	kpiData.push(yeartime_data);
 }
 
 function error_msg(response) {

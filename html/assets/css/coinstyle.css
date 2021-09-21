@@ -16,21 +16,93 @@
 /****************************************************************/
 /********************  MAIN SECTION PAGE GRID  ******************/
 #mainGrid {
-  grid-template-rows: 0.30fr 2fr; }
+  grid-template-columns: 1fr 5fr 1fr;
+  grid-gap: 5px; }
+
+#mainGrid {
+  grid-template-rows: 0.30fr 1fr 2fr; }
 
 /* MAIN CONTENT */
-#coinHeadingGrid, #coinDataGrid {
+#coinHeadingGrid, #coinKpiGrid, #coinGraphGrid {
   grid-column: 2/3;
   padding: 3vh; }
 
 #coinHeadingGrid {
   grid-row: 1/2; }
 
-#coinDataGrid {
+#coinKpiGrid {
   grid-row: 2/3; }
+
+#coinGraphGrid {
+  grid-row: 3/4; }
 
 /*************************** CONTENT ****************************/
 /*																*/
 /****************************************************************/
+/************************ COIN KPI SECTION **********************/
+/* COINTER LIST OF KPI */
+#coinKpiContent {
+  /* COLOURS */
+  /* FONTS */
+  /* STYLE */
+  column-count: 4;
+  column-gap: 2%; }
+
+/* EACH KPI */
+.kpi {
+  /* COLOURS */
+  color: #686385;
+  background-color: #2E2D38;
+  /* FONTS */
+  /* STYLE */
+  border: 0.5px solid #74705d;
+  border-radius: 10px;
+  /*opacity: 0.6;*/
+  padding: 10px 25px; }
+
+/* THE KPI TITLE */
+.kpiTitle {
+  /* COLOURS */
+  /* FONTS */
+  font-family: "Share Tech Mono", monospace;
+  font-size: small;
+  font-weight: 800;
+  /* STYLE */
+  margin: 0;
+  padding: 5px; }
+
+/* THE KPI AMOUNT */
+.kpiAmount {
+  /* COLOURS */
+  border-color: #74705d;
+  color: #916C85;
+  /* FONTS */
+  font-family: "Major Mono Display", monospace;
+  font-size: 2.25vh;
+  font-weight: 800;
+  /* STYLE */
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  margin: 0;
+  padding: 10px; }
+
+/* THE KPI SUBINFO */
+.kpiSubinfo {
+  /* COLOURS */
+  /* FONTS */
+  /*font-family: $fnt-share-tech;*/
+  font-size: x-small;
+  font-weight: 800;
+  /* STYLE */
+  display: flex;
+  justify-content: space-around; }
+
+/* THE KPI DATE */
+.kpiDate, .kpiPercentage {
+  /* COLOURS */
+  /* FONTS */
+  /* STYLE */
+  margin: 0;
+  padding: 5px; }
 
 /*# sourceMappingURL=coinstyle.css.map */

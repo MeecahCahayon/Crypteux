@@ -7,23 +7,38 @@
 /****************************************************************/
 /****************************  PALETTE  *************************/
 /* MAIN COLOUR */
+$palette-dark-grey: #282923;
+
 /* SECONDARY COLOUR */
+$palette-light-purple: #686385;
+$palette-dark-purple: #2E2D38;
+$palette-light-magenta: #916C85;
+$palette-old-grey: #74705d;
 
 /*****************************  FONTS  **************************/
-
+$fnt-share-tech: 'Share Tech Mono', monospace;
+$fnt-share-fam: 'Share', cursive;
+$fnt-cutivemono: 'Cutive Mono', monospace;
+$fnt-majordisplay: 'Major Mono Display', monospace;
 /***************************  DEFAULTS  *************************/
 /* BACKGROUNDS */
+$clr-main-bk-kpi: $palette-dark-purple;
+$clr-main-bk-border: $palette-old-grey;
+
 /* FONT COLOUR */
+$clr-main-font-kpi: $palette-light-purple;
+$clr-main-font-kpiamount: $palette-light-magenta;
 
 /************************ GRID TEMPLATE *************************/
 /*						IF NOT USING DEFAULT					*/
 /****************************************************************/
 /********************  MAIN SECTION PAGE GRID  ******************/
 
-#mainGrid { grid-template-rows: 0.30fr 2fr; }
+#mainGrid { grid-template-columns: 1fr 5fr 1fr; grid-gap: 5px; }
+#mainGrid { grid-template-rows: 0.30fr 1fr 2fr; }
 
 /* MAIN CONTENT */
-#coinHeadingGrid, #coinDataGrid { 
+#coinHeadingGrid, #coinKpiGrid, #coinGraphGrid { 
 	
 	grid-column: 2/3;
 	padding: 3vh;
@@ -31,8 +46,92 @@
 }
 
 #coinHeadingGrid { grid-row: 1/2; }
-#coinDataGrid { grid-row: 2/3; }
+#coinKpiGrid { grid-row: 2/3; }
+#coinGraphGrid { grid-row: 3/4; }
 
 /*************************** CONTENT ****************************/
 /*																*/
 /****************************************************************/
+/************************ COIN KPI SECTION **********************/
+
+/* COINTER LIST OF KPI */
+#coinKpiContent {
+
+	/* COLOURS */
+	/* FONTS */
+	/* STYLE */
+	column-count: 4;
+	column-gap: 2%;
+}
+
+/* EACH KPI */
+.kpi {
+
+	/* COLOURS */
+	color: $clr-main-font-kpi;
+	background-color: $clr-main-bk-kpi;
+
+	/* FONTS */
+	/* STYLE */
+	border: 0.5px solid $clr-main-bk-border;
+	border-radius: 10px;
+	/*opacity: 0.6;*/
+	padding: 10px 25px;
+}
+
+/* THE KPI TITLE */
+.kpiTitle {
+
+	/* COLOURS */
+	/* FONTS */
+	font-family: $fnt-share-tech;
+	font-size: small;
+	font-weight: 800;
+
+	/* STYLE */
+	margin: 0;
+	padding: 5px;
+}
+
+/* THE KPI AMOUNT */
+.kpiAmount {
+
+	/* COLOURS */
+	border-color: $clr-main-bk-border;
+	color: $clr-main-font-kpiamount;
+
+	/* FONTS */
+	font-family: $fnt-majordisplay;
+	font-size: 2.25vh;
+	font-weight: 800;
+
+	/* STYLE */
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	margin: 0;
+	padding: 10px;
+}
+
+/* THE KPI SUBINFO */
+.kpiSubinfo {
+
+	/* COLOURS */
+	/* FONTS */
+	/*font-family: $fnt-share-tech;*/
+	font-size: x-small;
+	font-weight: 800;
+
+	/* STYLE */
+	display: flex;
+	justify-content: space-around;
+}
+
+/* THE KPI DATE */
+.kpiDate, .kpiPercentage  {
+
+	/* COLOURS */
+	/* FONTS */
+	/* STYLE */
+	margin: 0;
+	padding: 5px;
+}

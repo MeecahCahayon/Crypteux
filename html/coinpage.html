@@ -20,6 +20,7 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/coinstyle.css">
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 		<script type="text/javascript" src="assets/js/mainscript.js"></script>
 		<script type="text/javascript" src="assets/js/coinscript.js"></script>
 
@@ -59,11 +60,54 @@
 					</div>
 				</section>
 
-				<!-- CONTENT -->
-				<section class="innerGrids" id="coinDataGrid">
-					<div id="coinDataContent">
-						Coin Content
-					</div>
+				<!-- KPI -->
+				<section class="innerGrids" id="coinKpiGrid">
+					<section id="coinKpiContent">
+						
+						<div class="kpi">
+							<p class="kpiTitle"> All-Time High </p>
+							<p class="kpiAmount"> $64,804.72 </p>
+							<div class="kpiSubinfo">
+								<p class="kpiDate"> Apr 14, 2021 </p>
+								<p class="kpiPercentage"> -30.4% </p>
+							</div>
+						</div>
+
+						<div class="kpi">
+							<p class="kpiTitle"> All-Time Low </p>
+							<p class="kpiAmount"> $64,804.72 </p>
+							<div class="kpiSubinfo">
+								<p class="kpiDate"> Apr 14, 2021 </p>
+								<p class="kpiPercentage"> -30.4% </p>
+							</div>
+						</div>
+
+						<div class="kpi">
+							<p class="kpiTitle"> All Time High </p>
+							<p class="kpiAmount"> $64,804.72 </p>
+							<div class="kpiSubinfo">
+								<p class="kpiDate"> Apr 14, 2021 </p>
+								<p class="kpiPercentage"> -30.4% </p>
+							</div>
+						</div>
+
+						<div class="kpi">
+							<p class="kpiTitle"> All Time High </p>
+							<p class="kpiAmount"> $64,804.72 </p>
+							<div class="kpiSubinfo">
+								<p class="kpiDate"> Apr 14, 2021 </p>
+								<p class="kpiPercentage"> -30.4% </p>
+							</div>
+						</div>
+
+					</section>
+				</section>
+
+				<!-- GRAPH -->
+				<section class="innerGrids" id="coinGraphGrid">
+					<section id="coinGraphContent">
+						<canvas id="marketData"></canvas>
+					</section>
 				</section>
 			</section>
 

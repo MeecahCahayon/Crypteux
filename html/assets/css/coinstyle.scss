@@ -35,7 +35,7 @@ $clr-main-font-kpiamount: $palette-light-magenta;
 /********************  MAIN SECTION PAGE GRID  ******************/
 
 #mainGrid { grid-template-columns: 1fr 5fr 1fr; grid-gap: 5px; }
-#mainGrid { grid-template-rows: 0.30fr 1fr 2fr; }
+#mainGrid { grid-template-rows: 0.30fr 0.5fr 2fr; }
 
 /* MAIN CONTENT */
 #coinHeadingGrid, #coinKpiGrid, #coinGraphGrid { 
@@ -134,4 +134,15 @@ $clr-main-font-kpiamount: $palette-light-magenta;
 	/* STYLE */
 	margin: 0;
 	padding: 5px;
+}
+
+/*********************** COIN GRAPH SECTION *********************/
+
+#coinGraphContent {
+
+	/* COLOURS */
+	/*background-color: $clr-main-bk-kpi;*/
+	
+	/* FONTS */
+	/* STYLE */
 }

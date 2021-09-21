@@ -3,10 +3,8 @@
 /****************************************************************/
 /*************************** VARIABLES **************************/
 const marketData = [];
-const coinAmount = [];
-const yearsSet = new Set();
-const years = [];
-
+const coinPrice = [];
+const dates = [];
 
 /*********************** DISPLAY COIN NAME **********************/
 
@@ -78,42 +76,85 @@ function get_coininfo() {
 function create_graph() {
 	
 	/******************** CREATE THE VARIABLES ******************/
-
-	// CREATE THE YEAR VARIABLE FOR X AXIS
-	$.each(marketData, function(resIndex, eachData) {
-
-		yearsSet.add(eachData.date.getFullYear());
-	});
-
-	yearsSet.forEach(function(year) {
-
-		years.push(year);
-	});
-
-	// // FOR TESTING
-	// for (var i = 0; i < years.length; i++) {
-
-	// 	console.log(years[i]);
-	// }
-
-	// console.log(years.length);
-
-	// CREATE THE COIN AMOUNT VARIABLE FOR Y AXIS
+	// SORT THE MARKET DATA BY DATE
 	marketData.sort((a, b) => {
 		return a.date - b.date;
 	});
 
+	// GET ALL THE DATE FOR Y AXIS AND COIN PRICE FOR X AXIS
 	$.each(marketData, function(resIndex, eachData) {
 
-		coinAmount.push(eachData.amount);
+		dates.push(eachData.date);
+		coinPrice.push(eachData.amount);
 	});
 
 	// GET THE CHART DIV
-	var ctx_mrkdata = document.getElementById("marketData");
-	var marketDataGraph = new Chart(ctx_mrkdata,  )
+	var ctx_mrkdata = $("#marketData");
+
+	// CREATE DATA FOR THE GRAPH
+	const graphData = {
+
+		// SET X AXIS
+		labels: dates,
+		// SET THE DATA
+		datasets: [{
+
+			/******************** STYLING LINE ******************/
+			/* COLOURS */
+			backgroundColor: "#75586C",
+			borderColor: "#75586C",
+			/* FONTS */
+
+			/* STYLE */
+			borderWidth: 1,
+			fill: false,
+			lineTension: 0,
+			pointRadius: 0,
+			
+			// SET THE Y AXIS
+			data: coinPrice
+		}]
+	}
+
+	// CREATE THE CONFIG FOR OPTION
+	const config = {
+
+		/*********************** STYLING ********************/
+		plugins: {
+			// LEGEN
+			legend: {display: false}
+		},
+
+		/************************* AXIS *********************/
+		scales: {
+			// MAKE X AXIS ONLY SHOW THE YEAR
+			x: {
+				type: 'time',
+				time: {
+					unit: 'year'
+				}
+
+			},
+			grid: {
+				/****************** STYLING GRAPH ***************/
+				/* COLOURS */
+				backgroundColor: "#75586C",
+				borderColor: "#75586C",
+				/* FONTS */
+
+				/* STYLE */
+				borderWidth: 1
+			}
+		}
+	}
 
 	/********************** CREATE THE GRAPH ********************/
+	var marketDataGraph = new Chart(ctx_mrkdata, {
 
+		type: "line",
+		data: graphData,
+		options: config
+	});
 }
 
 /**************************** FUNCTIONS *************************/

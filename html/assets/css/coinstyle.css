@@ -20,7 +20,7 @@
   grid-gap: 5px; }
 
 #mainGrid {
-  grid-template-rows: 0.30fr 1fr 2fr; }
+  grid-template-rows: 0.30fr 0.5fr 2fr; }
 
 /* MAIN CONTENT */
 #coinHeadingGrid, #coinKpiGrid, #coinGraphGrid {
@@ -104,5 +104,12 @@
   /* STYLE */
   margin: 0;
   padding: 5px; }
+
+/*********************** COIN GRAPH SECTION *********************/
+#coinGraphContent {
+  /* COLOURS */
+  /*background-color: $clr-main-bk-kpi;*/
+  /* FONTS */
+  /* STYLE */ }
 
 /*# sourceMappingURL=coinstyle.css.map */

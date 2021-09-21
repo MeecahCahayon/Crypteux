@@ -16,7 +16,11 @@
 /****************************************************************/
 /********************  MAIN SECTION PAGE GRID  ******************/
 #mainGrid {
-  grid-template-rows: 0.5fr 2fr 2fr; }
+  grid-template-columns: 1fr 5fr 1fr;
+  grid-gap: 5px; }
+
+#mainGrid {
+  grid-template-rows: auto auto auto; }
 
 /* MAIN CONTENT */
 #searchGrid, #searchCoinGrid, #aggDataGrid {
@@ -47,7 +51,7 @@
     /* FONTS */
     /* STYLE */
     margin: 5px 25px;
-    height: 2em;
+    /*height: 2em;*/
     /*border: 0.5px solid $clr-main-bk-border;*/ }
 
 .coins {
@@ -55,6 +59,21 @@
   /* FONTS */
   /* STYLE */
   border: 0.5px solid #74705d;
-  margin: 5px 25px; }
+  margin: 5px 25px;
+  padding: 15px;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  display: grid;
+  text-align: left;
+  /*align-items: center;
+  justify-content: space-evenly;*/ }
+
+.coinName {
+  grid-column-start: 1/2; }
+
+.all_time_price {
+  grid-column: 2/3; }
+
+.year_high_price {
+  grid-column: 3/4; }
 
 /*# sourceMappingURL=dashstyle.css.map */

@@ -81,7 +81,7 @@ $(document).ready(function() {
 
 		// WHEN ENTER KEY IS PRESSED, TRIGGER BUTTON CLICK
 		if(event.key === 'Enter') {
-			seacrhCoin($("#coinSearchInput").val());
+			searchCoin($("#coinSearchInput").val());
 		}
 	});
 });
@@ -94,14 +94,20 @@ $(document).ready(function() {
 	});
 });
 
-function seacrhCoin(coin) {
+function searchCoin(coin) {
 	
 	var userInput = coin.trim();
 
 	// CHECK IF THERE'S AN INPUT TO SEARCH
 	if (userInput != "") {
 
+		// for each coin in coins
+			//match regex
+				//save in a diff array
+					//display
+
 		console.log("Enter Pressed");
+		console.log($("#searchList"));
 		get_allCoins(displayCoin);
 	}
 }

@@ -24,6 +24,13 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script type="text/javascript" src="assets/js/mainscript.js"></script>
 
+		<script>
+			if(sessionStorage.getItem('user') != null){
+				//Redirect to login page, no user entity available in sessionStorage
+				window.location.href='dashpage.html';
+			}
+		</script>
+
 		<!-- google platform lib -->
 		<script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
 	</head>

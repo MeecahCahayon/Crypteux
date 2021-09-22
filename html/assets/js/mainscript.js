@@ -86,7 +86,7 @@ var onSuccess = function(user) {
 			user.email = profile.getEmail();
 			//user.picture = profile.getPicture();
 
-			sessionStorage.setItem("user", user)
+			sessionStorage.setItem("user", JSON.stringify(user))
 			location.href = 'dashpage.html';
 		},
 		error: function (response) {

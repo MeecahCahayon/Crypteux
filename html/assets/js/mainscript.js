@@ -54,7 +54,7 @@ var onLoad = function() {
 			client_id: '331364600378-n4u9qepoebkc5fdib5jvop86fm44ff68.apps.googleusercontent.com'
 		});
 
-		auth2.attachClickHandler('signin-button', {}, onSuccess, onFailure);
+		auth2.attachClickHandler('customBtn', {}, onSuccess, onFailure);
 	})
 }
 
@@ -80,7 +80,6 @@ var onSuccess = function(user) {
 		data: {
 		},
 		success: function (response) {
-			console.log(token_id)
 			var user = {}
 			user.Id = profile.getId();
 			user.Name = profile.getName();

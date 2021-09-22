@@ -154,12 +154,10 @@ function displayCoin() {
 /*						  										*/
 /****************************************************************/
 // IF A COIN IS CLICKED
-$(document).ready(function() {
-	$(".coins").click(function() {
-
-		var selectedCoin = this.firstElementChild;
-		goto_coin(selectedCoin.id, selectedCoin.innerHTML);
-	});
+jQuery(document).on('click', '.coins', function() {
+    var selectedCoin = this.firstElementChild;
+	console.log(selectedCoin);
+	goto_coin(selectedCoin.id, selectedCoin.innerHTML);
 });
 
 function goto_coin(coinId, coinName) {

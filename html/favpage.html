@@ -23,13 +23,13 @@
 		<script type="text/javascript" src="assets/js/mainscript.js"></script>
 
 		<script>
-			if(sessionStorage.getItem('myUserEntity') == null){
+			if(sessionStorage.getItem('user') == null){
 				//Redirect to login page, no user entity available in sessionStorage
 				window.location.href='index.html';
 			} else {
 				//User already logged in
 				var userEntity = {};
-				userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+				userEntity = JSON.parse(sessionStorage.getItem('user'));
 			}
 		</script>
 

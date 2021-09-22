@@ -63,13 +63,6 @@ var onSuccess = function(user) {
 	console.log('Signed in as ' + user.getBasicProfile().getName());
 	var profile = user.getBasicProfile();
 
-	var myUserEntity = {};
-	myUserEntity.Id = profile.getId();
-	myUserEntity.Name = profile.getName();
-	
-	//Store the entity object in sessionStorage where it will be accessible from all pages of your site.
-	//sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
-
 	// send token to ajax
 	var token_id = user.getAuthResponse().id_token;
 
@@ -79,17 +72,23 @@ var onSuccess = function(user) {
 		url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/login',
 		
 		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded'
-			//'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'authorizationToken' : token_id
 		},
 		type: "POST",
 		dataType: "json",
 		data: {
-			//authorizationToken : token_id,
 		},
 		success: function (response) {
-			console.log(response);
-			store_session(response);
+			console.log(token_id)
+			var user = {}
+			user.Id = profile.getId();
+			user.Name = profile.getName();
+			user.email = profile.getEmail();
+			//user.picture = profile.getPicture();
+
+			sessionStorage.setItem("user", user)
+			location.href = 'dashpage.html';
 		},
 		error: function (response) {
 			console.log(response);;
@@ -102,10 +101,6 @@ var onFailure = function(error) {
 	console.log(error);
 }
 
-var store_session = function(response) {
-	sessionStorage.setItem(response);
-	location.href = 'dashpage.html';
-}
 
 /************************ FOR LOGGING OUT ***********************/
 /*						  										*/

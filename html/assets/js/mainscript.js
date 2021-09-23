@@ -86,55 +86,25 @@ $(document).ready(function() {
 		var token_id = sessionStorage.getItem("user").token;
 		var coin_id = "bitcoin";
 
-		$.ajax({
+		var url = "https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/watchlist";
 
-			// PUBLIC API
-			url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/coin',
-			// PRIVATE API
-			// url: 'https://zi7y07eh2h-vpc-3c41bf5a.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api-private/coins',
-			
-			headers: {
-				// 'Content-Type': 'application/x-www-form-urlencoded',
-				'Content-Type': 'application/json',
-				authorizationToken: token_id
-			},
-			type: "POST",
-			dataType: "json",
-			data: {
-				"coinID" : coin_id
-			},
-			success: function (response) {
-				console.log(response);
-			},
-			error: function (response) {
-				error_msg(response);
-			}
-		});
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", url);
 
-		$.ajax({
+		xhr.setRequestHeader("Accept", "application/json");
+		xhr.setRequestHeader("authorizationToken", "eyJhbGciOiJSUzI1NiIsImtpZCI6ImMzMTA0YzY4OGMxNWU2YjhlNThlNjdhMzI4NzgwOTUyYjIxNzQwMTciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiMzMxMzY0NjAwMzc4LW40dTlxZXBvZWJrYzVmZGliNWp2b3A4NmZtNDRmZjY4LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMzMxMzY0NjAwMzc4LW40dTlxZXBvZWJrYzVmZGliNWp2b3A4NmZtNDRmZjY4LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTE2MDcxNTQ2NjQwODQwMTk1Mzk5IiwiZW1haWwiOiJjb25ub3IuZ2F1dGhlcm5AZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJPc05maTJDRXpVaG5icXZaU3hrRE9nIiwibmFtZSI6IkNvbm5vciBKb25lcyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp5UkZlYjVaYVg4OVNwTG51RjJ4MnMtZmU3cjZ3OGl1Q0tuNG03Mj1zOTYtYyIsImdpdmVuX25hbWUiOiJDb25ub3IiLCJmYW1pbHlfbmFtZSI6IkpvbmVzIiwibG9jYWxlIjoiZW4iLCJpYXQiOjE2MzI0MDkwMDYsImV4cCI6MTYzMjQxMjYwNiwianRpIjoiMjBkZDk3YzM0YWFhN2FjOTM4NDI5OTY2OTNkMzYxYzA5MGU4ZmQyYSJ9.ZzCMsLgBhLVYnwTiM1ZI-Y0uzg9JasgHIj9VbevLKsMrvYepUGmpoENxQT5fuDJF_nNn5UdG0fUHtEeivmcVB0qAcScGnEj10bs3ripvBVoG91ZS7cLsex1Cq0SBYTfPy1OfTYkp64sXqk7gtpgxYjQHRSRwF_yN_MTkErYpcirwayFIkuoZzxHw8uYeERXRuLXrlZGZG8YozQcTiGHSypSWSgytPU0p9GG1pB-s0cFl5Aq1kd9YEIuGSMKWtSQOr8uzEnAdY9rOcoeMFhC2xml7wJrrDTTgkZWiniu95qomv0_QgVjgUXZIhq7z0UB_gTXSw2t_fmXtpRhh8e7zvA");
+		//xhr.setRequestHeader("Authorization", "Bearer .eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiMzMxMzY0NjAwMzc4LW40dTlxZXBvZWJrYzVmZGliNWp2b3A4NmZtNDRmZjY4LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMzMxMzY0NjAwMzc4LW40dTlxZXBvZWJrYzVmZGliNWp2b3A4NmZtNDRmZjY4LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTE2MDcxNTQ2NjQwODQwMTk1Mzk5IiwiZW1haWwiOiJjb25ub3IuZ2F1dGhlcm5AZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJ4WlA2VnZZUmhCOGZ5NVhwZ25vOWRRIiwibmFtZSI6IkNvbm5vciBKb25lcyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp5UkZlYjVaYVg4OVNwTG51RjJ4MnMtZmU3cjZ3OGl1Q0tuNG03Mj1zOTYtYyIsImdpdmVuX25hbWUiOiJDb25ub3IiLCJmYW1pbHlfbmFtZSI6IkpvbmVzIiwibG9jYWxlIjoiZW4iLCJpYXQiOjE2MzI0MDc2NjEsImV4cCI6MTYzMjQxMTI2MSwianRpIjoiZTVkNjM4NDQyYjA1YmIzM2YzZjkyMjVkMTgxMzE5ZGY4MzIzMDMzMyJ9.VOD0WHyP0OyhJGR9duPrrJQN8tQ4r9pg0r9tV1eRL2dBZb9j1q7JLPrMG9guPTnuq38ispwGvOT5wh8wG1Phltq04YTU4x99OFCSUYZNsNGaGipfJrP4b3uXOYyr7bKtVbcnN5Kgvc87xLD7hL8U46S4aqE-nPf2qbM_DbHJjxkRmC2cmbQ9VeG4hluVjmBy45zLKaa3Ex-MmoWX2macVDtLVkW57igxZB5QVVdB2-AOauLVXe_1_NedJLw0_LNqnsUwyj6eSD38U6wxR-WUyZhwBPfWBeHIIhAml-gPH-7FEDkM9Hgri7ij1NJpoex6iTZu91aLvxpY-4KhYpBXVQ");
+		xhr.setRequestHeader("Content-Type", "application/json");
 
-			// PUBLIC API
-			url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/watchlist',
-			// PRIVATE API
-			// url: 'https://zi7y07eh2h-vpc-3c41bf5a.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api-private/coins',
-			
-			headers: {
-				// 'Content-Type': 'application/x-www-form-urlencoded',
-				'Content-Type': 'application/json'
-				// authorizationToken: token_id
-			},
-			type: "POST",
-			dataType: "json",
-			data: {
-				"coinID" : coin_id
-			},
-			success: function (response) {
-				console.log(response);
-			},
-			error: function (response) {
-				error_msg(response);
-			}
-		});
+		xhr.onreadystatechange = function () {
+		if (xhr.readyState === 4) {
+			console.log(xhr.status);
+			console.log(xhr.responseText);
+		}};
+
+		var data = JSON.stringify({'coinID' : coin_id});
+
+		xhr.send(data);
 	});
 });
 

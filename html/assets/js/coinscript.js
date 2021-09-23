@@ -18,11 +18,11 @@ const dataType = {
 }
 
 const colors = {
-	lineColor: "#75586C",
+	lineColor_main: "#75586C",
+	lineColor_second: "#FFFFFF",
 	gridColor: "#3c3c3c",
 	fontColor: "#75586C",
-	tickColor: "#626262",
-	white: "#FFFFFF"
+	tickColor: "#626262"
 }
 
 /******************* FOR DISPLAYING COIN INFO *******************/
@@ -41,55 +41,30 @@ function get_coininfo() {
 	if (coinid != false) {
 
 		// GET MARKET DATA OF THE COIN AND STORE IT IN AN ARRAY
-		$.ajax({
-
-			// PUBLIC API
+		const mrkdata_request = {
 			url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/market-data',
-			// PRIVATE API
-			// url: 'https://zi7y07eh2h-vpc-3c41bf5a.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api-private/coins',
-			
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 			type: "GET",
 			dataType: "json",
-			data: {
-				coinID: coinid
-			},
-			success: function (response) {
-				store_coin_marketdata(response);
-				create_mrkdata_graph();
-				create_volume_graph();
-			},
-			error: function (response) {
-				error_msg(response);
-			}
-		});
+			data: { coinID: coinid }
+		};
 
-		// GET COIN OVERALL INFO
-		$.ajax({
+		get_coin(mrkdata_request, false, store_coin_marketdata);
 
-			// PUBLIC API
+		const kpi_request = {
 			url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/coin',
-			// PRIVATE API
-			// url: 'https://zi7y07eh2h-vpc-3c41bf5a.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api-private/coins',
-			
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 			type: "GET",
 			dataType: "json",
-			data: {
-				coinID: coinid
-			},
-			success: function (response) {
-				store_coin_kpi(response);
-				create_kpi();
-			},
-			error: function (response) {
-				error_msg(response);
-			}
-		});
+			data: { coinID: coinid }
+		};
+
+		get_coin(kpi_request, false, store_coin_kpi);
+
+		console.log("Hello");
+		create_mrkdata_graph();
+		create_volume_graph();
+		create_kpi();
 	}
 }
 
@@ -155,29 +130,13 @@ function create_mrkdata_graph() {
 		// SET X AXIS
 		labels: dates,
 		// SET THE DATA
-		datasets: [{
-
-			/******************** STYLING LINE ******************/
-			/* COLOURS */
-			backgroundColor: colors.lineColor,
-			borderColor: colors.lineColor,
-			/* FONTS */
-
-			/* STYLE */
-			borderWidth: 1,
-			fill: false,
-			lineTension: 0,
-			pointRadius: 0,
-			z: -2,
-			
-			// SET THE Y AXIS
-			data: coinPrice
-		},
+		datasets: [
+		// FOR moving_average_prices
 		{
 			/******************** STYLING LINE ******************/
 			/* COLOURS */
-			backgroundColor: colors.white,
-			borderColor: colors.white,
+			backgroundColor: colors.lineColor_second,
+			borderColor: colors.lineColor_second,
 			/* FONTS */
 
 			/* STYLE */
@@ -187,7 +146,27 @@ function create_mrkdata_graph() {
 			pointRadius: 0,
 			
 			// SET THE Y AXIS
-			data: moving_average_prices
+			data: moving_average_prices,
+			label: "Moving Average Prices"
+		},
+		// FOR COIN PRICE
+		{
+
+			/******************** STYLING LINE ******************/
+			/* COLOURS */
+			backgroundColor: colors.lineColor_main,
+			borderColor: colors.lineColor_main,
+			/* FONTS */
+
+			/* STYLE */
+			borderWidth: 2.5,
+			fill: false,
+			lineTension: 0,
+			pointRadius: 0,
+			
+			// SET THE Y AXIS
+			data: coinPrice,
+			label: "Coin Prices"
 		}]
 	}
 
@@ -198,7 +177,7 @@ function create_mrkdata_graph() {
 		plugins: {
 			// REMOVE LEGEND
 			legend: {
-				display: false,
+				display: true,
 			},
 			title: {
 				display: true,
@@ -306,12 +285,32 @@ function create_volume_graph() {
 		// SET X AXIS
 		labels: dates,
 		// SET THE DATA
-		datasets: [{
+		datasets: [
+		// FOR moving_average_volume
+		{
+			/******************** STYLING LINE ******************/
+			/* COLOURS */
+			backgroundColor: colors.lineColor_second,
+			borderColor: colors.lineColor_second,
+			/* FONTS */
+
+			/* STYLE */
+			borderWidth: 1,
+			fill: false,
+			lineTension: 0,
+			pointRadius: 0,
+			
+			// SET THE Y AXIS
+			data: moving_average_volume,
+			label: "Moving Average Volume"
+		},
+		// FOR VOLUME
+		{
 
 			/******************** STYLING LINE ******************/
 			/* COLOURS */
-			backgroundColor: colors.lineColor,
-			borderColor: colors.lineColor,
+			backgroundColor: colors.lineColor_main,
+			borderColor: colors.lineColor_main,
 			/* FONTS */
 
 			/* STYLE */
@@ -322,23 +321,8 @@ function create_volume_graph() {
 			z: -2,
 			
 			// SET THE Y AXIS
-			data: volumes
-		},
-		{
-			/******************** STYLING LINE ******************/
-			/* COLOURS */
-			backgroundColor: colors.white,
-			borderColor: colors.white,
-			/* FONTS */
-
-			/* STYLE */
-			borderWidth: 1,
-			fill: false,
-			lineTension: 0,
-			pointRadius: 0,
-			
-			// SET THE Y AXIS
-			data: moving_average_volume
+			data: volumes,
+			label: "Volume"
 		}]
 	}
 
@@ -349,7 +333,7 @@ function create_volume_graph() {
 		plugins: {
 			// REMOVE LEGEND
 			legend: {
-				display: false,
+				display: true,
 			},
 			title: {
 				display: true,
@@ -446,14 +430,15 @@ function create_volume_graph() {
 /**************************** Indicators ************************/
 /*						  										*/
 /****************************************************************/
-function simple_moving_average(datatype, range){
+function simple_moving_average(datatype, range) {
+
 	let moving_average = [];
+
 	// FOR EACH MARKET DATA
 	for (let i = 0; i < marketData.length; i++) {
 		if (i < range - 1){
 			moving_average[i] = 0;
-		}
-		else{
+		} else {
 			let sum = 0;
 			for (let j = i - range + 1; j <= i; j++){
 				if (datatype == dataType.PRICE){
@@ -523,44 +508,6 @@ function store_coin_marketdata(response) {
 	// PROCESS INDICATORS
 	moving_average_prices = simple_moving_average(dataType.PRICE, 10);
 	moving_average_volume = simple_moving_average(dataType.VOLUME, 50);
-
-	// // FOR TESTING
-	// let data = {
-
-	// 	amount: "123.45",
-	// 	date: new Date(1095684732),
-	// 	marketCap: 123456789,
-	// 	volume: 0
-	// };
-
-	// marketData.push(data);
-
-	// for (var i = 0; i < 10; i++) {
-
-	// 	let data = {
-
-	// 		amount: marketData[i].amount,
-	// 		date: marketData[i].date,
-	// 		marketCap: marketData[i].marketCap
-	// 	};
-
-	// 	console.log(data);
-	// }
-
-	// for (var i = 900; i < 910; i++) {
-
-	// 	let data = {
-
-	// 		amount: marketData[i].amount,
-	// 		date: marketData[i].date,
-	// 		marketCap: marketData[i].marketCap,
-	// 		volume: marketData[i].volume
-	// 	};
-
-	// 	console.log(data);
-	// }
-
-	// console.log(marketData.length);
 }
 
 function store_coin_kpi(response) {

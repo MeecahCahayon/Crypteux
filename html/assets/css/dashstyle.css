@@ -39,37 +39,5 @@
 /*************************** CONTENT ****************************/
 /*																*/
 /****************************************************************/
-/*********************  FOR THE LIST OF COINS  ******************/
-#searchList {
-  /* COLOURS */
-  /* FONTS */
-  /* STYLE */
-  /*column-count: 2;*/
-  /*column-gap: 10%;*/ }
-  #searchList p {
-    /* COLOURS */
-    /* FONTS */
-    /* STYLE */
-    margin: 5px 25px; }
-
-.coins {
-  /* COLOURS */
-  /* FONTS */
-  text-align: left;
-  /* STYLE */
-  display: grid;
-  grid-template-columns: 1.2fr 1fr 1fr;
-  border: 0.5px solid #74705d;
-  margin: 5px 25px;
-  padding: 15px; }
-
-.coinName {
-  grid-column-start: 1/2; }
-
-.all_time_price {
-  grid-column: 2/3; }
-
-.year_high_price {
-  grid-column: 3/4; }
 
 /*# sourceMappingURL=dashstyle.css.map */

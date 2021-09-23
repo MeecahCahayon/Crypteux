@@ -36,46 +36,5 @@
 /*************************** CONTENT ****************************/
 /*																*/
 /****************************************************************/
-/***************** FOR THE LIST OF FAVOURITE COIN ***************/
-/* LIST OF FAVOURITE COINS */
-#faveList {
-  /* COLOURS */
-  /* FONTS */
-  /* STYLE */ }
-  #faveList p {
-    /* COLOURS */
-    /* FONTS */
-    /* STYLE */
-    margin: 5px 25px; }
-
-/* CONTAINER INFO OF FAVOURITE COIN */
-.favecoins {
-  /* COLOURS */
-  /* FONTS */
-  text-align: left;
-  /* STYLE */
-  display: grid;
-  grid-template-columns: 1.2fr 1fr 1fr;
-  padding: 15px;
-  border: 0.5px solid #74705d;
-  margin: 5px 25px; }
-
-/* NAME OF THE FAVOURITE COINS */
-.favcoin {
-  /* COLOURS */
-  /* FONTS */
-  font-weight: 500;
-  font-size: large;
-  /* STYLE */
-  margin: 10px 25px; }
-
-.favcoin {
-  grid-column-start: 1/2; }
-
-.fave_all_time_price {
-  grid-column: 2/3; }
-
-.fave_year_high_price {
-  grid-column: 3/4; }
 
 /*# sourceMappingURL=favstyle.css.map */

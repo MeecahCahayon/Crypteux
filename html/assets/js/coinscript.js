@@ -40,6 +40,8 @@ function get_coininfo() {
 	var coinid = getQueryVariable("coinID");
 	if (coinid != false) {
 
+		$(".faveCoinBtn").attr('id', coinid);
+
 		// GET MARKET DATA OF THE COIN AND STORE IT IN AN ARRAY
 		const mrkdata_request = {
 			url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/market-data',

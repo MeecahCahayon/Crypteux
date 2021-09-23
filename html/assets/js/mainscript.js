@@ -115,7 +115,7 @@ function gotopage(pageID) {
 $(document).ready(function() {
 	$(".faveCoinBtn").click(function() {
 		
-		var coin_id = "bitcoin";
+		var coin_id = $(this).attr("id");
 
 		// SEND TOKEN TO AJAX
 		var token_id = JSON.parse(sessionStorage.getItem("user")).token;

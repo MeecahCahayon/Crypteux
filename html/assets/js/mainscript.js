@@ -81,9 +81,10 @@ var onSuccess = function(user) {
 		},
 		success: function (response) {
 			var user = {}
-			user.Id = profile.getId();
-			user.Name = profile.getName();
+			user.id = profile.getId();
+			user.name = profile.getName();
 			user.email = profile.getEmail();
+			user.token = token_id;
 			//user.picture = profile.getPicture();
 
 			sessionStorage.setItem("user", JSON.stringify(user))

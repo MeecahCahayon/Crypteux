@@ -19,6 +19,7 @@ function get_allCoins() {
 		type: "GET",
 		dataType: "json",
 		data: {
+			// user token
 		},
 		success: function (response) {
 			store_allCoins(response);
@@ -154,12 +155,10 @@ function displayCoin() {
 /*						  										*/
 /****************************************************************/
 // IF A COIN IS CLICKED
-$(document).ready(function() {
-	$(".coins").click(function() {
-
-		var selectedCoin = this.firstElementChild;
-		goto_coin(selectedCoin.id, selectedCoin.innerHTML);
-	});
+jQuery(document).on('click', '.coins', function() {
+    var selectedCoin = this.firstElementChild;
+	console.log(selectedCoin);
+	goto_coin(selectedCoin.id, selectedCoin.innerHTML);
 });
 
 function goto_coin(coinId, coinName) {
@@ -175,9 +174,6 @@ function goto_coin(coinId, coinName) {
 function error_msg(response) {
 	console.log(response);
 }
-
-
-
 
 
 // /*** CREATE EVENTS ***/

@@ -25,16 +25,25 @@
 		<script type="text/javascript" src="assets/js/mainscript.js"></script>
 		<script type="text/javascript" src="assets/js/dashscript.js"></script>
 		
+<<<<<<< HEAD
 		<!-- <script>
 			if(sessionStorage.getItem('myUserEntity') == null){
+=======
+		<script>
+			if(sessionStorage.getItem('user') == null){
+>>>>>>> 31c772330cc844858d5c0d33047b7a097e500032
 				//Redirect to login page, no user entity available in sessionStorage
 				window.location.href='index.html';
 			} else {
 				//User already logged in
 				var userEntity = {};
-				userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+				userEntity = sessionStorage.getItem('user');
 			}
+<<<<<<< HEAD
 		</script> -->
+=======
+		</script>
+>>>>>>> 31c772330cc844858d5c0d33047b7a097e500032
 
 		<!-- google platform lib -->
 		<script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>

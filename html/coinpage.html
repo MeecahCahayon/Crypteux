@@ -27,11 +27,13 @@
 		<script type="text/javascript" src="assets/js/coinscript.js"></script>
 
 		<script>
-			if(sessionStorage.getItem('user') == null){
-				//Redirect to login page, no user entity available in sessionStorage
+			if(sessionStorage.getItem('user') == null) {
+
+				// REDIRECT TO LOGIN PAGE, NO USER ENTITY AVAILABLE IN SESSIONSTORAGE
 				window.location.href='index.html';
 			} else {
-				//User already logged in
+				
+				// USER ALREADY LOGGED IN
 				var userEntity = {};
 				userEntity = JSON.parse(sessionStorage.getItem('user'));
 			}
@@ -72,6 +74,7 @@
 					<div id="coinContent">
 						<div class="secondHeadingPage">
 							<p id="coinName"></p>
+							<button class="faveCoinBtn"> Fave </button>
 						</div>
 					</div>
 				</section>

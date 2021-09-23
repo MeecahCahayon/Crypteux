@@ -1,7 +1,7 @@
-/******************* FOR DISPLAYING COIN INFO *******************/
+/*************************** VARIABLES **************************/
 /*						  										*/
 /****************************************************************/
-/*************************** VARIABLES **************************/
+
 const marketData = [];
 const kpiData = [];
 
@@ -25,6 +25,9 @@ const colors = {
 	white: "#FFFFFF"
 }
 
+/******************* FOR DISPLAYING COIN INFO *******************/
+/*						  										*/
+/****************************************************************/
 /*********************** DISPLAY COIN NAME **********************/
 
 function get_coininfo() {
@@ -80,7 +83,6 @@ function get_coininfo() {
 				coinID: coinid
 			},
 			success: function (response) {
-				console.log(response);
 				store_coin_kpi(response);
 				create_kpi();
 			},
@@ -139,8 +141,7 @@ function create_kpi() {
 	});
 }
 
-/*********************** DISPLAY COIN GRAPH *********************/
-/************************ MARKET DATA GRAPH *********************/
+/******************** DISPLAY MARKET DATA GRAPH *****************/
 
 function create_mrkdata_graph() {
 	
@@ -291,7 +292,7 @@ function create_mrkdata_graph() {
 	});
 }
 
-/*************************** VOLUME GRAPH ***********************/
+/*********************** DISPLAY VOLUME GRAPH *******************/
 
 function create_volume_graph() {
 
@@ -468,7 +469,6 @@ function simple_moving_average(datatype, range){
 	return moving_average;
 }
 
-
 /**************************** FUNCTIONS *************************/
 /*						  										*/
 /****************************************************************/
@@ -520,7 +520,7 @@ function store_coin_marketdata(response) {
 		volumes.push(eachData.volume);
 	});
 
-	//PROCESS INDICATORS
+	// PROCESS INDICATORS
 	moving_average_prices = simple_moving_average(dataType.PRICE, 10);
 	moving_average_volume = simple_moving_average(dataType.VOLUME, 50);
 
@@ -622,8 +622,4 @@ function store_coin_kpi(response) {
 	// PUSH TO KPI ARRAY
 	kpiData.push(alltime_data);
 	kpiData.push(yeartime_data);
-}
-
-function error_msg(response) {
-	console.log(response);
 }

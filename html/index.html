@@ -23,10 +23,12 @@
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script type="text/javascript" src="assets/js/mainscript.js"></script>
+		<script type="text/javascript" src="assets/js/indexscript.js"></script>
 
 		<script>
-			if(sessionStorage.getItem('user') != null){
-				//Redirect to login page, no user entity available in sessionStorage
+			if(sessionStorage.getItem('user') != null) {
+				
+				// REDIRECT TO LOGIN PAGE, NO USER ENTITY AVAILABLE IN SESSIONSTORAGE
 				window.location.href='dashpage.html';
 			}
 		</script>

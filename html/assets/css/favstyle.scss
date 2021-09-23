@@ -28,7 +28,6 @@ $clr-main-bk-border: $palette-old-grey;
 /********************  MAIN SECTION PAGE GRID  ******************/
 
 #mainGrid { grid-template-columns: 1fr 5fr 1fr; grid-gap: 5px; }
-/*#mainGrid { grid-template-rows: 0.30fr 2fr; }*/
 #mainGrid { grid-template-rows: auto auto; }
 
 /* MAIN CONTENT */
@@ -53,8 +52,6 @@ $clr-main-bk-border: $palette-old-grey;
 	/* COLOURS */
 	/* FONTS */
 	/* STYLE */
-	/*column-count: 2;
-	column-gap: 5%;*/
 
 	p {
 

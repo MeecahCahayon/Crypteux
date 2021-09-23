@@ -88,24 +88,30 @@ $(document).ready(function() {
 	});
 });
 
-// click search button
+// WHEN SEARCH BUTTON IS CLICKED
 $(document).ready(function() {
 	$("#coinSearchBtn").click(function() {
 		searchCoin();
 	});
 });
 
+// 
 function searchCoin() {
-	// clear div and array
+
+	// CLEAR DIV AND ARRAY
 	searchedCoins.length = [];
 
 	var userInput = $.trim($("#coinSearchInput").val());
 
 	// CHECK IF THERE'S AN INPUT TO SEARCH
 	if (userInput != "") {
+
 		userInput.toLowerCase();
-		// check if search matches name or symbol
+
+		// CHECK IF SEARCH MATCHES NAME OR SYMBOL
 		$.each(coins, function(_,obj) {
+
+			// IF IT MATCHES PUSH TO SEARCHEDCOINS ARRAY
 			if (obj.coinName.toLowerCase().indexOf(userInput) != -1) {
 				searchedCoins.push(obj);
 			}
@@ -114,17 +120,20 @@ function searchCoin() {
 				console.log(obj);
 			}
 		});
-		// display coin on dashpage
+
+		// DISPLAY COINS ON DASHPAGE
 		displayCoin();
 	}
 }
 
 function displayCoin() {
-	// clear div
-	$( "#searchList" ).empty();
 
-	// insert each coin into html
+	// CLEAR DIV
+	$("#searchList").empty();
+
+	// INSERT EACH COIN INTO HTML
 	$.each(searchedCoins, function(_, obj) {
+
 		var container = $("<div></div>");
 		container.addClass("coins");
 
@@ -148,56 +157,23 @@ function displayCoin() {
 		container.append(year_high);
 		$("#searchList").append(container);
 	})
+
 	return;
 }
 
 /************************ FOR CLICKING COINS ********************/
 /*						  										*/
 /****************************************************************/
+
 // IF A COIN IS CLICKED
 jQuery(document).on('click', '.coins', function() {
-    var selectedCoin = this.firstElementChild;
-	console.log(selectedCoin);
+
+	var selectedCoin = this.firstElementChild;
 	goto_coin(selectedCoin.id, selectedCoin.innerHTML);
+
 });
 
 function goto_coin(coinId, coinName) {
 
 	window.location.href = encodeURI("coinpage.html?coinID=" + coinId + "&coinName=" + coinName);
 }
-
-
-/************************ API CALL FUNCTIONS ********************/
-/*						  										*/
-/****************************************************************/
-
-function error_msg(response) {
-	console.log(response);
-}
-
-
-// /*** CREATE EVENTS ***/
-// // SEARCH EVERYTIME USER ENTER A CHAR
-// _widgetUI.searchInput.addEventListener("keyup", function(event) {
-
-// 	// WHEN ENTER KEY IS PRESSED, TRIGGER BUTTON CLICK
-// 	if(event.key === 'Enter') {
-// 		_widgetUI.searchBtn.click();
-// 	}
-
-// 	// CHANGE THE MORE/LESS BUTTON INNERHTML TO 'MORE'
-// 	_widgetUI.moreBtn.innerHTML = _contElemMoreBtn;
-
-// 	// SEARCH THE RECIPE FROM THE DATABASE
-// 	_getSearchRecipe(_widgetUI.searchInput.value);
-// });
-
-// // WHEN SEARCH BUTTON IS PRESS
-// _widgetUI.searchBtn.onclick = function() {
-	
-// 	// CHANGE THE MORE/LESS BUTTON INNERHTML TO 'MORE'
-// 	_widgetUI.moreBtn.innerHTML = _contElemMoreBtn;
-
-// 	// SEARCH THE RECIPE FROM THE DATABASE
-// 	_getSearchRecipe(_widgetUI.searchInput.value);
-// }

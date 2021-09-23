@@ -11,8 +11,8 @@ function get_faveCoins() {
 		
 		headers: {
 			//'Content-Type': 'application/x-www-form-urlencoded',\
-            'Content-Type': 'application/json',
-            authorizationToken: token_id
+			'Content-Type': 'application/json',
+			authorizationToken: token_id
 		},
 		type: "GET",
 		dataType: "json",
@@ -86,9 +86,11 @@ function displayCoin() {
 /****************************************************************/
 // IF A COIN IS CLICKED
 jQuery(document).on('click', '.coins', function() {
+
     var selectedCoin = this.firstElementChild;
 	console.log(selectedCoin);
 	goto_coin(selectedCoin.id, selectedCoin.innerHTML);
+	
 });
 
 function goto_coin(coinId, coinName) {

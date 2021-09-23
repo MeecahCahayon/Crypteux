@@ -76,9 +76,11 @@ $clr-main-bk-border: $palette-old-grey;
 	white-space: nowrap;
 	z-index: 1;
 }
+
 #customBtn:hover {
 	cursor: pointer;
 }
+
 span.icon {
 	background: url('../google_signin_buttons/web/1x/btn_google_signin_light_normal_web.png') transparent 5px 50% no-repeat;
 	display: inline-block;

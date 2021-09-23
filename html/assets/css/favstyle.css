@@ -19,7 +19,6 @@
   grid-template-columns: 1fr 5fr 1fr;
   grid-gap: 5px; }
 
-/*#mainGrid { grid-template-rows: 0.30fr 2fr; }*/
 #mainGrid {
   grid-template-rows: auto auto; }
 
@@ -42,9 +41,7 @@
 #faveList {
   /* COLOURS */
   /* FONTS */
-  /* STYLE */
-  /*column-count: 2;
-  column-gap: 5%;*/ }
+  /* STYLE */ }
   #faveList p {
     /* COLOURS */
     /* FONTS */

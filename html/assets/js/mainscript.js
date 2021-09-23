@@ -43,70 +43,12 @@ function ajaxJquery(url, callback) {
 
 function handleError(error) { console.log(error); }
 
-/************************ FOR LOGGING IN ************************/
-/*						  										*/
-/****************************************************************/
-var onLoad = function() {
-	var auth2;
-	gapi.load('auth2', function() {
-		// load gapi lib
-		auth2 = gapi.auth2.init({
-			client_id: '331364600378-n4u9qepoebkc5fdib5jvop86fm44ff68.apps.googleusercontent.com'
-		});
-
-		auth2.attachClickHandler('customBtn', {}, onSuccess, onFailure);
-	})
-}
-
-// successful login
-var onSuccess = function(user) {
-	console.log('Signed in as ' + user.getBasicProfile().getName());
-	var profile = user.getBasicProfile();
-
-	// send token to ajax
-	var token_id = user.getAuthResponse().id_token;
-
-	$.ajax({
-
-		// PUBLIC API
-		url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/login',
-		
-		headers: {
-			'Content-Type': 'application/json',
-			'authorizationToken' : token_id
-		},
-		type: "POST",
-		dataType: "json",
-		data: {
-		},
-		success: function (response) {
-			var user = {}
-			user.id = profile.getId();
-			user.name = profile.getName();
-			user.email = profile.getEmail();
-			user.token = token_id;
-			//user.picture = profile.getPicture();
-
-			sessionStorage.setItem("user", JSON.stringify(user))
-			location.href = 'dashpage.html';
-		},
-		error: function (response) {
-			console.log(response);;
-		},
-	});
-}
-
-// failed login
-var onFailure = function(error) {
-	console.log(error);
-}
-
-
 /************************ FOR LOGGING OUT ***********************/
 /*						  										*/
 /****************************************************************/
 function logout() {
-	//Don't forget to clear sessionStorage when user logs out
+
+	// DONT FORGET TO CLEAR SESSION STORAGE WHEN USER LOGS OUT
 	sessionStorage.clear()
 	var auth2 = gapi.auth2.getAuthInstance();
 		auth2.signOut().then(function () {
@@ -117,6 +59,7 @@ function logout() {
 /************************ FOR ACTIVE MENU ***********************/
 /*						  										*/
 /****************************************************************/
+
 // DIRECT USER TO THE PAGE AND MAKE IT THE ACTIVE PAGE
 function gotopage(pageID) {
 
@@ -129,4 +72,76 @@ function gotopage(pageID) {
 			window.location.replace("favpage.html");
 			break;
 	}
+}
+
+/*********************** ADDING COIN TO FAVE ********************/
+/*						  										*/
+/****************************************************************/
+
+// WHEN ADD TO FAVE BUTTON IS CLICKED
+$(document).ready(function() {
+	$(".faveCoinBtn").click(function() {
+		
+		// SEND TOKEN TO AJAX
+		var token_id = sessionStorage.getItem("user").token;
+		var coin_id = "bitcoin";
+
+		$.ajax({
+
+			// PUBLIC API
+			url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/coin',
+			// PRIVATE API
+			// url: 'https://zi7y07eh2h-vpc-3c41bf5a.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api-private/coins',
+			
+			headers: {
+				// 'Content-Type': 'application/x-www-form-urlencoded',
+				'Content-Type': 'application/json',
+				authorizationToken: token_id
+			},
+			type: "POST",
+			dataType: "json",
+			data: {
+				"coinID" : coin_id
+			},
+			success: function (response) {
+				console.log(response);
+			},
+			error: function (response) {
+				error_msg(response);
+			}
+		});
+
+		$.ajax({
+
+			// PUBLIC API
+			url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/watchlist',
+			// PRIVATE API
+			// url: 'https://zi7y07eh2h-vpc-3c41bf5a.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api-private/coins',
+			
+			headers: {
+				// 'Content-Type': 'application/x-www-form-urlencoded',
+				'Content-Type': 'application/json'
+				// authorizationToken: token_id
+			},
+			type: "POST",
+			dataType: "json",
+			data: {
+				"coinID" : coin_id
+			},
+			success: function (response) {
+				console.log(response);
+			},
+			error: function (response) {
+				error_msg(response);
+			}
+		});
+	});
+});
+
+/************************ API CALL FUNCTIONS ********************/
+/*						  										*/
+/****************************************************************/
+
+function error_msg(response) {
+	console.log(response);
 }

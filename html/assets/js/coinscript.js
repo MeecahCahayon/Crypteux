@@ -8,12 +8,21 @@ const kpiData = [];
 const coinPrice = [];
 const dates = [];
 const volumes = [];
+var moving_average_prices = [];
+var moving_average_volume = [];
+
+const dataType = {
+	VOLUME: "volume",
+	PRICE: "price",
+	MARKET_CAP: "market cap"
+}
 
 const colors = {
 	lineColor: "#75586C",
 	gridColor: "#3c3c3c",
 	fontColor: "#75586C",
-	tickColor: "#626262"
+	tickColor: "#626262",
+	white: "#FFFFFF"
 }
 
 /*********************** DISPLAY COIN NAME **********************/
@@ -158,9 +167,26 @@ function create_mrkdata_graph() {
 			fill: false,
 			lineTension: 0,
 			pointRadius: 0,
+			z: -2,
 			
 			// SET THE Y AXIS
 			data: coinPrice
+		},
+		{
+			/******************** STYLING LINE ******************/
+			/* COLOURS */
+			backgroundColor: colors.white,
+			borderColor: colors.white,
+			/* FONTS */
+
+			/* STYLE */
+			borderWidth: 1,
+			fill: false,
+			lineTension: 0,
+			pointRadius: 0,
+			
+			// SET THE Y AXIS
+			data: moving_average_prices
 		}]
 	}
 
@@ -292,9 +318,26 @@ function create_volume_graph() {
 			fill: true,
 			lineTension: 0,
 			pointRadius: 0,
+			z: -2,
 			
 			// SET THE Y AXIS
 			data: volumes
+		},
+		{
+			/******************** STYLING LINE ******************/
+			/* COLOURS */
+			backgroundColor: colors.white,
+			borderColor: colors.white,
+			/* FONTS */
+
+			/* STYLE */
+			borderWidth: 1,
+			fill: false,
+			lineTension: 0,
+			pointRadius: 0,
+			
+			// SET THE Y AXIS
+			data: moving_average_volume
 		}]
 	}
 
@@ -399,6 +442,33 @@ function create_volume_graph() {
 	});
 }
 
+/**************************** Indicators ************************/
+/*						  										*/
+/****************************************************************/
+function simple_moving_average(datatype, range){
+	let moving_average = [];
+	// FOR EACH MARKET DATA
+	for (let i = 0; i < marketData.length; i++) {
+		if (i < range - 1){
+			moving_average[i] = 0;
+		}
+		else{
+			let sum = 0;
+			for (let j = i - range + 1; j <= i; j++){
+				if (datatype == dataType.PRICE){
+					sum += parseFloat(marketData[j].amount);
+				}
+				else if (datatype == dataType.VOLUME){
+					sum += parseFloat(marketData[j].volume);
+				}
+			}
+			moving_average[i] = sum / range;
+		}
+	}
+	return moving_average;
+}
+
+
 /**************************** FUNCTIONS *************************/
 /*						  										*/
 /****************************************************************/
@@ -425,7 +495,6 @@ function store_coin_marketdata(response) {
 
 	// FOR EACH MARKET DATA
 	$.each(response, function(resIndex, eachData) {
-
 		let data = {
 
 			amount: eachData.dollar_price + "." + eachData.cent_price,
@@ -450,6 +519,10 @@ function store_coin_marketdata(response) {
 		coinPrice.push(eachData.amount);
 		volumes.push(eachData.volume);
 	});
+
+	//PROCESS INDICATORS
+	moving_average_prices = simple_moving_average(dataType.PRICE, 10);
+	moving_average_volume = simple_moving_average(dataType.VOLUME, 50);
 
 	// // FOR TESTING
 	// let data = {

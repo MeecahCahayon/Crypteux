@@ -21,6 +21,7 @@
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script type="text/javascript" src="assets/js/mainscript.js"></script>
+		<script type="text/javascript" src="assets/js/favescript.js"></script>
 
 		<script>
 			if(sessionStorage.getItem('user') == null){
@@ -37,7 +38,7 @@
 		<script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
 
 	</head>
-	<body>
+	<body onload="get_faveCoins()">
 		<div class="outerDiv" id="pageOuterDiv">
 
 			<!-- HEADER -->
@@ -79,6 +80,8 @@
 							
 							<div class="favecoins">
 								<p class="favcoin" id="bitcoin">Bitcoin</p>
+								<p class="fav_all_time_high_price">All Time High: ??????</p>
+								<p class="fave_year_high_price">Year High: ??????</p>
 							</div>
 							<div class="favecoins">
 								<p class="favcoin" id="ethereum">Ethereum</p>

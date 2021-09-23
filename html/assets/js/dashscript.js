@@ -19,6 +19,7 @@ function get_allCoins() {
 		type: "GET",
 		dataType: "json",
 		data: {
+			// user token
 		},
 		success: function (response) {
 			store_allCoins(response);
@@ -173,9 +174,6 @@ function goto_coin(coinId, coinName) {
 function error_msg(response) {
 	console.log(response);
 }
-
-
-
 
 
 // /*** CREATE EVENTS ***/

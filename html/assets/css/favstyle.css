@@ -16,11 +16,12 @@
 /****************************************************************/
 /********************  MAIN SECTION PAGE GRID  ******************/
 #mainGrid {
-  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-columns: 1fr 5fr 1fr;
   grid-gap: 5px; }
 
+/*#mainGrid { grid-template-rows: 0.30fr 2fr; }*/
 #mainGrid {
-  grid-template-rows: 0.30fr 2fr; }
+  grid-template-rows: auto auto; }
 
 /* MAIN CONTENT */
 #favHeadingGrid, #faveCoinsGrid {
@@ -42,16 +43,25 @@
   /* COLOURS */
   /* FONTS */
   /* STYLE */
-  column-count: 2;
-  column-gap: 5%; }
+  /*column-count: 2;
+  column-gap: 5%;*/ }
+  #faveList p {
+    /* COLOURS */
+    /* FONTS */
+    /* STYLE */
+    margin: 5px 25px; }
 
 /* CONTAINER INFO OF FAVOURITE COIN */
 .favecoins {
   /* COLOURS */
   /* FONTS */
+  text-align: left;
   /* STYLE */
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  padding: 15px;
   border: 0.5px solid #74705d;
-  margin: 10px 25px; }
+  margin: 5px 25px; }
 
 /* NAME OF THE FAVOURITE COINS */
 .favcoin {
@@ -61,5 +71,14 @@
   font-size: large;
   /* STYLE */
   margin: 10px 25px; }
+
+.favcoin {
+  grid-column-start: 1/2; }
+
+.fave_all_time_price {
+  grid-column: 2/3; }
+
+.fave_year_high_price {
+  grid-column: 3/4; }
 
 /*# sourceMappingURL=favstyle.css.map */

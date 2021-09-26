@@ -39,6 +39,23 @@
 /*************************** CONTENT ****************************/
 /*																*/
 /****************************************************************/
+/*************************** SUBHEADING *************************/
+.pumpwarning {
+  /* COLOURS */
+  background-color: #75605E;
+  color: #2E2D38;
+  /* FONTS */
+  font-family: "Cutive Mono", monospace;
+  font-weight: 800;
+  /* STYLE */
+  display: none;
+  border: 0.5px solid #75605E;
+  border-radius: 10px; }
+  .pumpwarning p {
+    /* COLOURS */
+    /* FONTS */
+    /* STYLE */ }
+
 /************************ COIN KPI SECTION **********************/
 /* COINTER LIST OF KPI */
 #coinKpiContent {
@@ -138,17 +155,5 @@
   border-radius: 10px;
   padding: 0 5% 1% 5%;
   margin: 20px; }
-
-#marketData {
-  /* COLOURS */
-  /*background-color: $clr-main-bk-kpi;*/
-  /* FONTS */
-  /* STYLE */ }
-
-#volumeData {
-  /* COLOURS */
-  /*background-color: $clr-main-bk-kpi;*/
-  /* FONTS */
-  /* STYLE */ }
 
 /*# sourceMappingURL=coinstyle.css.map */

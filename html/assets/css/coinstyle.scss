@@ -14,6 +14,7 @@ $palette-light-purple: #686385;
 $palette-dark-purple: #2E2D38;
 $palette-light-magenta: #916C85;
 $palette-old-grey: #74705d;
+$palette-faded-brown: #75605E;
 
 /*****************************  FONTS  **************************/
 $fnt-share-tech: 'Share Tech Mono', monospace;
@@ -24,10 +25,12 @@ $fnt-majordisplay: 'Major Mono Display', monospace;
 /* BACKGROUNDS */
 $clr-main-bk-kpi: $palette-dark-purple;
 $clr-main-bk-border: $palette-old-grey;
+$clr-main-bk-warning: $palette-faded-brown;
 
 /* FONT COLOUR */
 $clr-main-font-kpi: $palette-light-purple;
 $clr-main-font-kpiamount: $palette-light-magenta;
+$clr-main-font-warning: $palette-dark-purple;
 
 /************************ GRID TEMPLATE *************************/
 /*						IF NOT USING DEFAULT					*/
@@ -52,6 +55,29 @@ $clr-main-font-kpiamount: $palette-light-magenta;
 /*************************** CONTENT ****************************/
 /*																*/
 /****************************************************************/
+/*************************** SUBHEADING *************************/
+.pumpwarning {
+
+	/* COLOURS */
+	background-color: $clr-main-bk-warning;
+	color: $clr-main-font-warning;
+
+	/* FONTS */
+	font-family: $fnt-cutivemono;
+	font-weight: 800;
+
+	/* STYLE */
+	display: none;
+	border: 0.5px solid $clr-main-bk-warning;
+	border-radius: 10px;
+
+	p {
+		/* COLOURS */
+		/* FONTS */
+		/* STYLE */
+	}
+}
+
 /************************ COIN KPI SECTION **********************/
 
 /* COINTER LIST OF KPI */
@@ -181,22 +207,4 @@ $clr-main-font-kpiamount: $palette-light-magenta;
 	border-radius: 10px;
 	padding: 0 5% 1% 5%;
 	margin: 20px;
-}
-
-#marketData {
-
-	/* COLOURS */
-	/*background-color: $clr-main-bk-kpi;*/
-
-	/* FONTS */
-	/* STYLE */
-}
-
-#volumeData {
-
-	/* COLOURS */
-	/*background-color: $clr-main-bk-kpi;*/
-
-	/* FONTS */
-	/* STYLE */
 }

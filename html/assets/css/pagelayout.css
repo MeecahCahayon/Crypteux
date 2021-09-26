@@ -142,6 +142,22 @@ body {
     /* STYLE */
     margin: 0; }
 
+.secondSubHeading {
+  /* COLOURS */
+  /* FONTS */
+  font-family: "Cutive Mono", monospace;
+  font-size: 1.5vh;
+  font-weight: 100;
+  /* STYLE */
+  border: 0.5px solid #74705d;
+  border-radius: 10px;
+  margin: 20px 30%; }
+  .secondSubHeading p {
+    /* COLOURS */
+    /* FONTS */
+    /* STYLE */
+    margin: 10px; }
+
 /****************************  INPUTS  **************************/
 .searchInput {
   /* COLOURS */

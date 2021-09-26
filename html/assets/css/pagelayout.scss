@@ -18,6 +18,7 @@ $palette-dark-magenta: #382D33;
 
 $palette-light-grey: #d8d8d8;
 $palette-old-grey: #74705d;
+$palette-faded-brown: #75605E;
 
 /*****************************  FONTS  **************************/
 $fnt-share-tech: 'Share Tech Mono', monospace;
@@ -194,6 +195,28 @@ body {
 		margin: 0;
 	}
 
+}
+
+.secondSubHeading {
+
+	/* COLOURS */
+
+	/* FONTS */
+	font-family: $fnt-cutivemono;
+	font-size: 1.5vh;
+	font-weight: 100;
+
+	/* STYLE */
+	border: 0.5px solid $clr-main-bk-border;
+	border-radius: 10px;
+	margin: 20px 30%;
+
+	p {
+		/* COLOURS */
+		/* FONTS */
+		/* STYLE */
+		margin: 10px;
+	}
 }
 
 /****************************  INPUTS  **************************/

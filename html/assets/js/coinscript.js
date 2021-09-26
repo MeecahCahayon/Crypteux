@@ -4,6 +4,8 @@
 /****************************** DATA ****************************/
 const marketData = [];
 const kpiData = [];
+// 0 = FALSE; 1 = TRUE
+var isPumped = 0;
 
 /***************************** GRAPH ****************************/
 // Y-AXIS
@@ -18,7 +20,6 @@ var indicatorCount = 0;
 
 // X-AXIS
 const dates = [];
-
 
 /**************************** OBJECTS ***************************/
 const dataType = {
@@ -82,10 +83,17 @@ function get_coininfo() {
 }
 
 /************************ DISPLAY COIN KPI **********************/
-
 function create_kpi() {
 
-	// FOR EACH KPI
+	/* FOR PUMPED KPI */
+	// IF isPumped IS TRUE
+	if (isPumped == 1) {
+		$(".secondSubHeading").show();
+	} else {
+		$(".secondSubHeading").hide();
+	}
+
+	/* FOR EACH KPI */
 	$.each(kpiData, function (resIndex, eachData) {
 
 		/***** CREATE KPI CONTAINER *****/
@@ -933,6 +941,12 @@ function store_coin_marketdata(response) {
 }
 
 function store_coin_kpi(response) {
+
+	console.log(response);
+	/************************** PUMPED KPI **********************/
+	if (response[0].pumped != null) {
+		isPumped = response[0].pumped;
+	}
 
 	/********************** ALL TIME HIGH KPI *******************/
 	// GET VARIABLES

@@ -124,11 +124,8 @@ $(document).ready(function() {
 
 			// PUBLIC API
 			url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/watchlist',
-			// PRIVATE API
-			// url: 'https://zi7y07eh2h-vpc-3c41bf5a.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api-private/coins',
 			
 			headers: {
-				// 'Content-Type': 'application/x-www-form-urlencoded',
 				'Content-Type': 'application/json',
 				authorizationToken: token_id
 			},
@@ -136,8 +133,7 @@ $(document).ready(function() {
 			dataType: "json",
 			data: JSON.stringify({'coinID' : coin_id}),
 			success: function (response) {
-				// store_faveCoins(response);
-				console.log(response);
+				//console.log(response);
 			},
 			error: function (response) {
 				error_msg(response);

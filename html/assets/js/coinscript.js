@@ -672,7 +672,7 @@ function create_indicator_graph() {
 					}
 				},
 
-				grace: '100%',
+				max: indicatorCount,
 
 				// Y-AXIS DATA
 				ticks: {
@@ -686,6 +686,13 @@ function create_indicator_graph() {
 						family: "'Cutive Mono', monospace",
 						size: 15,
 						weight: 500
+					},
+
+					callback: function(indicatorValue) {
+
+						var yData = [];
+						if ((indicatorValue%1) == 0) { yData.push(indicatorValue); }
+						return yData;
 					}
 				},
 

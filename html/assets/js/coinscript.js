@@ -64,7 +64,7 @@ function get_coin_data() {
 	coinid = getQueryVariable("coinID");
 	if (coinid != false) {
 
-		// CHECK IF ITS WACTHLISTED
+		// CHECK IF WACTHLISTED IS SAVE
 		if (sessionStorage.getItem('watchlist') == null) {
 
 			get_watchlist();
@@ -80,7 +80,7 @@ function get_coin_data() {
 				isWatchlisted = true;
 				return;
 			}
-		})
+		});
 
 		// SET BUTTON CONFIGURATION
 		$(".watchlistBtn").attr('id', coinid);

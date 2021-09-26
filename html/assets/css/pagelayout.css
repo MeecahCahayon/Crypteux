@@ -158,6 +158,32 @@ body {
     /* STYLE */
     margin: 10px; }
 
+/*************************  PLACEHOLDER  ************************/
+.placeholder {
+  /* COLOURS */
+  background-color: #75605E;
+  color: #2E2D38;
+  /* FONTS */
+  font-family: "Cutive Mono", monospace;
+  font-weight: 800;
+  /* STYLE */
+  border: 0.5px solid #75605E;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center; }
+  .placeholder p {
+    /* COLOURS */
+    /* FONTS */
+    /* STYLE */
+    margin: 20px 0; }
+
+#sadface {
+  /* COLOURS */
+  /* FONTS */
+  font-size: 3vh;
+  /* STYLE */
+  margin: 15px; }
+
 /****************************  INPUTS  **************************/
 .searchInput {
   /* COLOURS */
@@ -200,7 +226,7 @@ button {
 .watchlistBtn {
   /* COLOURS */
   /* FONTS */
-  font-size: 2.5vh;
+  font-size: 1.5vh;
   /* STYLE */
   margin: 5px 20px;
   padding: 5px 20px; }
@@ -214,7 +240,28 @@ button {
     /* COLOURS */
     /* FONTS */
     /* STYLE */
+    /*margin: 5px 25px;*/ }
+
+.coinlistCont {
+  /* COLOURS */
+  /* FONTS */
+  /* STYLE */
+  display: grid;
+  grid-template-columns: 4fr .5fr;
+  border: 0.5px solid #74705d;
+  margin: 5px 25px;
+  padding: 15px; }
+  .coinlistCont p {
+    /* COLOURS */
+    /* FONTS */
+    /* STYLE */
     margin: 5px 25px; }
+
+.coins {
+  grid-column: 1/2; }
+
+.watchlistBtnCont {
+  grid-column: 2/3; }
 
 .coins {
   /* COLOURS */
@@ -223,12 +270,11 @@ button {
   /* STYLE */
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr;
-  border: 0.5px solid #74705d;
-  margin: 5px 25px;
-  padding: 15px; }
+  margin: 6px;
+  cursor: pointer; }
 
 .coinName {
-  grid-column-start: 1/2; }
+  grid-column: 1/2; }
 
 .all_time_price {
   grid-column: 2/3; }

@@ -33,6 +33,7 @@ $clr-main-bk-body: $palette-dark-grey;
 $clr-main-bk-border: $palette-old-grey;
 $clr-main-bk-btn: $palette-dark-grey;
 $clr-main-bk-input: $palette-dark-grey;
+$clr-main-bk-warning: $palette-faded-brown;
 
 /* FONT COLOUR */
 $clr-main-font-head: $palette-light-purple;
@@ -40,6 +41,7 @@ $clr-main-font-body: $palette-light-magenta;
 $clr-main-font-foot: $palette-old-grey;
 $clr-main-font-btn: $palette-light-magenta;
 $clr-main-font-input: $palette-light-magenta;
+$clr-main-font-warning: $palette-dark-purple;
 
 /************************ OVERALL STYLE *************************/
 /*																*/
@@ -218,6 +220,41 @@ body {
 	}
 }
 
+/*************************  PLACEHOLDER  ************************/
+.placeholder {
+
+	/* COLOURS */
+	background-color: $clr-main-bk-warning;
+	color: $clr-main-font-warning;
+
+	/* FONTS */
+	font-family: $fnt-cutivemono;
+	font-weight: 800;
+
+	/* STYLE */
+	border: 0.5px solid $clr-main-bk-warning;
+	border-radius: 10px;
+	display: flex;
+	justify-content: center;
+
+
+	p {
+		/* COLOURS */
+		/* FONTS */
+		/* STYLE */
+		margin: 20px 0;
+	}
+}
+
+#sadface {
+
+	/* COLOURS */
+	/* FONTS */
+	font-size: 3vh;
+	/* STYLE */
+	margin: 15px;
+}
+
 /****************************  INPUTS  **************************/
 .searchInput {
 
@@ -275,7 +312,7 @@ button {
 
 	/* COLOURS */
 	/* FONTS */
-	font-size: 2.5vh;
+	font-size: 1.5vh;
 	/* STYLE */
 	margin: 5px 20px;
 	padding: 5px 20px;
@@ -294,9 +331,32 @@ button {
 		/* COLOURS */
 		/* FONTS */
 		/* STYLE */
+		/*margin: 5px 25px;*/
+	}
+}
+
+.coinlistCont {
+
+	/* COLOURS */
+	/* FONTS */
+	/* STYLE */
+	display: grid;
+	grid-template-columns: 4fr .5fr;
+
+	border: 0.5px solid $clr-main-bk-border;
+	margin: 5px 25px;
+	padding: 15px;
+
+	p {
+		/* COLOURS */
+		/* FONTS */
+		/* STYLE */
 		margin: 5px 25px;
 	}
 }
+
+.coins { grid-column: 1/2; }
+.watchlistBtnCont { grid-column: 2/3; }
 
 .coins {
 
@@ -307,12 +367,11 @@ button {
 	/* STYLE */
 	display: grid;
 	grid-template-columns: 1.2fr 1fr 1fr;
-	
-	border: 0.5px solid $clr-main-bk-border;
-	margin: 5px 25px;
-	padding: 15px;
+
+	margin: 6px;
+	cursor: pointer;
 }
 
-.coinName { grid-column-start: 1/2; }
+.coinName { grid-column: 1/2; }
 .all_time_price { grid-column: 2/3; }
 .year_high_price { grid-column: 3/4; }

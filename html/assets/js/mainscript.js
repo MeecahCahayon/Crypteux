@@ -151,8 +151,8 @@ var unfaveBtnClass = "unfaveCoinBtn";
 
 // WHEN UNFAVE BUTTON IS CLICKED - MAKE COIN FAVE
 $(document).ready(function() {
-	$(".watchlistBtn").click(function() {
-		
+	$(document).on('click', '.watchlistBtn', function() {
+
 		var coin_id = $(this).attr("id");
 		var coin_class = $(this).attr("class");
 		var coin_classes = coin_class.split(" ");
@@ -179,12 +179,14 @@ $(document).ready(function() {
 
 				get_coin(request, false, get_watchlist);
 
-				// SET BUTTON CONFIGURATION
-				$("#watchlistedIcon").removeClass();
-				$("#watchlistedIcon").addClass(watchlistedIcon);
-				
-				$(".watchlistBtn").addClass(faveBtnClass);
-				$(".watchlistBtn").removeClass(unfaveBtnClass);
+				$(this).removeClass();
+				$(this).addClass("watchlistBtn");
+				$(this).addClass(faveBtnClass);
+
+				console.log($(this));
+				console.log($(this).children().first());
+				$(this).children().first().removeClass();
+				$(this).children().first().addClass(watchlistedIcon);
 
 			}
 			// IF FAVE BUTTON
@@ -203,14 +205,16 @@ $(document).ready(function() {
 
 				get_coin(request, false, get_watchlist);
 
-				// SET BUTTON CONFIGURATION
-				$("#watchlistedIcon").removeClass();
-				$("#watchlistedIcon").addClass(notWatchlistedIcon);
+				$(this).removeClass();
+				$(this).addClass("watchlistBtn");
+				$(this).addClass(unfaveBtnClass);
 
-				$(".watchlistBtn").addClass(unfaveBtnClass);
-				$(".watchlistBtn").removeClass(faveBtnClass);
+				$(this).children().first().removeClass();
+				$(this).children().first().addClass(notWatchlistedIcon);
 			}
 		}
+
+
 	});
 });
 
@@ -221,11 +225,22 @@ function display_coin(div, givencoins) {
 	// CLEAR DIV
 	$(div).empty();
 
+	// CHECK IF WACTHLISTED IS SAVE
+	if (sessionStorage.getItem('watchlist') == null) {
+		get_watchlist();
+	} 
+
+	// GET WATCHLISTED
+	var list_of_fave = JSON.parse(sessionStorage.getItem('watchlist'));
+
 	// INSERT EACH COIN INTO HTML
 	$.each(givencoins, function(_, obj) {
 
 		var container = $("<div></div>");
-		container.addClass("coins");
+		container.addClass("coinlistCont");
+
+		var coinsCont = $("<div></div>");
+		coinsCont.addClass("coins");
 
 		var name = $("<p></p>");
 		name.addClass('coinName');
@@ -241,10 +256,45 @@ function display_coin(div, givencoins) {
 		var year_high = $("<p></p>");
 		year_high.addClass('year-high-price');
 		year_high.html('Year High Price: &#36;'+year_high_val);
+
+		var btnCont = $("<div></div>");
+		btnCont.addClass("watchlistBtnCont");
+
+		var watchlistBtn = $("<button></button>");
+		watchlistBtn.addClass("watchlistBtn");
+		watchlistBtn.addClass(unfaveBtnClass);
+		watchlistBtn.attr('id', obj.coinGeckoID);
+
+		var watchlistIcon = $("<i></i>");
+		watchlistIcon.attr('id', "watchlistedIcon");
+		watchlistIcon.addClass(notWatchlistedIcon);
+
+		// FOREACH WACTHLISTED COIN
+		$.each(list_of_fave, function(_, eachCoin) {
+			
+			if (obj.coinGeckoID == eachCoin.coinID) {
+
+				watchlistBtn.removeClass();
+				watchlistIcon.removeClass();
+
+				watchlistBtn.addClass("watchlistBtn");
+				watchlistBtn.addClass(faveBtnClass);
+				watchlistIcon.addClass(watchlistedIcon);
+				return;
+			}
+		});
 		
-		container.append(name);
-		container.append(all_time_high);
-		container.append(year_high);
+		watchlistBtn.append(watchlistIcon);
+
+		btnCont.append(watchlistBtn);
+
+		coinsCont.append(name);
+		coinsCont.append(all_time_high);
+		coinsCont.append(year_high);
+
+		$(container).append(coinsCont);
+		$(container).append(btnCont);
+
 		$(div).append(container);
 	});
 }

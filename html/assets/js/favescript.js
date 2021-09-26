@@ -69,5 +69,22 @@ function display_fave_coins() {
 		});
 	});
 
-	display_coin("#faveList", favecoins);
+
+	if (favecoins.length != 0) {
+		display_coin("#faveList", favecoins);
+	} else {
+		var container = $("<div></div>");
+		container.addClass("placeholder");
+
+		var msg = $("<p></p>");
+		msg.html("You dont have a favourite coin or token");
+
+		var icon = $("<i class='fas fa-sad-tear'></i>");
+		icon.attr('id', "sadface");
+
+		container.append(msg);
+		container.append(icon);
+
+		$("#faveList").html(container);
+	}
 }

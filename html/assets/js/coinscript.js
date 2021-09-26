@@ -764,17 +764,17 @@ function checkIndicatorsPerDay() {
 	let indicator_sum = 0;
 
 	// Threshold Price
-	const threshold_price = 50;
+	const threshold_price = 25;
 
 	// Threshold Volume
-	const threshold_volume = 50;
+	const threshold_volume = 25;
 
 
 	// Threshold for price Drop in Stop Loss Hunt
-	const thresholdPriceDrop = -20;
+	const thresholdPriceDrop = -10;
 
 	// Threshold for price increase in Stop Loss Hunt
-	const thresholdPriceIncrease = 15;
+	const thresholdPriceIncrease = 10;
 
 	//Price change for stop loss hunt
 	let priceChange;
@@ -784,16 +784,53 @@ function checkIndicatorsPerDay() {
 
 		indicator_sum = 0;
 
+		//Check against 25 day moving average
 		if (checkPricePercentChange(coinPrice[i], moving_average_prices[i]) >= threshold_price) {
+			//console.log("Average INCREASE PRICE");
 			indicator_sum++;
 		}
 
 		if (checkVolumePercentChange(volumes[i], moving_average_volume[i]) >= threshold_volume) {
+			//console.log("AVERAGE INCREASE VOLUME");
 			indicator_sum++;
 		}
+
+		//Check against 50 day moving average
+		var moving_avg_price_50 = simple_moving_average(dataType.PRICE, 50);
+		var moving_avg_vol_50 = simple_moving_average(dataType.VOLUME, 50);
+		if (checkPricePercentChange(coinPrice[i], moving_avg_price_50[i]) >= 50) {
+			//console.log("Average INCREASE PRICE");
+			indicator_sum++;
+		}
+
+		if (checkVolumePercentChange(volumes[i], moving_avg_vol_50[i]) >= 50) {
+			//console.log("AVERAGE INCREASE VOLUME");
+			indicator_sum++;
+		}
+
+		//Check against 100 day moving average
+		//var moving_avg_price_100 = simple_moving_average(dataType.PRICE, 100);
+		//var moving_avg_vol_100 = simple_moving_average(dataType.VOLUME, 100);
+		/*if (checkPricePercentChange(coinPrice[i], moving_avg_price_100[i]) >= 50) {
+			//console.log("Average INCREASE PRICE");
+			indicator_sum++;
+		}
+
+		if (checkVolumePercentChange(volumes[i], moving_avg_vol_100[i]) >= 50) {
+			//console.log("AVERAGE INCREASE VOLUME");
+			indicator_sum++;
+		}*/
+
 		
 		//Raw percentage increase
-		if ((i + 1 < marketData.length) && checkPricePercentChange(coinPrice[i + 1], coinPrice[i]) >= 25) {
+		if ((i + 1 < marketData.length) && checkPricePercentChange(coinPrice[i + 1], coinPrice[i]) >= 50) {
+			//console.log("RAW INCREASE PRICE");
+			indicator_sum++;
+		}
+
+		//Raw percentage volume
+		if ((i + 1 < marketData.length) && checkPricePercentChange(coinPrice[i + 1], coinPrice[i]) >= 50) {
+			//console.log("RAW INCREASE VOLUME");
 			indicator_sum++;
 		}
 
@@ -803,7 +840,7 @@ function checkIndicatorsPerDay() {
 			priceChange = checkPricePercentChange(coinPrice[i + 1], coinPrice[i]);
 
 			if (priceChange <= thresholdPriceDrop && checkPricePercentChange(coinPrice[i + 2], coinPrice[i + 1]) >= thresholdPriceIncrease) {
-
+				//console.log("STOP LOSS");
 				indicator_sum++;
 
 			}

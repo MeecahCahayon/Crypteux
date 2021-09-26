@@ -14,6 +14,7 @@ const volumes = [];
 var moving_average_volume = [];
 
 var manipulated_sum = [];
+var indicatorCount = 0;
 
 // X-AXIS
 const dates = [];
@@ -720,8 +721,18 @@ function simple_moving_average(datatype, range) {
 	// FOR EACH MARKET DATA
 	for (let i = 0; i < marketData.length; i++) {
 		if (i < range - 1) {
-			if (datatype == dataType.PRICE) { moving_average[i] = parseFloat(marketData[i].amount); }
-			else if (datatype == dataType.VOLUME) { moving_average[i] = parseFloat(marketData[i].volume); }
+			let sum = 0;
+			for (let j = 0; j <= i; j++) {
+
+				if (datatype == dataType.PRICE) { 
+					sum += parseFloat(marketData[j].amount); 
+				}
+				else if (datatype == dataType.VOLUME) { 
+					sum += parseFloat(marketData[j].volume); 
+				}
+			}
+
+			moving_average[i] = sum / (i + 1);
 		}
 		else {
 
@@ -741,6 +752,7 @@ function simple_moving_average(datatype, range) {
 
 
 function checkIndicatorsPerDay() {
+	indicatorCount = 4;
 
 	let indicator_sum = 0;
 

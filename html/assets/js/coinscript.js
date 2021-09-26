@@ -743,14 +743,14 @@ function checkIndicatorsPerDay() {
 	const threshold_price = 50;
 
 	// Threshold Volume
-	const threshold_volume = 50;
+	const threshold_volume = 150;
 
 
 	// Threshold for price Drop in Stop Loss Hunt
-	const thresholdPriceDrop = -10;
+	const thresholdPriceDrop = -20;
 
 	// Threshold for price increase in Stop Loss Hunt
-	const thresholdPriceIncrease = 10;
+	const thresholdPriceIncrease = 15;
 
 	//Price change for stop loss hunt
 	let priceChange;

@@ -10,6 +10,7 @@ const dates = [];
 const volumes = [];
 var moving_average_prices = [];
 var moving_average_volume = [];
+var manipulated_sum = [];
 
 const dataType = {
 	VOLUME: "volume",
@@ -31,7 +32,7 @@ const colors = {
 /*********************** DISPLAY COIN NAME **********************/
 
 function get_coininfo() {
-	
+
 	// DISPLAY THE COIN NAME AS A SUBHEADER
 	var coinName = getQueryVariable("coinName");
 	if (coinName != false) { document.getElementById("coinName").innerHTML = coinName; }
@@ -67,6 +68,7 @@ function get_coininfo() {
 		create_mrkdata_graph();
 		create_volume_graph();
 		create_kpi();
+		checkIndicatorsPerDay();
 	}
 }
 
@@ -75,7 +77,7 @@ function get_coininfo() {
 function create_kpi() {
 
 	// FOR EACH KPI
-	$.each(kpiData, function(resIndex, eachData) {
+	$.each(kpiData, function (resIndex, eachData) {
 
 		/***** CREATE KPI CONTAINER *****/
 		// CREATE KPI DIV
@@ -121,7 +123,7 @@ function create_kpi() {
 /******************** DISPLAY MARKET DATA GRAPH *****************/
 
 function create_mrkdata_graph() {
-	
+
 	/******************** CREATE THE VARIABLES ******************/
 	// GET THE CHART DIV
 	var ctx_mrkdata = $("#marketData");
@@ -133,43 +135,43 @@ function create_mrkdata_graph() {
 		labels: dates,
 		// SET THE DATA
 		datasets: [
-		// FOR moving_average_prices
-		{
-			/******************** STYLING LINE ******************/
-			/* COLOURS */
-			backgroundColor: colors.lineColor_second,
-			borderColor: colors.lineColor_second,
-			/* FONTS */
+			// FOR moving_average_prices
+			{
+				/******************** STYLING LINE ******************/
+				/* COLOURS */
+				backgroundColor: colors.lineColor_second,
+				borderColor: colors.lineColor_second,
+				/* FONTS */
 
-			/* STYLE */
-			borderWidth: 1,
-			fill: false,
-			lineTension: 0,
-			pointRadius: 0,
-			
-			// SET THE Y AXIS
-			data: moving_average_prices,
-			label: "Moving Average Prices"
-		},
-		// FOR COIN PRICE
-		{
+				/* STYLE */
+				borderWidth: 1,
+				fill: false,
+				lineTension: 0,
+				pointRadius: 0,
 
-			/******************** STYLING LINE ******************/
-			/* COLOURS */
-			backgroundColor: colors.lineColor_main,
-			borderColor: colors.lineColor_main,
-			/* FONTS */
+				// SET THE Y AXIS
+				data: moving_average_prices,
+				label: "Moving Average Prices"
+			},
+			// FOR COIN PRICE
+			{
 
-			/* STYLE */
-			borderWidth: 2.5,
-			fill: false,
-			lineTension: 0,
-			pointRadius: 0,
-			
-			// SET THE Y AXIS
-			data: coinPrice,
-			label: "Coin Prices"
-		}]
+				/******************** STYLING LINE ******************/
+				/* COLOURS */
+				backgroundColor: colors.lineColor_main,
+				borderColor: colors.lineColor_main,
+				/* FONTS */
+
+				/* STYLE */
+				borderWidth: 2.5,
+				fill: false,
+				lineTension: 0,
+				pointRadius: 0,
+
+				// SET THE Y AXIS
+				data: coinPrice,
+				label: "Coin Prices"
+			}]
 	}
 
 	// CREATE THE CONFIG FOR OPTION
@@ -288,44 +290,44 @@ function create_volume_graph() {
 		labels: dates,
 		// SET THE DATA
 		datasets: [
-		// FOR moving_average_volume
-		{
-			/******************** STYLING LINE ******************/
-			/* COLOURS */
-			backgroundColor: colors.lineColor_second,
-			borderColor: colors.lineColor_second,
-			/* FONTS */
+			// FOR moving_average_volume
+			{
+				/******************** STYLING LINE ******************/
+				/* COLOURS */
+				backgroundColor: colors.lineColor_second,
+				borderColor: colors.lineColor_second,
+				/* FONTS */
 
-			/* STYLE */
-			borderWidth: 1,
-			fill: false,
-			lineTension: 0,
-			pointRadius: 0,
-			
-			// SET THE Y AXIS
-			data: moving_average_volume,
-			label: "Moving Average Volume"
-		},
-		// FOR VOLUME
-		{
+				/* STYLE */
+				borderWidth: 1,
+				fill: false,
+				lineTension: 0,
+				pointRadius: 0,
 
-			/******************** STYLING LINE ******************/
-			/* COLOURS */
-			backgroundColor: colors.lineColor_main,
-			borderColor: colors.lineColor_main,
-			/* FONTS */
+				// SET THE Y AXIS
+				data: moving_average_volume,
+				label: "Moving Average Volume"
+			},
+			// FOR VOLUME
+			{
 
-			/* STYLE */
-			borderWidth: 1,
-			fill: true,
-			lineTension: 0,
-			pointRadius: 0,
-			z: -2,
-			
-			// SET THE Y AXIS
-			data: volumes,
-			label: "Volume"
-		}]
+				/******************** STYLING LINE ******************/
+				/* COLOURS */
+				backgroundColor: colors.lineColor_main,
+				borderColor: colors.lineColor_main,
+				/* FONTS */
+
+				/* STYLE */
+				borderWidth: 1,
+				fill: true,
+				lineTension: 0,
+				pointRadius: 0,
+				z: -2,
+
+				// SET THE Y AXIS
+				data: volumes,
+				label: "Volume"
+			}]
 	}
 
 	// CREATE THE CONFIG FOR OPTION
@@ -438,15 +440,15 @@ function simple_moving_average(datatype, range) {
 
 	// FOR EACH MARKET DATA
 	for (let i = 0; i < marketData.length; i++) {
-		if (i < range - 1){
+		if (i < range - 1) {
 			moving_average[i] = 0;
 		} else {
 			let sum = 0;
-			for (let j = i - range + 1; j <= i; j++){
-				if (datatype == dataType.PRICE){
+			for (let j = i - range + 1; j <= i; j++) {
+				if (datatype == dataType.PRICE) {
 					sum += parseFloat(marketData[j].amount);
 				}
-				else if (datatype == dataType.VOLUME){
+				else if (datatype == dataType.VOLUME) {
 					sum += parseFloat(marketData[j].volume);
 				}
 			}
@@ -456,13 +458,66 @@ function simple_moving_average(datatype, range) {
 	return moving_average;
 }
 
+
+function checkIndicatorsPerDay() {
+
+	let indicator_sum = 0;
+
+	//Threshold Price
+	const threshold_price = 50;
+
+	//Threshold Volume
+	const threshold_volume = 50;
+
+	//Check indicators per day
+	for (let i = 0; i < marketData.length; i++) {
+
+		indicator_sum = 0;
+
+		if (checkPricePercentChange(coinPrice[i], moving_average_prices[i]) >= threshold_price) {
+			indicator_sum++;
+		}
+
+		if(checkVolumePercentChange(volumes[i], moving_average_volume[i]) >= threshold_volume){
+			indicator_sum ++;
+		}
+
+		manipulated_sum[i] = indicator_sum;
+	}
+}
+
+
+function checkPricePercentChange(price, moving_average) {
+
+	//Checking each of hte indicators
+	current_price = parseFloat(price);
+	current_ma_price = parseFloat(moving_average);
+
+	let difference = current_price - current_ma_price;
+	let price_percentage = (difference / current_ma_price) * 100;
+
+	return price_percentage;
+}
+
+function checkVolumePercentChange(volume, moving_average) {
+
+	//Checking each of hte indicators
+	current_volume = parseFloat(volume);
+	current_ma_volume = parseFloat(moving_average);
+
+	let difference = current_volume - current_ma_volume;
+	let volume_percentage = (difference / current_ma_volume) * 100;
+
+	return volume_percentage;
+
+}
 /**************************** FUNCTIONS *************************/
 /*						  										*/
 /****************************************************************/
 
 // GET DATA FROM WINDOW.LOCATION
 function getQueryVariable(variable) {
-	
+
 	// GET ALL THE DATA IN THE WINDOW.LOCATION
 	var query = window.location.search.substring(1);
 	var variables = query.split("&");
@@ -481,7 +536,7 @@ function getQueryVariable(variable) {
 function store_coin_marketdata(response) {
 
 	// FOR EACH MARKET DATA
-	$.each(response, function(resIndex, eachData) {
+	$.each(response, function (resIndex, eachData) {
 		let data = {
 
 			amount: eachData.dollar_price + "." + eachData.cent_price,
@@ -500,7 +555,7 @@ function store_coin_marketdata(response) {
 	});
 
 	// GET ALL THE VALUE FOR X AND Y AXIS
-	$.each(marketData, function(resIndex, eachData) {
+	$.each(marketData, function (resIndex, eachData) {
 
 		dates.push(eachData.date);
 		coinPrice.push(eachData.amount);
@@ -525,7 +580,7 @@ function store_coin_kpi(response) {
 	}
 
 	if (response[0].all_time_high_cent != null) {
-		cent = response[0].all_time_high_cent.substring(0,3);
+		cent = response[0].all_time_high_cent.substring(0, 3);
 	}
 
 	if (response[0].all_time_high_currency != null) {
@@ -536,7 +591,7 @@ function store_coin_kpi(response) {
 	let alltime_data = {
 
 		title: "All-Time High",
-		price: "$"+dollar+"."+cent,
+		price: "$" + dollar + "." + cent,
 		date: "March 25, 1997",
 		currency: coinCurrency
 	}
@@ -552,7 +607,7 @@ function store_coin_kpi(response) {
 	}
 
 	if (response[0].year_high_cent != null) {
-		cent = response[0].year_high_cent.substring(0,3);
+		cent = response[0].year_high_cent.substring(0, 3);
 	}
 
 	if (response[0].year_high_currency != null) {
@@ -563,7 +618,7 @@ function store_coin_kpi(response) {
 	let yeartime_data = {
 
 		title: "Year High",
-		price: "$"+dollar+"."+cent,
+		price: "$" + dollar + "." + cent,
 		date: "March 25, 1997",
 		currency: coinCurrency
 	}

@@ -72,7 +72,6 @@ function get_coininfo() {
 
 		get_coin(kpi_request, false, store_coin_kpi);
 
-		console.log("Hello");
 		create_mrkdata_graph();
 		create_volume_graph();
 		create_kpi();
@@ -92,6 +91,7 @@ function create_kpi() {
 		// CREATE KPI DIV
 		var kpi = $("<div></div>");
 		kpi.addClass("kpi");
+		kpi.attr("id", eachData.title.replace(/\s+/g, ''));
 
 		/***** CREATE KPI ELEMENTS *****/
 		// KPI TITLE
@@ -671,6 +671,8 @@ function create_indicator_graph() {
 					}
 				},
 
+				grace: '100%',
+
 				// Y-AXIS DATA
 				ticks: {
 
@@ -868,7 +870,7 @@ function store_coin_marketdata(response) {
 
 function store_coin_kpi(response) {
 
-	console.log(response);
+	/********************** ALL TIME HIGH KPI *******************/
 	// GET VARIABLES
 	var dollar = "0";
 	var cent = "0";
@@ -891,9 +893,9 @@ function store_coin_kpi(response) {
 
 	if (response[0].all_time_high_date != null) {
 		coinDate = new Date(response[0].all_time_high_date);
-		day = coinDate.getDay();
-		month = get_month(coinDate.getMonth());
-		year = coinDate.getFullYear();
+		day = coinDate.getUTCDate();
+		month = get_month(coinDate.getUTCMonth());
+		year = coinDate.getUTCFullYear();
 
 		date = day + " " + month + " " + year;
 	}
@@ -911,6 +913,7 @@ function store_coin_kpi(response) {
 		currency: coinCurrency
 	}
 
+	/************************ YEAR HIGH KPI *********************/
 	// GET VARIABLES
 	var dollar = "0";
 	var cent = "0";
@@ -933,9 +936,9 @@ function store_coin_kpi(response) {
 
 	if (response[0].year_high_date != null) {
 		coinDate = new Date(response[0].year_high_date);
-		day = coinDate.getDay();
-		month = get_month(coinDate.getMonth());
-		year = coinDate.getFullYear();
+		day = coinDate.getUTCDate();
+		month = get_month(coinDate.getUTCMonth());
+		year = coinDate.getUTCFullYear();
 
 		date = day + " " + month + " " + year;
 	}
@@ -953,37 +956,81 @@ function store_coin_kpi(response) {
 		currency: coinCurrency
 	}
 
+	/********************** CURRENT PRICE KPI *******************/
+	// GET VARIABLES
+	var dollar = "0";
+	var cent = "0";
+	var date = "";
+	var coinCurrency = "";
+
+	// DATES
+	var coinDate= "";
+	var day = "";
+	var month = "";
+	var year = "";
+
+	if (response[0].current_price_dollar != null) {
+		dollar = response[0].current_price_dollar;
+	}
+
+	if (response[0].current_price_cent != null) {
+		cent = response[0].current_price_cent.substring(0, 3);
+	}
+
+	if (response[0].year_high_date != null) {
+		// coinDate = new Date(response[0].year_high_date);
+		// day = coinDate.getUTCDate();
+		// month = get_month(coinDate.getUTCMonth());
+		// year = coinDate.getUTCFullYear();
+
+		// date = day + " " + month + " " + year;
+	}
+
+	if (response[0].year_high_currency != null) {
+		coinCurrency = response[0].year_high_currency.toUpperCase();
+	}
+
+	// CREATE YEAR-HIGH KPI ELEMENTS
+	let currprice_data = {
+
+		title: "Current Price",
+		price: "$" + dollar + "." + cent,
+		date: date,
+		currency: coinCurrency
+	}
+
 	// PUSH TO KPI ARRAY
 	kpiData.push(alltime_data);
 	kpiData.push(yeartime_data);
+	kpiData.push(currprice_data);
 }
 
 function get_month(monthNumber) {
 
 	switch (monthNumber) {
-		case "0":
+		case 0:
 			return "Jan";
-		case "1":
+		case 1:
 			return "Feb";
-		case "2":
+		case 2:
 			return "Mar";
-		case "3":
+		case 3:
 			return "Apr";
-		case "4":
+		case 4:
 			return "May";
-		case "5":
+		case 5:
 			return "June";
-		case "6":
+		case 6:
 			return "July";
-		case "7":
+		case 7:
 			return "Aug";
-		case "8":
+		case 8:
 			return "Sept";
-		case "9":
+		case 9:
 			return "Oct";
-		case "10":
+		case 10:
 			return "Nov";
-		case "11":
+		case 11:
 			return "Dec";
 	}
 

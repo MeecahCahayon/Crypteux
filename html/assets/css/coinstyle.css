@@ -45,7 +45,7 @@
   /* COLOURS */
   /* FONTS */
   /* STYLE */
-  column-count: 2;
+  column-count: 3;
   column-gap: 2%; }
 
 /* EACH KPI */
@@ -59,7 +59,7 @@
   border-radius: 10px;
   /*opacity: 0.6;*/
   padding: 10px 30px;
-  margin: 0 20%; }
+  margin: 0 15%; }
 
 /* THE KPI TITLE */
 .kpiTitle {
@@ -105,6 +105,23 @@
   /* STYLE */
   margin: 0;
   padding: 5px; }
+
+#CurrentPrice {
+  /* COLOURS */
+  background-color: #686385;
+  color: #2E2D38;
+  /* FONTS */
+  /* STYLE */
+  border: 0.5px solid #2E2D38;
+  border-radius: 10px; }
+  #CurrentPrice .kpiPrice {
+    /* COLOURS */
+    color: #2E2D38;
+    border-color: #2E2D38;
+    /* FONTS */
+    /* STYLE */
+    border-width: 0 0 1px 0;
+    border-style: solid; }
 
 /*********************** COIN GRAPH SECTION *********************/
 #coinGraphContent {

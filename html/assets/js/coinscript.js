@@ -796,50 +796,44 @@ function checkIndicatorsPerDay() {
 
 		indicator_sum = 0;
 
-		//Check against 25 day moving average
-		if (checkPricePercentChange(coinPrice[i], moving_average_prices[i]) >= threshold_price) {
-			//console.log("Average INCREASE PRICE");
-			indicator_sum++;
-		}
+		//Check against 25 day moving average for a large movement
+		//Check against 25 day moving average price.
+		var price_25_change = checkPricePercentChange(coinPrice[i], moving_average_prices[i]);
+		indicator_sum += checkPercentChange(price_25_change, threshold_price);
 
-		if (checkVolumePercentChange(volumes[i], moving_average_volume[i]) >= threshold_volume) {
-			//console.log("AVERAGE INCREASE VOLUME");
-			indicator_sum++;
-		}
+		//Check against 25 day moving average volume.
+		var volume_25_change = checkVolumePercentChange(volumes[i], moving_average_volume[i]);
+		indicator_sum += checkPercentChange(volume_25_change, threshold_volume);
 
 		//Check against 50 day moving average
-		if (checkPricePercentChange(coinPrice[i], moving_avg_price_50[i]) >= 50) {
-			//console.log("Average INCREASE PRICE");
-			indicator_sum++;
-		}
+		//Price 50 day average check.
+		var price_50_change = checkPricePercentChange(coinPrice[i], moving_avg_price_50[i]);
+		indicator_sum += checkPercentChange(price_50_change, 75);
 
-		if (checkVolumePercentChange(volumes[i], moving_avg_vol_50[i]) >= 75) {
-			//console.log("AVERAGE INCREASE VOLUME");
-			indicator_sum++;
-		}
+		//Volume 50 day average check
+		var volume_50_change = checkVolumePercentChange(volumes[i], moving_avg_vol_50[i])
+		indicator_sum += checkPercentChange(volume_50_change, 100);
 
 		//Check against 100 day moving average
-		if (checkPricePercentChange(coinPrice[i], moving_avg_price_100[i]) >= 100) {
-			//console.log("Average INCREASE PRICE");
-			indicator_sum++;
-		}
+		//Price 100 day average check
+		var price_100_change = checkPricePercentChange(coinPrice[i], moving_avg_price_100[i]);
+		indicator_sum += checkPercentChange(price_100_change, 100);
 
-		if (checkVolumePercentChange(volumes[i], moving_avg_vol_100[i]) >= 125) {
-			//console.log("AVERAGE INCREASE VOLUME");
-			indicator_sum++;
-		}
+		//Volume 100 day avearge check
+		var volume_100_change = checkVolumePercentChange(volumes[i], moving_avg_vol_100[i]);
+		indicator_sum += checkPercentChange(volume_100_change, 125)
 
 		
-		//Raw percentage increase
-		if ((i + 1 < marketData.length) && checkPricePercentChange(coinPrice[i + 1], coinPrice[i]) >= 50) {
-			//console.log("RAW INCREASE PRICE");
-			indicator_sum++;
+		//Raw percentage price change
+		if (i + 1 < marketData.length) {
+			var raw_price_change = checkPricePercentChange(coinPrice[i + 1], coinPrice[i])
+			indicator_sum += checkPercentChange(raw_price_change, 20)
 		}
 
-		//Raw percentage volume
-		if ((i + 1 < marketData.length) && checkPricePercentChange(volumes[i + 1], volumes[i]) >= 50) {
-			//console.log("RAW INCREASE VOLUME");
-			indicator_sum++;
+		//Raw percentage volume change
+		if (i + 1 < marketData.length) {
+			var raw_vol_change = checkPricePercentChange(volumes[i + 1], volumes[i])
+			indicator_sum += checkPercentChange(raw_vol_change, 30)
 		}
 
 		//Check stop loss hunt
@@ -848,16 +842,25 @@ function checkIndicatorsPerDay() {
 			priceChange = checkPricePercentChange(coinPrice[i + 1], coinPrice[i]);
 
 			if (priceChange <= thresholdPriceDrop && checkPricePercentChange(coinPrice[i + 2], coinPrice[i + 1]) >= thresholdPriceIncrease) {
-				//console.log("STOP LOSS");
 				indicator_sum++;
 
 			}
 		}
 
+		console.log(indicator_sum)
 		manipulated_sum[i] = indicator_sum;
 	}
 }
 
+//Checks if a percent change has moved in any direction above the threshold.
+function checkPercentChange(percentChange, threshold){
+	if (Math.abs(percentChange) >= threshold){
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
 
 function checkPricePercentChange(price, moving_average) {
 
@@ -966,7 +969,19 @@ function store_coin_kpi(response) {
 	}
 
 	if (response[0].all_time_high_cent != null) {
-		cent = response[0].all_time_high_cent.substring(0, 3);
+		var pos = 0;
+		for (var i = 0; i < response[0].all_time_high_cent.length; i++){
+			if (response[0].all_time_high_cent.charAt(i) != "0"){
+				if (i < 3){
+					pos = 3;
+					break;
+				}else{
+					pos = i + 1;
+					break;
+				}
+			}
+		}
+		cent = response[0].all_time_high_cent.substring(0, pos);
 	}
 
 	if (response[0].all_time_high_date != null) {
@@ -1009,7 +1024,20 @@ function store_coin_kpi(response) {
 	}
 
 	if (response[0].year_high_cent != null) {
-		cent = response[0].year_high_cent.substring(0, 3);
+		var pos = 0;
+		for (var i = 0; i < response[0].year_high_cent.length; i++){
+			if (response[0].year_high_cent.charAt(i) != "0"){
+				if (i < 3){
+					pos = 3;
+					break;
+				}else{
+					pos = i + 1;
+					break;
+				}
+			}
+		}
+
+		cent = response[0].year_high_cent.substring(0, pos);
 	}
 
 	if (response[0].year_high_date != null) {
@@ -1052,7 +1080,20 @@ function store_coin_kpi(response) {
 	}
 
 	if (response[0].current_price_cent != null) {
-		cent = response[0].current_price_cent.substring(0, 3);
+		var pos = 0;
+		for (var i = 0; i < response[0].current_price_cent.length; i++){
+			if (response[0].current_price_cent.charAt(i) != "0"){
+				if (i < 3){
+					pos = 3;
+					break;
+				}else{
+					pos = i + 1;
+					break;
+				}
+			}
+		}
+		console.log(response[0].current_price_cent)
+		cent = response[0].current_price_cent.substring(0, pos);
 	}
 
 	if (response[0].year_high_date != null) {

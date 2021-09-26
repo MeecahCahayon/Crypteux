@@ -719,7 +719,10 @@ function simple_moving_average(datatype, range) {
 
 	// FOR EACH MARKET DATA
 	for (let i = 0; i < marketData.length; i++) {
-		if (i < range - 1) { moving_average[i] = 0; }
+		if (i < range - 1) {
+			if (datatype == dataType.PRICE) { moving_average[i] = parseFloat(marketData[i].amount); }
+			else if (datatype == dataType.VOLUME) { moving_average[i] = parseFloat(marketData[i].volume); }
+		}
 		else {
 
 			let sum = 0;
@@ -749,10 +752,10 @@ function checkIndicatorsPerDay() {
 
 
 	// Threshold for price Drop in Stop Loss Hunt
-	const thresholdPriceDrop = -10;
+	const thresholdPriceDrop = -20;
 
 	// Threshold for price increase in Stop Loss Hunt
-	const thresholdPriceIncrease = 10;
+	const thresholdPriceIncrease = 15;
 
 	//Price change for stop loss hunt
 	let priceChange;
@@ -767,6 +770,11 @@ function checkIndicatorsPerDay() {
 		}
 
 		if (checkVolumePercentChange(volumes[i], moving_average_volume[i]) >= threshold_volume) {
+			indicator_sum++;
+		}
+		
+		//Raw percentage increase
+		if ((i + 1 < marketData.length) && checkPricePercentChange(coinPrice[i + 1], coinPrice[i]) >= 25) {
 			indicator_sum++;
 		}
 
@@ -865,7 +873,7 @@ function store_coin_marketdata(response) {
 
 	// PROCESS INDICATORS
 	moving_average_prices = simple_moving_average(dataType.PRICE, 25);
-	moving_average_volume = simple_moving_average(dataType.VOLUME, 50);
+	moving_average_volume = simple_moving_average(dataType.VOLUME, 25);
 }
 
 function store_coin_kpi(response) {

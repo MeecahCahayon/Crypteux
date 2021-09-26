@@ -1,11 +1,22 @@
 /*************************** VARIABLES **************************/
 /*						  										*/
 /****************************************************************/
+/******************************* VAR ****************************/
+var coinName = "";
+var coinid = "";
+// 0 = FALSE; 1 = TRUE
+var isPumped = 0;
+var isWatchlisted = false;
+
+var watchlistedIcon = "fas fa-bookmark";
+var faveBtnClass = "faveCoinBtn";
+
+var notWatchlistedIcon = "far fa-bookmark";
+var unfaveBtnClass = "unfaveCoinBtn";
+
 /****************************** DATA ****************************/
 const marketData = [];
 const kpiData = [];
-// 0 = FALSE; 1 = TRUE
-var isPumped = 0;
 
 /***************************** GRAPH ****************************/
 // Y-AXIS
@@ -41,45 +52,82 @@ const colors = {
 /****************************************************************/
 /*********************** DISPLAY COIN NAME **********************/
 
-function get_coininfo() {
-
+function get_coin_data() {
+	
 	// DISPLAY THE COIN NAME AS A SUBHEADER
-	var coinName = getQueryVariable("coinName");
-	if (coinName != false) { document.getElementById("coinName").innerHTML = coinName; }
+	coinName = getQueryVariable("coinName");
+	if (coinName != false) { 
+		document.getElementById("coinName").innerHTML = coinName; 
+	}
 
 	// GET THE COIN ID
-	var coinid = getQueryVariable("coinID");
+	coinid = getQueryVariable("coinID");
 	if (coinid != false) {
 
-		$(".faveCoinBtn").attr('id', coinid);
+		// CHECK IF ITS WACTHLISTED
+		if (sessionStorage.getItem('watchlist') == null) {
 
-		// GET MARKET DATA OF THE COIN AND STORE IT IN AN ARRAY
-		const mrkdata_request = {
-			url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/market-data',
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			type: "GET",
-			dataType: "json",
-			data: { coinID: coinid }
-		};
+			get_watchlist();
+		} 
 
-		get_coin(mrkdata_request, false, store_coin_marketdata);
+		// GET WATCHLISTED
+		var list_of_fave = JSON.parse(sessionStorage.getItem('watchlist'));
 
-		const kpi_request = {
-			url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/coin',
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			type: "GET",
-			dataType: "json",
-			data: { coinID: coinid }
-		};
+		// FOREACH WACTHLISTED COIN
+		$.each(list_of_fave, function(_, eachCoin) {
+			
+			if (coinid == eachCoin.coinID) {
+				isWatchlisted = true;
+				return;
+			}
+		})
 
-		get_coin(kpi_request, false, store_coin_kpi);
+		// SET BUTTON CONFIGURATION
+		$(".watchlistBtn").attr('id', coinid);
 
-		create_mrkdata_graph();
-		create_volume_graph();
-		create_kpi();
-		checkIndicatorsPerDay();
-		create_indicator_graph();
+		// IF COIN IS WATCHLISTED
+		if (isWatchlisted) {
+
+			$(".watchlistBtn").addClass(faveBtnClass);
+			$("#watchlistedIcon").addClass(watchlistedIcon);
+		} else {
+
+			$(".watchlistBtn").addClass(unfaveBtnClass);
+			$("#watchlistedIcon").addClass(notWatchlistedIcon);
+		}
+
+		get_coininfo();
 	}
+}
+
+function get_coininfo() {
+
+	// GET MARKET DATA OF THE COIN AND STORE IT IN AN ARRAY
+	const mrkdata_request = {
+		url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/market-data',
+		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+		type: "GET",
+		dataType: "json",
+		data: { coinID: coinid }
+	};
+
+	get_coin(mrkdata_request, false, store_coin_marketdata);
+
+	const kpi_request = {
+		url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/coin',
+		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+		type: "GET",
+		dataType: "json",
+		data: { coinID: coinid }
+	};
+
+	get_coin(kpi_request, false, store_coin_kpi);
+
+	create_mrkdata_graph();
+	create_volume_graph();
+	create_kpi();
+	checkIndicatorsPerDay();
+	create_indicator_graph();
 }
 
 /************************ DISPLAY COIN KPI **********************/
@@ -847,7 +895,6 @@ function checkIndicatorsPerDay() {
 			}
 		}
 
-		console.log(indicator_sum)
 		manipulated_sum[i] = indicator_sum;
 	}
 }
@@ -945,7 +992,6 @@ function store_coin_marketdata(response) {
 
 function store_coin_kpi(response) {
 
-	console.log(response);
 	/************************** PUMPED KPI **********************/
 	if (response[0].pumped != null) {
 		isPumped = response[0].pumped;
@@ -1092,7 +1138,6 @@ function store_coin_kpi(response) {
 				}
 			}
 		}
-		console.log(response[0].current_price_cent)
 		cent = response[0].current_price_cent.substring(0, pos);
 	}
 
@@ -1152,5 +1197,9 @@ function get_month(monthNumber) {
 		case 11:
 			return "Dec";
 	}
-
 }
+
+// function store_watchlist(response) {
+	
+// 	sessionStorage.setItem("watchlist", JSON.stringify(JSON.parse(response.body)));
+// }

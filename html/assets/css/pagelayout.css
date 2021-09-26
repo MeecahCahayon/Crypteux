@@ -151,7 +151,7 @@ body {
   /* STYLE */
   border: 0.5px solid #74705d;
   border-radius: 10px;
-  margin: 20px 30%; }
+  margin: 10px 30%; }
   .secondSubHeading p {
     /* COLOURS */
     /* FONTS */
@@ -196,6 +196,14 @@ button {
   button p {
     margin: 0px;
     padding: 0px; }
+
+.watchlistBtn {
+  /* COLOURS */
+  /* FONTS */
+  font-size: 2.5vh;
+  /* STYLE */
+  margin: 5px 20px;
+  padding: 5px 20px; }
 
 /*********************  FOR THE LIST OF COINS  ******************/
 #searchList {

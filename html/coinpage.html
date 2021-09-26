@@ -23,6 +23,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 		<script src="https://cdn.jsdelivr.net/npm/luxon@2.0.2/build/global/luxon.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.1.0/dist/chartjs-adapter-luxon.min.js"></script>
+		<script src="https://kit.fontawesome.com/61bf2e2ad1.js" crossorigin="anonymous"></script>
 		<script type="text/javascript" src="assets/js/mainscript.js"></script>
 		<script type="text/javascript" src="assets/js/coinscript.js"></script>
 
@@ -43,7 +44,7 @@
 		<script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
 
 	</head>
-	<body onload="get_coininfo()">
+	<body onload="get_coin_data()">
 		<div class="outerDiv" id="pageOuterDiv">
 
 			<!-- HEADER -->
@@ -72,12 +73,14 @@
 				<!-- COIN HEADING -->
 				<section class="innerGrids" id="coinHeadingGrid">
 					<div id="coinContent">
-						<div class="secondHeadingPage">
+						<div class="secondHeadingPage coinheading">
 							<p id="coinName"></p>
-							<!-- <button class="faveCoinBtn"> Fave </button> -->
-							<div class="secondSubHeading pumpwarning">
-								<p id="coinwarning"> Potential Pumped and Dumped Coin </p>
-							</div>
+							<button class="watchlistBtn">
+								<i class="" id="watchlistedIcon"></i>
+							</button>
+						</div>
+						<div class="secondSubHeading pumpwarning">
+							<p id="coinwarning"> Potential Pumped and Dumped Coin </p>
 						</div>
 					</div>
 				</section>

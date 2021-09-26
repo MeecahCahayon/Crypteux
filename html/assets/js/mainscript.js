@@ -63,7 +63,9 @@ function get_coin(request, isAsync, callback) {
 		dataType: request.dataType,
 		data: request.data,
 		success: function (response) {
-			callback(response);
+			if (callback != "") {
+				callback(response);
+			}
 		},
 		error: function (response) {
 			error_msg(response);
@@ -109,36 +111,100 @@ function gotopage(pageID) {
 /***************************** FUNCTIONS ************************/
 /*						  										*/
 /****************************************************************/
-/*********************** ADDING COIN TO FAVE ********************/
+/******************* STORE WATCHLIST TO SESSION *****************/
+function get_watchlist() {
+	
+	// SEND TOKEN TO AJAX
+	var token_id = JSON.parse(sessionStorage.getItem("user")).token;
 
-// WHEN ADD TO FAVE BUTTON IS CLICKED
+	const request = {
+		url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/watchlist',
+		headers: { 
+			'Content-Type': 'application/json',
+			authorizationToken: token_id },
+		type: "GET",
+		dataType: "json",
+		data: {}
+	};
+
+	get_coin(request, false, store_watchlist);
+}
+
+function store_watchlist(response) {
+	
+	sessionStorage.setItem("watchlist", JSON.stringify(JSON.parse(response.body)));
+}
+
+/*********************** ADDING COIN TO FAVE ********************/
+/* VARIABLES */
+var watchlistedIcon = "fas fa-bookmark";
+var faveBtnClass = "faveCoinBtn";
+
+var notWatchlistedIcon = "far fa-bookmark";
+var unfaveBtnClass = "unfaveCoinBtn";
+
+// WHEN UNFAVE BUTTON IS CLICKED - MAKE COIN FAVE
 $(document).ready(function() {
-	$(".faveCoinBtn").click(function() {
+	$(".watchlistBtn").click(function() {
 		
 		var coin_id = $(this).attr("id");
+		var coin_class = $(this).attr("class");
+		var coin_classes = coin_class.split(" ");
 
 		// SEND TOKEN TO AJAX
 		var token_id = JSON.parse(sessionStorage.getItem("user")).token;
 
-		$.ajax({
+		// CHECK WHAT KIND OF BUTTON
+		if (coin_classes.length == 2) {
 
-			// PUBLIC API
-			url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/watchlist',
-			
-			headers: {
-				'Content-Type': 'application/json',
-				authorizationToken: token_id
-			},
-			type: "POST",
-			dataType: "json",
-			data: JSON.stringify({'coinID' : coin_id}),
-			success: function (response) {
-				//console.log(response);
-			},
-			error: function (response) {
-				error_msg(response);
+			// IF UNFAVE BUTTON
+			if (coin_classes[1] == unfaveBtnClass) {
+
+				// MAKE THE COIN FAVE
+				const request = {
+					url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/watchlist',
+					headers: { 
+						'Content-Type': 'application/json',
+						authorizationToken: token_id },
+					type: "POST",
+					dataType: "json",
+					data: JSON.stringify({'coinID' : coin_id})
+				};
+
+				get_coin(request, false, get_watchlist);
+
+				// SET BUTTON CONFIGURATION
+				$("#watchlistedIcon").removeClass();
+				$("#watchlistedIcon").addClass(watchlistedIcon);
+				
+				$(".watchlistBtn").addClass(faveBtnClass);
+				$(".watchlistBtn").removeClass(unfaveBtnClass);
+
 			}
-		});
+			// IF FAVE BUTTON
+			else if (coin_classes[1] == faveBtnClass) {
+
+				// REMOVE COIN FROM WATCHLIST
+				const request = {
+					url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/watchlist',
+					headers: { 
+						'Content-Type': 'application/json',
+						authorizationToken: token_id },
+					type: "DELETE",
+					dataType: "json",
+					data: JSON.stringify({'coinID' : coin_id})
+				};
+
+				get_coin(request, false, get_watchlist);
+
+				// SET BUTTON CONFIGURATION
+				$("#watchlistedIcon").removeClass();
+				$("#watchlistedIcon").addClass(notWatchlistedIcon);
+
+				$(".watchlistBtn").addClass(unfaveBtnClass);
+				$(".watchlistBtn").removeClass(faveBtnClass);
+			}
+		}
 	});
 });
 

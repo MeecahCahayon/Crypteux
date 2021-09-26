@@ -11,25 +11,35 @@ const favecoins = [];
 
 function get_faveCoins() {
 
-	// SEND TOKEN TO AJAX
-	var token_id = JSON.parse(sessionStorage.getItem("user")).token;
+	if (sessionStorage.getItem('watchlist') != null) { display_fave_coins(); } 
+	else {
+		// SEND TOKEN TO AJAX
+		var token_id = JSON.parse(sessionStorage.getItem("user")).token;
 
-	const request = {
-		url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/watchlist',
-		headers: { 
-			'Content-Type': 'application/json',
-			authorizationToken: token_id },
-		type: "GET",
-		dataType: "json",
-		data: {}
-	};
+		const request = {
+			url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/watchlist',
+			headers: { 
+				'Content-Type': 'application/json',
+				authorizationToken: token_id },
+			type: "GET",
+			dataType: "json",
+			data: {}
+		};
 
-	get_coin(request, true, store_fave_coins);
+		get_coin(request, true, store_fave_session);
+	}
 }
 
-function store_fave_coins(response) {	
+function store_fave_session(response) {
 
-	var list_of_fave = JSON.parse(response.body);
+
+	sessionStorage.setItem("watchlist", JSON.stringify(JSON.parse(response.body)));
+	display_fave_coins();
+}
+
+function display_fave_coins() {	
+
+	var list_of_fave = JSON.parse(sessionStorage.getItem('watchlist'));
 
 	// FOR EACH COIN
 	$.each(list_of_fave, function(_, eachCoin) {
@@ -39,7 +49,7 @@ function store_fave_coins(response) {
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
 			type: "GET",
 			dataType: "json",
-			data: { coinID: eachCoin.coinID}
+			data: { coinID: eachCoin.coinID }
 		};
 
 		get_coin(request, false, function(response) {

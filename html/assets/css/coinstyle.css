@@ -40,6 +40,13 @@
 /*																*/
 /****************************************************************/
 /*************************** SUBHEADING *************************/
+.coinheading {
+  /* COLOURS */
+  /* FONTS */
+  /* STYLE */
+  display: flex;
+  justify-content: center; }
+
 .pumpwarning {
   /* COLOURS */
   background-color: #75605E;
@@ -55,6 +62,15 @@
     /* COLOURS */
     /* FONTS */
     /* STYLE */ }
+
+/****************************  BUTTON  **************************/
+.faveCoinBtn {
+  /* COLOURS */
+  /* FONTS */
+  /*font-size: 2.5vh;*/
+  /* STYLE */
+  /*margin: 5px 20px;
+  padding: 5px 20px;*/ }
 
 /************************ COIN KPI SECTION **********************/
 /* COINTER LIST OF KPI */

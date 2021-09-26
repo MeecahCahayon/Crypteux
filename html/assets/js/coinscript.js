@@ -600,13 +600,13 @@ function simple_moving_average(datatype, range) {
 
 	// FOR EACH MARKET DATA
 	for (let i = 0; i < marketData.length; i++) {
-		if (i < range - 1) { moving_average[i] = 0; } 
+		if (i < range - 1) { moving_average[i] = 0; }
 		else {
 
 			let sum = 0;
 			for (let j = i - range + 1; j <= i; j++) {
 
-				if (datatype == dataType.PRICE) { sum += parseFloat(marketData[j].amount); } 
+				if (datatype == dataType.PRICE) { sum += parseFloat(marketData[j].amount); }
 				else if (datatype == dataType.VOLUME) { sum += parseFloat(marketData[j].volume); }
 			}
 
@@ -628,6 +628,16 @@ function checkIndicatorsPerDay() {
 	// Threshold Volume
 	const threshold_volume = 50;
 
+
+	// Threshold for price Drop in Stop Loss Hunt
+	const thresholdPriceDrop = -10;
+
+	// Threshold for price increase in Stop Loss Hunt
+	const thresholdPriceIncrease = 10;
+
+	//Price change for stop loss hunt
+	let priceChange;
+	
 	// Check indicators per day
 	for (let i = 0; i < marketData.length; i++) {
 
@@ -637,8 +647,20 @@ function checkIndicatorsPerDay() {
 			indicator_sum++;
 		}
 
-		if(checkVolumePercentChange(volumes[i], moving_average_volume[i]) >= threshold_volume){
+		if (checkVolumePercentChange(volumes[i], moving_average_volume[i]) >= threshold_volume) {
 			indicator_sum++;
+		}
+
+		//Check stop loss hunt
+		if ((i + 2 < marketData.length)) {
+
+			priceChange = checkPricePercentChange(coinPrice[i + 1], coinPrice[i]);
+
+			if (priceChange <= thresholdPriceDrop && checkPricePercentChange(coinPrice[i + 2], coinPrice[i + 1]) >= thresholdPriceIncrease) {
+
+				indicator_sum++;
+
+			}
 		}
 
 		manipulated_sum[i] = indicator_sum;
@@ -670,6 +692,8 @@ function checkVolumePercentChange(volume, moving_average) {
 	return volume_percentage;
 
 }
+
+
 /**************************** FUNCTIONS *************************/
 /*						  										*/
 /****************************************************************/

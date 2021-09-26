@@ -29,7 +29,7 @@ function ajaxRequest(url, method, data, callback, json) {
 
 				callback(response);
 			} else {
-				handleError(request.statusText);
+				handleError(response);
 			}
 		}
 	}
@@ -41,7 +41,13 @@ function ajaxJquery(url, callback) {
 	$.getJSON(url, callback);
 }
 
-function handleError(error) { console.log(error); }
+function handleError(error) { 
+	console.log(error); 
+	if (error.status == 403){
+		alert("Your session has expired please log back in");
+		logout();
+	}
+}
 
 /************************ API CALL FUNCTIONS ********************/
 /*						  										*/

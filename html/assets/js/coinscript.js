@@ -18,6 +18,8 @@ var manipulated_sum = [];
 // X-AXIS
 const dates = [];
 
+
+/**************************** OBJECTS ***************************/
 const dataType = {
 	VOLUME: "volume",
 	PRICE: "price",
@@ -75,6 +77,7 @@ function get_coininfo() {
 		create_volume_graph();
 		create_kpi();
 		checkIndicatorsPerDay();
+		create_indicator_graph();
 	}
 }
 
@@ -127,20 +130,21 @@ function create_kpi() {
 }
 
 /******************** DISPLAY MARKET DATA GRAPH *****************/
-
 function create_mrkdata_graph() {
 
 	/******************** CREATE THE VARIABLES ******************/
-	// GET THE CHART DIV
+	/* GET THE CHART DIV */
 	var ctx_mrkdata = $("#marketData");
 
-	// CREATE DATA FOR THE GRAPH
+	/* CREATE DATA FOR THE GRAPH */
 	const graphData = {
 
 		// SET X AXIS
 		labels: dates,
-		// SET THE DATA
+
+		// SET Y-AXIS
 		datasets: [
+
 			// FOR moving_average_prices
 			{
 				/******************** STYLING LINE ******************/
@@ -155,10 +159,13 @@ function create_mrkdata_graph() {
 				lineTension: 0,
 				pointRadius: 0,
 
-				// SET THE Y AXIS
+				/* SET THE Y AXIS */
+				// DATA
 				data: moving_average_prices,
+				// LEGEND NAME
 				label: "Moving Average Prices"
 			},
+
 			// FOR COIN PRICE
 			{
 
@@ -174,28 +181,34 @@ function create_mrkdata_graph() {
 				lineTension: 0,
 				pointRadius: 0,
 
-				// SET THE Y AXIS
+				/* SET THE Y AXIS */
+				// DATA
 				data: coinPrice,
+				// LEGEND NAME
 				label: "Coin Prices"
 			}]
 	}
 
-	// CREATE THE CONFIG FOR OPTION
+	/* CREATE THE CONFIGURATION AND STYLING - FOR OPTION */
 	const config = {
 
-		/*********************** STYLING ********************/
+		// EXTRA COMPONENTS CONFIGURATION AND STYLE
 		plugins: {
-			// REMOVE LEGEND
-			legend: {
-				display: true,
-			},
+
+			// REMOVE/ADD LEGEND
+			legend: { display: true, },
+
+			// TITLE OF THE GRAPH
 			title: {
+
+				/* DISPLAY */
 				display: true,
 				text: "Price History",
-
+				/* COLOURS */
 				color: colors.fontColor,
+				/* STYLE */
 				padding: 50,
-
+				/* FONT */
 				font: {
 					family: "'Major Mono Display', monospace",
 					size: 20
@@ -203,69 +216,105 @@ function create_mrkdata_graph() {
 			}
 		},
 
-		/************************* AXIS *********************/
+		// AXIS CONFIGURATION AND STYLE
 		scales: {
-			// MAKE X AXIS ONLY SHOW THE YEAR
 
+			/* X-AXIS */
 			x: {
+
+				// X-AXIS TITLE
 				title: {
+
+					/* DISPLAY */
 					display: true,
 					text: "Price Date",
+					/* COLOURS */
 					color: colors.fontColor,
+					/* STYLE */
 					padding: 20,
-
+					/* FONT */
 					font: {
 						family: "'Cutive Mono', monospace",
 						size: 15,
 						weight: 500
 					}
 				},
+
+				// MAKE X AXIS ONLY SHOW THE YEAR
 				type: 'time',
 				time: {
 					unit: 'year'
 				},
-				ticks: {
-					color: colors.tickColor,
-					padding: 10,
 
+				// X-AXIS DATA
+				ticks: {
+
+					/* COLOURS */
+					color: colors.tickColor,
+					/* STYLE */
+					padding: 10,
+					/* FONT */
 					font: {
 						family: "'Cutive Mono', monospace",
 						size: 15,
 						weight: 500
 					}
 				},
+
+				// X-AXIS GRID LINES
 				grid: {
+
+					/* COLOURS */
 					borderColor: colors.gridColor,
 					color: colors.gridColor,
+					/* STYLE */
 					z: -1
 				},
 			},
+
+			/* Y-AXIS */
 			y: {
+
+				// Y-AXIS TITLE
 				title: {
+
+					/* DISPLAY */
 					display: true,
 					text: "Coin Price",
+					/* COLOURS */
 					color: colors.fontColor,
+					/* STYLE */
 					padding: 20,
-
+					/* FONT */
 					font: {
 						family: "'Cutive Mono', monospace",
 						size: 15,
 						weight: 500
 					}
 				},
+
+				// Y-AXIS DATA
 				ticks: {
-					color: colors.tickColor,
-					padding: 10,
 
+					/* COLOURS */
+					color: colors.tickColor,
+					/* STYLE */
+					padding: 10,
+					/* FONT */
 					font: {
 						family: "'Cutive Mono', monospace",
 						size: 15,
 						weight: 500
 					}
 				},
+
+				// Y-AXIS GRID LINES
 				grid: {
+
+					/* COLOURS */
 					borderColor: colors.gridColor,
 					color: colors.gridColor,
+					/* STYLE */
 					z: -1
 				}
 			}
@@ -282,20 +331,21 @@ function create_mrkdata_graph() {
 }
 
 /*********************** DISPLAY VOLUME GRAPH *******************/
-
 function create_volume_graph() {
 
 	/******************** CREATE THE VARIABLES ******************/
-	// GET THE CHART DIV
+	/* GET THE CHART DIV */
 	var ctx_mrkdata = $("#volumeData");
 
-	// CREATE DATA FOR THE GRAPH
+	/* CREATE DATA FOR THE GRAPH */
 	const graphData = {
 
 		// SET X AXIS
 		labels: dates,
-		// SET THE DATA
+
+		// SET Y-AXIS
 		datasets: [
+
 			// FOR moving_average_volume
 			{
 				/******************** STYLING LINE ******************/
@@ -310,10 +360,13 @@ function create_volume_graph() {
 				lineTension: 0,
 				pointRadius: 0,
 
-				// SET THE Y AXIS
+				/* SET THE Y AXIS */
+				// DATA
 				data: moving_average_volume,
+				// LEGEND NAME
 				label: "Moving Average Volume"
 			},
+
 			// FOR VOLUME
 			{
 
@@ -328,30 +381,35 @@ function create_volume_graph() {
 				fill: true,
 				lineTension: 0,
 				pointRadius: 0,
-				z: -2,
 
-				// SET THE Y AXIS
+				/* SET THE Y AXIS */
+				// DATA
 				data: volumes,
+				// LEGEND NAME
 				label: "Volume"
 			}]
 	}
 
-	// CREATE THE CONFIG FOR OPTION
+	/* CREATE THE CONFIGURATION AND STYLING - FOR OPTION */
 	const config = {
-
-		/*********************** STYLING ********************/
+		
+		// EXTRA COMPONENTS CONFIGURATION AND STYLE
 		plugins: {
-			// REMOVE LEGEND
-			legend: {
-				display: true,
-			},
+
+			// REMOVE/ADD LEGEND
+			legend: { display: true, },
+
+			// TITLE OF THE GRAPH
 			title: {
+
+				/* DISPLAY */
 				display: true,
 				text: "Volume History",
-
+				/* COLOURS */
 				color: colors.fontColor,
+				/* STYLE */
 				padding: 50,
-
+				/* FONT */
 				font: {
 					family: "'Major Mono Display', monospace",
 					size: 20
@@ -359,69 +417,105 @@ function create_volume_graph() {
 			}
 		},
 
-		/************************* AXIS *********************/
+		// AXIS CONFIGURATION AND STYLE
 		scales: {
-			// MAKE X AXIS ONLY SHOW THE YEAR
+
+			/* X-AXIS */
 			x: {
+
+				// X-AXIS TITLE
 				title: {
+
+					/* DISPLAY */
 					display: true,
 					text: "Order Date",
-
+					/* COLOURS */
 					color: colors.fontColor,
+					/* STYLE */
 					padding: 20,
-
+					/* FONT */
 					font: {
 						family: "'Cutive Mono', monospace",
 						size: 15,
 						weight: 500
 					}
 				},
+
+				// MAKE X AXIS ONLY SHOW THE YEAR
 				type: 'time',
 				time: {
 					unit: 'year'
 				},
-				ticks: {
-					color: colors.tickColor,
-					padding: 10,
 
+				// X-AXIS DATA
+				ticks: {
+
+					/* COLOURS */
+					color: colors.tickColor,
+					/* STYLE */
+					padding: 10,
+					/* FONT */
 					font: {
 						family: "'Cutive Mono', monospace",
 						size: 15,
 						weight: 500
 					}
 				},
+
+				// X-AXIS GRID LINES
 				grid: {
+					
+					/* COLOURS */
 					borderColor: colors.gridColor,
 					color: colors.gridColor,
+					/* STYLE */
 					z: -1
 				},
 			},
+
+			/* Y-AXIS */
 			y: {
+
+				// Y-AXIS TITLE
 				title: {
+
+					/* DISPLAY */
 					display: true,
 					text: "Number of Orders",
+					/* COLOURS */
 					color: colors.fontColor,
+					/* STYLE */
 					padding: 20,
-
+					/* FONT */
 					font: {
 						family: "'Cutive Mono', monospace",
 						size: 15,
 						weight: 500
 					}
 				},
+
+				// Y-AXIS DATA
 				ticks: {
-					color: colors.tickColor,
-					padding: 10,
 
+					/* COLOURS */
+					color: colors.tickColor,
+					/* STYLE */
+					padding: 10,
+					/* FONT */
 					font: {
 						family: "'Cutive Mono', monospace",
 						size: 15,
 						weight: 500
 					}
 				},
+
+				// Y-AXIS GRID LINES
 				grid: {
+
+					/* COLOURS */
 					borderColor: colors.gridColor,
 					color: colors.gridColor,
+					/* STYLE */
 					z: -1
 				}
 			}
@@ -441,37 +535,20 @@ function create_volume_graph() {
 function create_indicator_graph() {
 
 	/******************** CREATE THE VARIABLES ******************/
-	// GET THE CHART DIV
+	/* GET THE CHART DIV */
 	var ctx_mrkdata = $("#indicatorData");
 
-	// CREATE DATA FOR THE GRAPH
+	/* CREATE DATA FOR THE GRAPH */
 	const graphData = {
 
-		// SET X AXIS
+		// SET X-AXIS
 		labels: dates,
-		// SET THE DATA
+
+		// SET Y-AXIS
 		datasets: [
-			// FOR moving_average_prices
+
+			// FOR MANIPULATED SUM
 			{
-				/******************** STYLING LINE ******************/
-				/* COLOURS */
-				backgroundColor: colors.lineColor_second,
-				borderColor: colors.lineColor_second,
-				/* FONTS */
-
-				/* STYLE */
-				borderWidth: 1,
-				fill: false,
-				lineTension: 0,
-				pointRadius: 0,
-
-				// SET THE Y AXIS
-				data: moving_average_prices,
-				label: "Moving Average Prices"
-			},
-			// FOR COIN PRICE
-			{
-
 				/******************** STYLING LINE ******************/
 				/* COLOURS */
 				backgroundColor: colors.lineColor_main,
@@ -484,28 +561,32 @@ function create_indicator_graph() {
 				lineTension: 0,
 				pointRadius: 0,
 
-				// SET THE Y AXIS
-				data: coinPrice,
-				label: "Coin Prices"
+				/* SET THE Y AXIS */
+				// DATA
+				data: manipulated_sum
 			}]
 	}
 
-	// CREATE THE CONFIG FOR OPTION
+	/* CREATE THE CONFIGURATION AND STYLING - FOR OPTION */
 	const config = {
 
-		/*********************** STYLING ********************/
+		// EXTRA COMPONENTS CONFIGURATION AND STYLE
 		plugins: {
-			// REMOVE LEGEND
-			legend: {
-				display: true,
-			},
+
+			// REMOVE/ADD LEGEND
+			legend: { display: false, },
+
+			// TITLE OF THE GRAPH
 			title: {
+
+				/* DISPLAY */
 				display: true,
-				text: "Price History",
-
+				text: "Manipulation Indicator",
+				/* COLOURS */
 				color: colors.fontColor,
+				/* STYLE */
 				padding: 50,
-
+				/* FONT */
 				font: {
 					family: "'Major Mono Display', monospace",
 					size: 20
@@ -513,69 +594,105 @@ function create_indicator_graph() {
 			}
 		},
 
-		/************************* AXIS *********************/
+		// AXIS CONFIGURATION AND STYLE
 		scales: {
-			// MAKE X AXIS ONLY SHOW THE YEAR
 
+			/* X-AXIS */
 			x: {
-				title: {
-					display: true,
-					text: "Price Date",
-					color: colors.fontColor,
-					padding: 20,
 
+				// X-AXIS TITLE
+				title: {
+
+					/* DISPLAY */
+					display: true,
+					text: "Date",
+					/* COLOURS */
+					color: colors.fontColor,
+					/* STYLE */
+					padding: 20,
+					/* FONT */
 					font: {
 						family: "'Cutive Mono', monospace",
 						size: 15,
 						weight: 500
 					}
 				},
+
+				// MAKE X AXIS ONLY SHOW THE YEAR
 				type: 'time',
 				time: {
 					unit: 'year'
 				},
-				ticks: {
-					color: colors.tickColor,
-					padding: 10,
 
+				// X-AXIS DATA
+				ticks: {
+
+					/* COLOURS */
+					color: colors.tickColor,
+					/* STYLE */
+					padding: 10,
+					/* FONT */
 					font: {
 						family: "'Cutive Mono', monospace",
 						size: 15,
 						weight: 500
 					}
 				},
+
+				// X-AXIS GRID LINES
 				grid: {
+
+					/* COLOURS */
 					borderColor: colors.gridColor,
 					color: colors.gridColor,
+					/* STYLE */
 					z: -1
 				},
 			},
+
+			/* Y-AXIS */
 			y: {
+
+				// Y-AXIS TITLE
 				title: {
+
+					/* DISPLAY */
 					display: true,
-					text: "Coin Price",
+					text: "Manipulation Severity",
+					/* COLOURS */
 					color: colors.fontColor,
+					/* STYLE */
 					padding: 20,
-
+					/* FONT */
 					font: {
 						family: "'Cutive Mono', monospace",
 						size: 15,
 						weight: 500
 					}
 				},
+
+				// Y-AXIS DATA
 				ticks: {
-					color: colors.tickColor,
-					padding: 10,
 
+					/* COLOURS */
+					color: colors.tickColor,
+					/* STYLE */
+					padding: 10,
+					/* FONT */
 					font: {
 						family: "'Cutive Mono', monospace",
 						size: 15,
 						weight: 500
 					}
 				},
+
+				// Y-AXIS GRID LINES
 				grid: {
+
+					/* COLOURS */
 					borderColor: colors.gridColor,
 					color: colors.gridColor,
+					/* STYLE */
 					z: -1
 				}
 			}
@@ -673,7 +790,6 @@ function checkVolumePercentChange(volume, moving_average) {
 /**************************** FUNCTIONS *************************/
 /*						  										*/
 /****************************************************************/
-
 // GET DATA FROM WINDOW.LOCATION
 function getQueryVariable(variable) {
 
@@ -728,11 +844,18 @@ function store_coin_marketdata(response) {
 
 function store_coin_kpi(response) {
 
+	console.log(response);
 	// GET VARIABLES
 	var dollar = "0";
 	var cent = "0";
 	var date = "";
 	var coinCurrency = "";
+
+	// DATES
+	var coinDate= "";
+	var day = "";
+	var month = "";
+	var year = "";
 
 	if (response[0].all_time_high_dollar != null) {
 		dollar = response[0].all_time_high_dollar;
@@ -740,6 +863,15 @@ function store_coin_kpi(response) {
 
 	if (response[0].all_time_high_cent != null) {
 		cent = response[0].all_time_high_cent.substring(0, 3);
+	}
+
+	if (response[0].all_time_high_date != null) {
+		coinDate = new Date(response[0].all_time_high_date);
+		day = coinDate.getDay();
+		month = get_month(coinDate.getMonth());
+		year = coinDate.getFullYear();
+
+		date = day + " " + month + " " + year;
 	}
 
 	if (response[0].all_time_high_currency != null) {
@@ -751,7 +883,7 @@ function store_coin_kpi(response) {
 
 		title: "All-Time High",
 		price: "$" + dollar + "." + cent,
-		date: "March 25, 1997",
+		date: date,
 		currency: coinCurrency
 	}
 
@@ -761,12 +893,27 @@ function store_coin_kpi(response) {
 	var date = "";
 	var coinCurrency = "";
 
+	// DATES
+	var coinDate= "";
+	var day = "";
+	var month = "";
+	var year = "";
+
 	if (response[0].year_high_dollar != null) {
 		dollar = response[0].year_high_dollar;
 	}
 
 	if (response[0].year_high_cent != null) {
 		cent = response[0].year_high_cent.substring(0, 3);
+	}
+
+	if (response[0].year_high_date != null) {
+		coinDate = new Date(response[0].year_high_date);
+		day = coinDate.getDay();
+		month = get_month(coinDate.getMonth());
+		year = coinDate.getFullYear();
+
+		date = day + " " + month + " " + year;
 	}
 
 	if (response[0].year_high_currency != null) {
@@ -778,11 +925,42 @@ function store_coin_kpi(response) {
 
 		title: "Year High",
 		price: "$" + dollar + "." + cent,
-		date: "March 25, 1997",
+		date: date,
 		currency: coinCurrency
 	}
 
 	// PUSH TO KPI ARRAY
 	kpiData.push(alltime_data);
 	kpiData.push(yeartime_data);
+}
+
+function get_month(monthNumber) {
+
+	switch (monthNumber) {
+		case "0":
+			return "Jan";
+		case "1":
+			return "Feb";
+		case "2":
+			return "Mar";
+		case "3":
+			return "Apr";
+		case "4":
+			return "May";
+		case "5":
+			return "June";
+		case "6":
+			return "July";
+		case "7":
+			return "Aug";
+		case "8":
+			return "Sept";
+		case "9":
+			return "Oct";
+		case "10":
+			return "Nov";
+		case "11":
+			return "Dec";
+	}
+
 }

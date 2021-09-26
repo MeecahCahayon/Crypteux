@@ -508,7 +508,7 @@ function store_coin_marketdata(response) {
 	});
 
 	// PROCESS INDICATORS
-	moving_average_prices = simple_moving_average(dataType.PRICE, 10);
+	moving_average_prices = simple_moving_average(dataType.PRICE, 25);
 	moving_average_volume = simple_moving_average(dataType.VOLUME, 50);
 }
 

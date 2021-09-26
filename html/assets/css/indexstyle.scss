@@ -67,6 +67,12 @@ $clr-main-bk-border: $palette-old-grey;
 /*																*/
 /****************************************************************/
 #customBtn {
+
+	/* COLOURS */
+	/* FONTS */
+	/* STYLE */
+
+	
 	background-color: white;
 	display: inline-block;
 	width: 190px;
@@ -75,27 +81,57 @@ $clr-main-bk-border: $palette-old-grey;
 	box-shadow: 1px 1px 1px grey;
 	white-space: nowrap;
 	z-index: 1;
+
+	:hover {
+		cursor: pointer;
+	}
 }
 
-#customBtn:hover {
+span {
+
+	.icon {
+
+		background: url('../google_signin_buttons/web/1x/btn_google_signin_light_normal_web.png') transparent 5px 50% no-repeat;
+		display: inline-block;
+		vertical-align: middle;
+		width: 42px;
+		height: 42px;
+	}
+
+	.buttonText {
+
+		display: inline-block;
+		vertical-align: middle;
+		padding-left: 42px;
+		padding-right: 42px;
+		font-size: 14px;
+		font-weight: bold;
+		/* Use the Roboto font that is loaded in the <head> */
+		font-family: 'Roboto', sans-serif;
+	}
+}
+
+/*#customBtn:hover {
 	cursor: pointer;
-}
+}*/
 
-span.icon {
+/*span.icon {
+
 	background: url('../google_signin_buttons/web/1x/btn_google_signin_light_normal_web.png') transparent 5px 50% no-repeat;
 	display: inline-block;
 	vertical-align: middle;
 	width: 42px;
 	height: 42px;
-}
+}*/
 
-span.buttonText {
+/*span.buttonText {
+
 	display: inline-block;
 	vertical-align: middle;
 	padding-left: 42px;
 	padding-right: 42px;
 	font-size: 14px;
-	font-weight: bold;
+	font-weight: bold;*/
 	/* Use the Roboto font that is loaded in the <head> */
-	font-family: 'Roboto', sans-serif;
-}
+/*	font-family: 'Roboto', sans-serif;
+}*/

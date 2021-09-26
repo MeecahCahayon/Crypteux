@@ -56,12 +56,14 @@ body {
   grid-column: 1/4;
   background-color: #2E2D38; }
 
+/*#headerGrid { grid-column: 1/4;  background-color: white; }*/
 #headingGrid, #mainMenuBtnGrid {
   grid-column: 2/3; }
 
 #headingCont {
   /* COLOURS */
   color: #686385;
+  /*color: black;*/
   /* FONTS */
   font-family: "Major Mono Display", monospace;
   font-weight: 400;

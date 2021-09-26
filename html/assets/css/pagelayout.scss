@@ -82,12 +82,14 @@ body {
 /*******************  HEADER SECTION PAGE GRID  *****************/
 
 #headerGrid { grid-column: 1/4;  background-color: $clr-main-bk-head; }
+/*#headerGrid { grid-column: 1/4;  background-color: white; }*/
 #headingGrid, #mainMenuBtnGrid { grid-column: 2/3; }
 
 #headingCont {
 
 	/* COLOURS */
 	color: $clr-main-font-head;
+	/*color: black;*/
 
 	/* FONTS */
 	font-family: $fnt-majordisplay;

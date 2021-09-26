@@ -1,16 +1,22 @@
 /*************************** VARIABLES **************************/
 /*						  										*/
 /****************************************************************/
-
+/****************************** DATA ****************************/
 const marketData = [];
 const kpiData = [];
 
+/***************************** GRAPH ****************************/
+// Y-AXIS
 const coinPrice = [];
-const dates = [];
-const volumes = [];
 var moving_average_prices = [];
+
+const volumes = [];
 var moving_average_volume = [];
+
 var manipulated_sum = [];
+
+// X-AXIS
+const dates = [];
 
 const dataType = {
 	VOLUME: "volume",
@@ -431,6 +437,160 @@ function create_volume_graph() {
 	});
 }
 
+/*********************** DISPLAY INDICATOR GRAPH *******************/
+function create_indicator_graph() {
+
+	/******************** CREATE THE VARIABLES ******************/
+	// GET THE CHART DIV
+	var ctx_mrkdata = $("#indicatorData");
+
+	// CREATE DATA FOR THE GRAPH
+	const graphData = {
+
+		// SET X AXIS
+		labels: dates,
+		// SET THE DATA
+		datasets: [
+			// FOR moving_average_prices
+			{
+				/******************** STYLING LINE ******************/
+				/* COLOURS */
+				backgroundColor: colors.lineColor_second,
+				borderColor: colors.lineColor_second,
+				/* FONTS */
+
+				/* STYLE */
+				borderWidth: 1,
+				fill: false,
+				lineTension: 0,
+				pointRadius: 0,
+
+				// SET THE Y AXIS
+				data: moving_average_prices,
+				label: "Moving Average Prices"
+			},
+			// FOR COIN PRICE
+			{
+
+				/******************** STYLING LINE ******************/
+				/* COLOURS */
+				backgroundColor: colors.lineColor_main,
+				borderColor: colors.lineColor_main,
+				/* FONTS */
+
+				/* STYLE */
+				borderWidth: 2.5,
+				fill: false,
+				lineTension: 0,
+				pointRadius: 0,
+
+				// SET THE Y AXIS
+				data: coinPrice,
+				label: "Coin Prices"
+			}]
+	}
+
+	// CREATE THE CONFIG FOR OPTION
+	const config = {
+
+		/*********************** STYLING ********************/
+		plugins: {
+			// REMOVE LEGEND
+			legend: {
+				display: true,
+			},
+			title: {
+				display: true,
+				text: "Price History",
+
+				color: colors.fontColor,
+				padding: 50,
+
+				font: {
+					family: "'Major Mono Display', monospace",
+					size: 20
+				}
+			}
+		},
+
+		/************************* AXIS *********************/
+		scales: {
+			// MAKE X AXIS ONLY SHOW THE YEAR
+
+			x: {
+				title: {
+					display: true,
+					text: "Price Date",
+					color: colors.fontColor,
+					padding: 20,
+
+					font: {
+						family: "'Cutive Mono', monospace",
+						size: 15,
+						weight: 500
+					}
+				},
+				type: 'time',
+				time: {
+					unit: 'year'
+				},
+				ticks: {
+					color: colors.tickColor,
+					padding: 10,
+
+					font: {
+						family: "'Cutive Mono', monospace",
+						size: 15,
+						weight: 500
+					}
+				},
+				grid: {
+					borderColor: colors.gridColor,
+					color: colors.gridColor,
+					z: -1
+				},
+			},
+			y: {
+				title: {
+					display: true,
+					text: "Coin Price",
+					color: colors.fontColor,
+					padding: 20,
+
+					font: {
+						family: "'Cutive Mono', monospace",
+						size: 15,
+						weight: 500
+					}
+				},
+				ticks: {
+					color: colors.tickColor,
+					padding: 10,
+
+					font: {
+						family: "'Cutive Mono', monospace",
+						size: 15,
+						weight: 500
+					}
+				},
+				grid: {
+					borderColor: colors.gridColor,
+					color: colors.gridColor,
+					z: -1
+				}
+			}
+		}
+	}
+
+	/********************** CREATE THE GRAPH ********************/
+	var marketDataGraph = new Chart(ctx_mrkdata, {
+
+		type: "line",
+		data: graphData,
+		options: config
+	});
+}
+
 /**************************** Indicators ************************/
 /*						  										*/
 /****************************************************************/
@@ -440,21 +600,20 @@ function simple_moving_average(datatype, range) {
 
 	// FOR EACH MARKET DATA
 	for (let i = 0; i < marketData.length; i++) {
-		if (i < range - 1) {
-			moving_average[i] = 0;
-		} else {
+		if (i < range - 1) { moving_average[i] = 0; } 
+		else {
+
 			let sum = 0;
 			for (let j = i - range + 1; j <= i; j++) {
-				if (datatype == dataType.PRICE) {
-					sum += parseFloat(marketData[j].amount);
-				}
-				else if (datatype == dataType.VOLUME) {
-					sum += parseFloat(marketData[j].volume);
-				}
+
+				if (datatype == dataType.PRICE) { sum += parseFloat(marketData[j].amount); } 
+				else if (datatype == dataType.VOLUME) { sum += parseFloat(marketData[j].volume); }
 			}
+
 			moving_average[i] = sum / range;
 		}
 	}
+
 	return moving_average;
 }
 
@@ -463,13 +622,13 @@ function checkIndicatorsPerDay() {
 
 	let indicator_sum = 0;
 
-	//Threshold Price
+	// Threshold Price
 	const threshold_price = 50;
 
-	//Threshold Volume
+	// Threshold Volume
 	const threshold_volume = 50;
 
-	//Check indicators per day
+	// Check indicators per day
 	for (let i = 0; i < marketData.length; i++) {
 
 		indicator_sum = 0;
@@ -479,7 +638,7 @@ function checkIndicatorsPerDay() {
 		}
 
 		if(checkVolumePercentChange(volumes[i], moving_average_volume[i]) >= threshold_volume){
-			indicator_sum ++;
+			indicator_sum++;
 		}
 
 		manipulated_sum[i] = indicator_sum;

@@ -592,6 +592,19 @@ function create_volume_graph() {
 function create_indicator_graph() {
 
 	/******************** CREATE THE VARIABLES ******************/
+	var yearUnit = 'year';
+	var startDate = dates[0];
+	var endDate = dates[dates.length-1];
+	console.log(startDate);
+	console.log(endDate);
+	var timeDiff = (endDate - startDate);
+	console.log(timeDiff);
+	var timeYear = timeDiff / 31556926;
+	console.log(timeYear);
+	var remYear = timeDiff % 31556926;
+	console.log(remYear);
+
+
 	/* GET THE CHART DIV */
 	var ctx_mrkdata = $("#indicatorData");
 
@@ -678,7 +691,7 @@ function create_indicator_graph() {
 				// MAKE X AXIS ONLY SHOW THE YEAR
 				type: 'time',
 				time: {
-					unit: 'year'
+					unit: yearUnit
 				},
 
 				// X-AXIS DATA
@@ -693,7 +706,8 @@ function create_indicator_graph() {
 						family: "'Cutive Mono', monospace",
 						size: 15,
 						weight: 500
-					}
+					},
+					source: 'auto'
 				},
 
 				// X-AXIS GRID LINES

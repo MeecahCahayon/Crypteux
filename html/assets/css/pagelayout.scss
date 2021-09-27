@@ -320,21 +320,6 @@ button {
 
 /*********************  FOR THE LIST OF COINS  ******************/
 
-#searchList {
-
-	/* COLOURS */
-	/* FONTS */
-	/* STYLE */
-
-	p {
-
-		/* COLOURS */
-		/* FONTS */
-		/* STYLE */
-		/*margin: 5px 25px;*/
-	}
-}
-
 .coinlistCont {
 
 	/* COLOURS */
@@ -342,6 +327,7 @@ button {
 	/* STYLE */
 	display: grid;
 	grid-template-columns: 4fr .5fr;
+	align-items: center;
 
 	border: 0.5px solid $clr-main-bk-border;
 	margin: 5px 25px;
@@ -399,5 +385,5 @@ button {
 	background-color: #282923;
 	border: 2px solid #2E2D38;
 	border-top: none;
-	border-radius: 10px 10px 0 0;
+	border-radius: 0 0 10px 10px;
 }

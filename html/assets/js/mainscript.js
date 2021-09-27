@@ -81,6 +81,12 @@ function get_coin(request, isAsync, callback) {
 
 function error_msg(response) {
 	console.log(response);
+	console.log(response.status)
+	if (response.status == "403"){
+		alert("Your session has expired, please log back in.");
+		logout();
+		window.location.replace("index.html");
+	}
 }
 
 /********************** FOR PERSONALISATION *********************/

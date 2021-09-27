@@ -83,6 +83,46 @@ function error_msg(response) {
 	console.log(response);
 }
 
+/********************** FOR PERSONALISATION *********************/
+/*						  										*/
+/****************************************************************/
+/********************** ON DASHBOARD LOAD ***********************/
+$(document).ready(function(){
+	var user = JSON.parse(sessionStorage.getItem("user", user));
+
+	if(user != null) {
+		document.querySelector('#user_name').innerHTML = user.name;
+		document.querySelector('#profile_pic').style.backgroundImage = `url(${user.img})`;
+		document.querySelector('#profile_pic').style.backgroundSize = '40px';
+	}
+});
+
+/************************ ON NAME CLICKED ************************/
+$(document).ready(function () {
+	$(".dropdownCont").click(function(e) {
+		var display = $('.dropdown-content').css('display');
+		if(display == 'none') {
+			$('.dropdown-content').css('display', 'block');
+		}
+		else {
+			$('.dropdown-content').css('display', 'none');
+		}
+	});
+})
+
+$(document).ready(function () {
+	// /* IF ANYTHING ELSE IS CLICKED CLOSE DROP DOWN */
+	$(document).mouseup(function (e) {
+		var container = $(".dropdown-content");
+
+		// if the target of the click isn't the container or a descendant of the container
+		if (!container.is(e.target) && container.has(e.target).length === 0) 
+		{
+			$('.dropdown-content').css('display', 'none');
+		}
+	});
+})
+
 /************************ FOR LOGGING OUT ***********************/
 /*						  										*/
 /****************************************************************/

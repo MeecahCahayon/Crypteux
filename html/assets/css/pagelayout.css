@@ -282,4 +282,28 @@ button {
 .year_high_price {
   grid-column: 3/4; }
 
+/*********************  PERSONALISATION  ******************/
+#personalisation, .dropdownCont, #profile_pic {
+  display: inline-block; }
+
+#profile_pic {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #282924;
+  border-radius: 50%;
+  position: absolute; }
+
+.dropdownCont {
+  margin-left: 40px; }
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  min-width: 250px;
+  max-width: 300px;
+  background-color: #282923;
+  border: 2px solid #2E2D38;
+  border-top: none;
+  border-radius: 10px 10px 0 0; }
+
 /*# sourceMappingURL=pagelayout.css.map */

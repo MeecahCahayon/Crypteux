@@ -60,9 +60,18 @@
 				<!-- MAIN MENU BUTTON -->
 				<section class="innerGrids" id="mainMenuBtnGrid">
 					<div id="mainMenuBtnCont">
+						<!-- PERSONALISATIONS -->
+						<div id="personalisation">
+							<div id="profile_pic"></div>
+							<div class="dropdownCont">
+								<p id="user_name"></p>
+								<div class="dropdown-content"> <a href="index.html"> <p onclick="logout();"> Logout </p> </a> </div>
+							</div>
+						</div>
+
 						<p id="dashpage"  onclick="gotopage('dashpage')" class="activepage"> Dashboard </p>
 						<p id="favpage" onclick="gotopage('favpage')"> Favourites </p>
-						<a href="index.html"> <p onclick="logout();"> Logout </p> </a>
+						<!-- <a href="index.html"> <p onclick="logout();"> Logout </p> </a> -->
 					</div>
 				</section>
 			</header>

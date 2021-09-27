@@ -39,8 +39,8 @@ var onSuccess = function(user) {
 			user.id = profile.getId();
 			user.name = profile.getName();
 			user.email = profile.getEmail();
+			user.img = profile.getImageUrl();
 			user.token = token_id;
-			//user.picture = profile.getPicture();
 
 			sessionStorage.setItem("user", JSON.stringify(user))
 			location.href = 'dashpage.html';

@@ -56,6 +56,15 @@ $clr-main-font-warning: $palette-dark-purple;
 /*																*/
 /****************************************************************/
 /*************************** SUBHEADING *************************/
+.coinheading {
+
+	/* COLOURS */
+	/* FONTS */
+	/* STYLE */
+	display: flex;
+	justify-content: center;
+}
+
 .pumpwarning {
 
 	/* COLOURS */
@@ -76,6 +85,17 @@ $clr-main-font-warning: $palette-dark-purple;
 		/* FONTS */
 		/* STYLE */
 	}
+}
+
+/****************************  BUTTON  **************************/
+.watchlistBtn {
+
+	/* COLOURS */
+	/* FONTS */
+	font-size: 2.5vh;
+	/* STYLE */
+	margin: 5px 20px;
+	padding: 5px 20px;
 }
 
 /************************ COIN KPI SECTION **********************/

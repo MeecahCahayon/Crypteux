@@ -69,7 +69,9 @@ function get_coin(request, isAsync, callback) {
 		dataType: request.dataType,
 		data: request.data,
 		success: function (response) {
-			callback(response);
+			if (callback != "") {
+				callback(response);
+			}
 		},
 		error: function (response) {
 			error_msg(response);
@@ -79,7 +81,53 @@ function get_coin(request, isAsync, callback) {
 
 function error_msg(response) {
 	console.log(response);
+	console.log(response.status)
+	if (response.status == "403"){
+		alert("Your session has expired, please log back in.");
+		logout();
+		window.location.replace("index.html");
+	}
 }
+
+/********************** FOR PERSONALISATION *********************/
+/*						  										*/
+/****************************************************************/
+/********************** ON DASHBOARD LOAD ***********************/
+$(document).ready(function(){
+	var user = JSON.parse(sessionStorage.getItem("user", user));
+
+	if(user != null) {
+		document.querySelector('#user_name').innerHTML = user.name;
+		document.querySelector('#profile_pic').style.backgroundImage = `url(${user.img})`;
+		document.querySelector('#profile_pic').style.backgroundSize = '40px';
+	}
+});
+
+/************************ ON NAME CLICKED ************************/
+$(document).ready(function () {
+	$(".dropdownCont").click(function(e) {
+		var display = $('.dropdown-content').css('display');
+		if(display == 'none') {
+			$('.dropdown-content').css('display', 'block');
+		}
+		else {
+			$('.dropdown-content').css('display', 'none');
+		}
+	});
+})
+
+$(document).ready(function () {
+	// /* IF ANYTHING ELSE IS CLICKED CLOSE DROP DOWN */
+	$(document).mouseup(function (e) {
+		var container = $(".dropdown-content");
+
+		// if the target of the click isn't the container or a descendant of the container
+		if (!container.is(e.target) && container.has(e.target).length === 0) 
+		{
+			$('.dropdown-content').css('display', 'none');
+		}
+	});
+})
 
 /************************ FOR LOGGING OUT ***********************/
 /*						  										*/
@@ -115,36 +163,104 @@ function gotopage(pageID) {
 /***************************** FUNCTIONS ************************/
 /*						  										*/
 /****************************************************************/
-/*********************** ADDING COIN TO FAVE ********************/
+/******************* STORE WATCHLIST TO SESSION *****************/
+function get_watchlist() {
+	
+	// SEND TOKEN TO AJAX
+	var token_id = JSON.parse(sessionStorage.getItem("user")).token;
 
-// WHEN ADD TO FAVE BUTTON IS CLICKED
+	const request = {
+		url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/watchlist',
+		headers: { 
+			'Content-Type': 'application/json',
+			authorizationToken: token_id },
+		type: "GET",
+		dataType: "json",
+		data: {}
+	};
+
+	get_coin(request, false, store_watchlist);
+}
+
+function store_watchlist(response) {
+	
+	sessionStorage.setItem("watchlist", JSON.stringify(JSON.parse(response.body)));
+}
+
+/*********************** ADDING COIN TO FAVE ********************/
+/* VARIABLES */
+var watchlistedIcon = "fas fa-bookmark";
+var faveBtnClass = "faveCoinBtn";
+
+var notWatchlistedIcon = "far fa-bookmark";
+var unfaveBtnClass = "unfaveCoinBtn";
+
+// WHEN UNFAVE BUTTON IS CLICKED - MAKE COIN FAVE
 $(document).ready(function() {
-	$(".faveCoinBtn").click(function() {
-		
+	$(document).on('click', '.watchlistBtn', function() {
+
 		var coin_id = $(this).attr("id");
+		var coin_class = $(this).attr("class");
+		var coin_classes = coin_class.split(" ");
 
 		// SEND TOKEN TO AJAX
 		var token_id = JSON.parse(sessionStorage.getItem("user")).token;
 
-		$.ajax({
+		// CHECK WHAT KIND OF BUTTON
+		if (coin_classes.length == 2) {
 
-			// PUBLIC API
-			url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/watchlist',
-			
-			headers: {
-				'Content-Type': 'application/json',
-				authorizationToken: token_id
-			},
-			type: "POST",
-			dataType: "json",
-			data: JSON.stringify({'coinID' : coin_id}),
-			success: function (response) {
-				//console.log(response);
-			},
-			error: function (response) {
-				error_msg(response);
+			// IF UNFAVE BUTTON
+			if (coin_classes[1] == unfaveBtnClass) {
+
+				// MAKE THE COIN FAVE
+				const request = {
+					url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/watchlist',
+					headers: { 
+						'Content-Type': 'application/json',
+						authorizationToken: token_id },
+					type: "POST",
+					dataType: "json",
+					data: JSON.stringify({'coinID' : coin_id})
+				};
+
+				get_coin(request, false, get_watchlist);
+
+				$(this).removeClass();
+				$(this).addClass("watchlistBtn");
+				$(this).addClass(faveBtnClass);
+
+				console.log($(this));
+				console.log($(this).children().first());
+				$(this).children().first().removeClass();
+				$(this).children().first().addClass(watchlistedIcon);
+
 			}
-		});
+			// IF FAVE BUTTON
+			else if (coin_classes[1] == faveBtnClass) {
+
+				// REMOVE COIN FROM WATCHLIST
+				const request = {
+					url: 'https://mkuvib9bgi.execute-api.ap-southeast-2.amazonaws.com/pumped-backend-api/watchlist',
+					headers: { 
+						'Content-Type': 'application/json',
+						authorizationToken: token_id },
+					type: "DELETE",
+					dataType: "json",
+					data: JSON.stringify({'coinID' : coin_id})
+				};
+
+				get_coin(request, false, get_watchlist);
+
+				$(this).removeClass();
+				$(this).addClass("watchlistBtn");
+				$(this).addClass(unfaveBtnClass);
+
+				$(this).children().first().removeClass();
+				$(this).children().first().addClass(notWatchlistedIcon);
+			}
+		}
+
+
 	});
 });
 
@@ -155,11 +271,22 @@ function display_coin(div, givencoins) {
 	// CLEAR DIV
 	$(div).empty();
 
+	// CHECK IF WACTHLISTED IS SAVE
+	if (sessionStorage.getItem('watchlist') == null) {
+		get_watchlist();
+	} 
+
+	// GET WATCHLISTED
+	var list_of_fave = JSON.parse(sessionStorage.getItem('watchlist'));
+
 	// INSERT EACH COIN INTO HTML
 	$.each(givencoins, function(_, obj) {
 
 		var container = $("<div></div>");
-		container.addClass("coins");
+		container.addClass("coinlistCont");
+
+		var coinsCont = $("<div></div>");
+		coinsCont.addClass("coins");
 
 		var name = $("<p></p>");
 		name.addClass('coinName');
@@ -175,10 +302,45 @@ function display_coin(div, givencoins) {
 		var year_high = $("<p></p>");
 		year_high.addClass('year-high-price');
 		year_high.html('Year High Price: &#36;'+year_high_val);
+
+		var btnCont = $("<div></div>");
+		btnCont.addClass("watchlistBtnCont");
+
+		var watchlistBtn = $("<button></button>");
+		watchlistBtn.addClass("watchlistBtn");
+		watchlistBtn.addClass(unfaveBtnClass);
+		watchlistBtn.attr('id', obj.coinGeckoID);
+
+		var watchlistIcon = $("<i></i>");
+		watchlistIcon.attr('id', "watchlistedIcon");
+		watchlistIcon.addClass(notWatchlistedIcon);
+
+		// FOREACH WACTHLISTED COIN
+		$.each(list_of_fave, function(_, eachCoin) {
+			
+			if (obj.coinGeckoID == eachCoin.coinID) {
+
+				watchlistBtn.removeClass();
+				watchlistIcon.removeClass();
+
+				watchlistBtn.addClass("watchlistBtn");
+				watchlistBtn.addClass(faveBtnClass);
+				watchlistIcon.addClass(watchlistedIcon);
+				return;
+			}
+		});
 		
-		container.append(name);
-		container.append(all_time_high);
-		container.append(year_high);
+		watchlistBtn.append(watchlistIcon);
+
+		btnCont.append(watchlistBtn);
+
+		coinsCont.append(name);
+		coinsCont.append(all_time_high);
+		coinsCont.append(year_high);
+
+		$(container).append(coinsCont);
+		$(container).append(btnCont);
+
 		$(div).append(container);
 	});
 }

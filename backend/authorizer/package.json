@@ -1,0 +1,15 @@
+{
+  "name": "backendserver",
+  "version": "1.0.0",
+  "description": "Backend Server for Authentication",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mason Elliott",
+  "license": "ISC",
+  "dependencies": {
+    "google-auth-library": "^7.9.1",
+    "mysql": "^2.18.1"
+  }
+}
